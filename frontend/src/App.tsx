@@ -1,9 +1,9 @@
-import ButtonComponent from "./components/ButtonComponent";
+// import ButtonComponent from "./components/ButtonComponent";
 
 function App() {
   return (
-    <div className="App">
-      <ButtonComponent />
+    <div className="flex flex-col justify-center items-center h-screen gap-4">
+      <h1>App</h1>
     </div>
   );
 }
