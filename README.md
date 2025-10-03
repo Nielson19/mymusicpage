@@ -61,6 +61,7 @@ Here are some basic commands to help you work with Git and GitHub:
 git branch <branch-name>
 git checkout <branch-name>
 ```
+We Recomend to create a branch with the format "[Name-of-member]Code" E.g NielCode
 Or, in one step:
 ```bash
 git checkout -b <branch-name>
