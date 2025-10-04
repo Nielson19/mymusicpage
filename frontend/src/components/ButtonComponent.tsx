@@ -8,7 +8,6 @@
  *        Determines the padding applied to the button.
  *        Accepts "small", "medium", or "large".
  */
-import { BUTTON_VARIANTS } from "../constants/colors";
 
 // Define the props for the ButtonComponent
 
@@ -34,9 +33,9 @@ const ButtonComponent = ({ onClick, label, size }: ButtonComponentProps) => {
     sizeVal = "py-3 px-40";
   }
   return (
-    <div className="bg-white flex flex-col justify-center items-center h-screen gap-4">
+    <div>
       <button
-        className={`bg-primary-500
+        className={`bg-primary-500 text-white hover:bg-primary-800 focus:ring-2 focus:ring-primary-300
             shadow-md 
             shadow-black/20 
             text-lg font-bold 

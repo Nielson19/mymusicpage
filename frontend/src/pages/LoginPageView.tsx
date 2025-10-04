@@ -1,5 +1,15 @@
+import ButtonComponent from "../components/ButtonComponent";
+
 function LoginPageView() {
-  return <div>LoginPageView</div>;
+  return (
+    <div className="login-page">
+      <ButtonComponent
+        size="large"
+        label="Login"
+        onClick={() => console.log("Login button clicked!")}
+      />
+    </div>
+  );
 }
 
 export default LoginPageView;

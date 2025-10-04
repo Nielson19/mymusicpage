@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+/* Tailwind v4 Custom Theme Configuration */
+@theme {
+  --color-primary-50: #f0ebff;
+  --color-primary-100: #ddd1ff;
+  --color-primary-200: #c2a8ff;
+  --color-primary-300: #a47aff;
+  --color-primary-400: #8851ff;
+  --color-primary-500: #6830ff;
+  --color-primary-600: #5a1aff;
+  --color-primary-700: #4d00e6;
+  --color-primary-800: #3d00b3;
+  --color-primary-900: #2d0080;
+  --color-primary-950: #1a004d;
+
+  --color-secondary-50: #fef2f4;
+  --color-secondary-100: #fde6ea;
+  --color-secondary-200: #fccdd6;
+  --color-secondary-300: #f9a3b4;
+  --color-secondary-400: #f47091;
+  --color-secondary-500: #e76d83;
+  --color-secondary-600: #d73d64;
+  --color-secondary-700: #b8235a;
+  --color-secondary-800: #951e52;
+  --color-secondary-900: #7a1e4b;
+  --color-secondary-950: #440c26;
+
+  --color-electric-indigo: #6830ff;
+  --color-bright-pink: #e76d83;
+  --color-puce: #c98ca7;
+  --color-russian-violet: #392759;
+}
+
+@layer components{
+    .login-page {
+        @apply flex flex-col justify-center items-center h-screen bg-primary-50;
+    }
+}
