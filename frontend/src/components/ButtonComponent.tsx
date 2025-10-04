@@ -20,6 +20,8 @@ interface ButtonComponentProps {
 
 const ButtonComponent = ({ onClick, label, size }: ButtonComponentProps) => {
   let sizeVal = "";
+
+  // Determine padding based on size prop
   if (size === "small") {
     sizeVal = "";
     // Apply small button styles
@@ -34,9 +36,7 @@ const ButtonComponent = ({ onClick, label, size }: ButtonComponentProps) => {
   return (
     <div className="bg-white flex flex-col justify-center items-center h-screen gap-4">
       <button
-        className={`${BUTTON_VARIANTS.BRIGHT_PINK.base} 
-            ${BUTTON_VARIANTS.BRIGHT_PINK.hover} 
-            ${BUTTON_VARIANTS.BRIGHT_PINK.focus} 
+        className={`bg-primary-500
             shadow-md 
             shadow-black/20 
             text-lg font-bold 

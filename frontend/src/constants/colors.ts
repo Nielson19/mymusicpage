@@ -7,9 +7,44 @@ export const BRAND_COLORS = {
   russianViolet: '#392759',
 } as const;
 
-// Approach 1: Using arbitrary values with brackets [#hex]
-export const CUSTOM_COLOR_CLASSES = {
-  // Background colors
+// Now you can use standard Tailwind classes with your custom colors!
+export const TAILWIND_COLOR_CLASSES = {
+  // Background colors using config-defined colors
+  BG: {
+    electricIndigo: 'bg-primary-500',        // or bg-electric-indigo
+    brightPink: 'bg-secondary-500',          // or bg-bright-pink  
+    puce: 'bg-accent-400',                   // or bg-puce
+    russianViolet: 'bg-accent-950',          // or bg-russian-violet
+    white: 'bg-white',
+  },
+  // Text colors
+  TEXT: {
+    electricIndigo: 'text-primary-500',      // or text-electric-indigo
+    brightPink: 'text-secondary-500',        // or text-bright-pink
+    puce: 'text-accent-400',                 // or text-puce
+    russianViolet: 'text-accent-950',        // or text-russian-violet
+    white: 'text-white',
+  },
+  // Border colors
+  BORDER: {
+    electricIndigo: 'border-primary-500',    // or border-electric-indigo
+    brightPink: 'border-secondary-500',      // or border-bright-pink
+    puce: 'border-accent-400',               // or border-puce
+    russianViolet: 'border-accent-950',      // or border-russian-violet
+    white: 'border-white',
+  },
+  // Hover states
+  HOVER: {
+    electricIndigo: 'hover:bg-primary-600',  
+    brightPink: 'hover:bg-secondary-600',    
+    puce: 'hover:bg-accent-500',             
+    russianViolet: 'hover:bg-accent-900',    
+    white: 'hover:bg-gray-50',
+  },
+} as const;
+
+// Fallback: Arbitrary values (still works)
+export const ARBITRARY_COLOR_CLASSES = {
   BG: {
     electricIndigo: 'bg-[#6830ff]',
     brightPink: 'bg-[#e76d83]',
@@ -17,25 +52,8 @@ export const CUSTOM_COLOR_CLASSES = {
     russianViolet: 'bg-[#392759]',
     white: 'bg-white',
   },
-  // Text colors
-  TEXT: {
-    electricIndigo: 'text-[#6830ff]',
-    brightPink: 'text-[#e76d83]',
-    puce: 'text-[#c98ca7]',
-    russianViolet: 'text-[#392759]',
-    white: 'text-white',
-  },
-  // Border colors
-  BORDER: {
-    electricIndigo: 'border-[#6830ff]',
-    brightPink: 'border-[#e76d83]',
-    puce: 'border-[#c98ca7]',
-    russianViolet: 'border-[#392759]',
-    white: 'border-white',
-  },
-  // Hover states
   HOVER: {
-    electricIndigo: 'hover:bg-[#5a1aff]', // Slightly darker
+    electricIndigo: 'hover:bg-[#5a1aff]',
     brightPink: 'hover:bg-[#d73d64]',
     puce: 'hover:bg-[#b86b92]',
     russianViolet: 'hover:bg-[#2d1f42]',
