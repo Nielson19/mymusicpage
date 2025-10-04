@@ -40,7 +40,7 @@ const ButtonComponent = ({ onClick, label, size }: ButtonComponentProps) => {
             shadow-black/20 
             text-lg font-bold 
             ${sizeVal} 
-            rounded-full 
+            rounded-lg 
             transition duration-300`}
         onClick={onClick}
       >
