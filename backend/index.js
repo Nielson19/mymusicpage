@@ -1,27 +1,40 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 const app = express();
-app.use(express.json());
+const PORT = process.env.PORT || 3001;
+const MONGO_URI = process.env.MONGO_URI;
 
-const PORT = 3000 // We can change this in the future for Netlify's stuff
 
-const dbURL = process.env.MONGODB_URL;
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 
-// Connection attempt
-mongoose.connect(dbURL)
-  //If it succeeds
+//import
+const userRoutes = require('./routes/userRoutes');
+const postRoutes = require('./routes/postRoutes');
+const songRoutes = require('./routes/songRoutes');
+
+//MongoDB 
+mongoose.connect(MONGO_URI)
   .then(() => {
-    console.log('Successfully connected to MongoDB');
-    // Boot up the server
+    console.log('✅ Successfully connected to MongoDB');
+    
     app.listen(PORT, () => {
-      console.log('Server is running on port 3000');
+      console.log(`🚀 Server listening on http://localhost:${PORT}`);
     });
   })
-  //If it fails, give an error log
   .catch((err) => {
-    console.log('Error connecting to MongoDB:', err);
+    console.error('❌ Error connecting to MongoDB:', err.message);
+    process.exit(1);
   });
+
+//routes
+app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/songs', songRoutes); 
+
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to the API. It is running!' });
+});
