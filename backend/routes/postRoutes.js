@@ -1,9 +1,7 @@
-// routes/postRoutes.js (Fixed)
-
 const express = require('express');
 const router = express.Router();
 
-// Corrected paths to import from the /models folder
+
 const Post = require('../models/post');
 const User = require('../models/user');
 const Song = require('../models/song');
