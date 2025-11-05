@@ -1,6 +1,5 @@
 import ButtonComponent from "../components/ButtonComponent";
-import InputComponent from "../components/GeneralComp/InputComponent";
-import LogoComp from "../components/LoginFormComp/LogoComp";
+import InputComponent from "../components/GeneralComp/TempInputComponent";
 
 export default function TempLoginFormView() {
   return (
@@ -13,12 +12,11 @@ export default function TempLoginFormView() {
         <body class="h-full">
         ```
       */}
-      <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-gray-900">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-gray-900 h-screen">
+        {/* <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <LogoComp />
-        </div>
-
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        </div> */}
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm shadow-sm shadow-gray-700 p-10 rounded-lg bg-gray-800/50">
           <form action="#" method="POST" className="space-y-6">
             <InputComponent
               id="email"
@@ -26,7 +24,7 @@ export default function TempLoginFormView() {
               type="email"
               required
               autoComplete="email"
-              label="Email Address"
+              label="Email"
             />
 
             <InputComponent
@@ -38,13 +36,13 @@ export default function TempLoginFormView() {
               label="Password"
             />
 
-            <div>
+            <div className="justify-center flex mt-8">
               <ButtonComponent
-                label="Sign in"
+                label="Login"
+                size="large"
                 onClick={() => {
                   console.log("Sign in clicked");
                 }}
-                size="large"
               />
             </div>
           </form>
@@ -53,9 +51,9 @@ export default function TempLoginFormView() {
             Not a member?{" "}
             <a
               href="#"
-              className="font-semibold text-indigo-400 hover:text-indigo-300"
+              className="font-semibold text-secondary-400 hover:text-secondary-300"
             >
-              Start a 14 day free trial
+              Sign In
             </a>
           </p>
         </div>

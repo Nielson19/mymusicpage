@@ -1,4 +1,3 @@
-import LoginPageView from "./pages/LoginPageView";
 import TempLoginFormView from "./pages/TempLoginFormView";
 
 function App() {
