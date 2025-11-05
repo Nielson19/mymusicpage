@@ -1,5 +1,11 @@
+import LoginPageView from "./pages/LoginPageView";
+
 function App() {
-  return <div>App</div>;
+  return (
+    <div className="">
+      <LoginPageView />
+    </div>
+  );
 }
 
 export default App;
