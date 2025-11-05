@@ -1,9 +1,9 @@
 import SettingsPageView from "./pages/SettingsPageView";
 
-import LoginPageView from "./pages/LoginPageView";
-
 function App() {
-  return <div>App</div>;
+  return <div>
+    <SettingsPageView />
+  </div>;
 }
 
 export default App;
