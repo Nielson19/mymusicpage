@@ -11,7 +11,7 @@ type InputProps = {
   
   export default function Input({ size, label, color, icon, type, placeholder }: InputProps) {
     return (
-      <form className="bg-stone-700 p-4">
+      <form>
         {label && <label className="block mb-2">{label}</label>}
   
         <div className="relative">
@@ -25,8 +25,7 @@ type InputProps = {
           {icon && (
             <button
               type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-            >
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
               {icon}
             </button>
           )}
