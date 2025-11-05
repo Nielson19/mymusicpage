@@ -2,7 +2,7 @@
 
 export const COLOR = {
     PRIMARY_CONTAINER: {
-        background: "#PLACEHOLDER", // Replace with your primary container color
+        background: "#7C4DFF", // Replace with your primary container color
         fontColor: "#PLACEHOLDER", // Replace with a contrasting font color
         subDiv: {
             lightShade: "#PLACEHOLDER", // Replace with a lighter shade
