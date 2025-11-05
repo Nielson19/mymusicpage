@@ -1,5 +1,12 @@
+import SettingsPageView from "./pages/SettingsPageView";
+
 function App() {
-  return <div>App</div>;
+
+
+  return (
+  // Settings page
+    <SettingsPageView />
+);
 }
 
 export default App;

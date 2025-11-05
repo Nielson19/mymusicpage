@@ -1,7 +1,10 @@
 
-
 function SettingsPageView() {
-  return <div>SettingsPageView</div>;
+  return (
+    <div className="font">
+
+    </div>
+    );
 }
 
 export default SettingsPageView;
