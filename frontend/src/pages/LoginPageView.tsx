@@ -5,7 +5,7 @@ function LoginPageView() {
     <div className="login-page">
       <ButtonComponent
         size="large"
-        label="Login"
+        label="Register"
         onClick={() => console.log("Login button clicked!")}
       />
     </div>
