@@ -7,11 +7,11 @@ type InputProps = {
     PRIMARY: string
   }
   icon?: React.ReactNode
-  type?: "password" | "email" | "text" | "number"
+  type?: "password" | "email" | "text" | "number" | "tel"
   placeholder?: string
 }
 
-export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E1E" }, icon, type = "text", placeholder,}: InputProps) {
+export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E1E" }, icon, type = "text", placeholder}: InputProps) {
 
   const sizeClasses = {
     SMALL: "px-3 py-2 text-sm",
@@ -20,7 +20,7 @@ export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E
   }[size]
 
   return (
-    <form className="flex align-center flex-col w-fit">
+    <form className="flex flex-col w-fit">
       {label && (
         <label className="block mb-2 text-sm font-medium text-stone-800">
           {label}
