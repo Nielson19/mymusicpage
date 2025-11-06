@@ -1,11 +1,14 @@
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineLock } from "react-icons/md";
 import { useState, useEffect } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+
 
 
 function SettingsPageView() {
     const [ personalSettingsOpen, setPersonalSettingsOpen ] = useState(false);
     const [ signInSettingsOpen, setSignInSettingsOpen ] = useState(false);
+    const [showHide, setShowHide] = useState(false);
     
 
     // Fetch all settings from DB on Page Load
@@ -55,7 +58,7 @@ function SettingsPageView() {
                         Personal Settings
                     </h2>
                 </div>
-                {/* SingIn AND Security Settings */}
+                {/* Sing-In AND Security Settings */}
                 <div 
                     className="flex flex-row items-center gap-2 p-4 rounded-xl hover:bg-gray-900 hover:cursor-pointer"
                      onClick={() => {
@@ -75,14 +78,41 @@ function SettingsPageView() {
         <section className="absolute left-60 md:left-80 top-0 right-0 bottom-0 p-6">
             {/* Here fecth all the information for each setting option */}
             {personalSettingsOpen && 
-                <div>
-                    <h2>Personal Settings</h2>
-                <div>
-                    {/* Make them an input field comemierda */}
-                    <div className="relative border border-white rounded-xl w-100 h-12">
-                        <p className="absolute top-1 left-2 text-xs text-gray-400">Email</p>
+                <div className="flex flex-col gap-6">
+                    <h2 className="mb-6 text-4xl">Personal Settings</h2>
+                    <div className="inputDiv">
+                        {/* Make them an input field comemierda */}
+                        {/* <div className="relative border border-white rounded-xl w-100 h-12">
+                            <p className="absolute top-1 left-2 text-xs text-gray-400">Email</p>
+                        </div> */}
+                        <input type="text" className="inputBox" required/>
+                        <span>Email</span>
                     </div>
-                </div>
+                    <div className="inputDiv">
+                        {/* Make them an input field comemierda */}
+                        {/* <div className="relative border border-white rounded-xl w-100 h-12">
+                            <p className="absolute top-1 left-2 text-xs text-gray-400">Email</p>
+                        </div> */}
+                        <input type="tel" className="inputBox" required/>
+                        <span>Phone</span>
+                    </div>
+                    <div className="flex gap-2">
+                        <div className="inputDiv">
+                            {/* Make them an input field comemierda */}
+                            {/* <div className="relative border border-white rounded-xl w-100 h-12">
+                                <p className="absolute top-1 left-2 text-xs text-gray-400">Email</p>
+                            </div> */}
+                            <input type={showHide ? 'password' : 'text'} className="inputBox" required/>
+                            <span>Password</span>
+                        </div>
+                        <button 
+                            className="text-lg cursor-pointer rounded-lg"
+                            onClick={() => {setShowHide(!showHide)}}
+                        >
+                            {showHide ? <FaRegEye/> : <FaRegEyeSlash/> }
+                        </button>
+                    </div>
+                    
                 </div>
                 
             }
