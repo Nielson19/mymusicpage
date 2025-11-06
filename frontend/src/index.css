@@ -34,7 +34,7 @@
 
 @layer components{
     .login-page {
-        @apply flex flex-col justify-center items-center h-screen bg-primary-50;
+        @apply flex flex-col justify-center items-center h-screen bg-gray-900;
     }
 }
 
