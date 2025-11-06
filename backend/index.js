@@ -1,27 +1,27 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+import express from "express";
+import mongoose from "mongoose";
+import authRouter from "./routes/authRoute.js";
+import dotenv from "dotenv";
+
 
 dotenv.config();
-
 const app = express();
+
+//connect to db
+mongoose.connect(process.env.MONGO_DB)
+.then(() => console.log('Database Connected'))
+.catch((err) => console.log('Database not connected', err))
+
+
+//middleware
 app.use(express.json());
+app.use("/api", authRouter);
 
-const PORT = 3000 // We can change this in the future for Netlify's stuff
+/*
+app.use(cookieParser());
+app.use(express.urlencoded({extended: false}))
+*/
 
-const dbURL = process.env.MONGODB_URL;
-
-// Connection attempt
-mongoose.connect(dbURL)
-  //If it succeeds
-  .then(() => {
-    console.log('Successfully connected to MongoDB');
-    // Boot up the server
-    app.listen(PORT, () => {
-      console.log('Server is running on port 3000');
-    });
-  })
-  //If it fails, give an error log
-  .catch((err) => {
-    console.log('Error connecting to MongoDB:', err);
-  });
+//port
+const PORT = process.env.PORT;
+app.listen(PORT, () => console.log(`Server is running on ${PORT}`))
