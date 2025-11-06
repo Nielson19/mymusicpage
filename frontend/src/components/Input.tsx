@@ -11,7 +11,16 @@ type InputProps = {
   placeholder?: string
 }
 
-export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E1E" }, icon, type = "text", placeholder,}: InputProps) {
+export default function Input({
+  size = "MEDIUM",
+  label,
+  color = { PRIMARY: "#1E1E1E" },
+  icon,
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+}: InputProps) {
 
   const sizeClasses = {
     SMALL: "px-3 py-2 text-sm",
@@ -22,23 +31,27 @@ export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E
   return (
     <form className="flex align-center flex-col w-fit">
       {label && (
-        <label className="block mb-2 text-sm font-medium text-stone-800">
-          {label}
-        </label>
+       <label className="block mb-2 text-sm font-medium text-gray-300">
+       {label}
+     </label>
+     
       )}
 
       <div
-        className={`flex items-center rounded-2xl shadow-sm border border-transparent transition ${sizeClasses}`}
+        className={`flex items-center rounded-2xl border-gray-800 shadow-sm border transition ${sizeClasses}`}
         style={{
           backgroundColor: color.PRIMARY,
           width: "240px",
         }}
       >
         <input
-          type={type}
-          placeholder={placeholder}
-          className="bg-transparent outline-none text-gray-100 placeholder-gray-300 flex-1"
-        />
+  type={type}
+  placeholder={placeholder}
+  value={value}
+  onChange={onChange}
+  className="bg-transparent outline-none text-gray-200 placeholder-gray-400 flex-1"
+/>
+
 
         {icon && (
           <button

@@ -1,4 +1,5 @@
 import ButtonComponent from "../components/ButtonComponent";
+import Headphoneslogo from "../assets/icons/Headphoneslogo.png";
 
 function SignupPageView() {
   return (
