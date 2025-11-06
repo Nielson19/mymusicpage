@@ -20,7 +20,7 @@ function LoginPageView() {
       <img
   src={Headphoneslogo}
   alt="Headphones logo"
-  className="w-1/4 h-1/4 mb-6"
+  className="w-1/4 h-1/ mb-6"
 />
 
 <h1 className="text-4xl font-bold mb-8">Login</h1>
