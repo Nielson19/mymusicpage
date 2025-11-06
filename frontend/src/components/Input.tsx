@@ -1,36 +1,57 @@
+import React from "react"
+
 type InputProps = {
-    size: "SMALL" | "MEDIUM" | "LARGE"
-    label?: string
-    color: {
-      PRIMARY: string
-    }
-    icon?: React.ReactNode
-    type: "password" | "email" | "text" | "number"
-    placeholder?: string
+  size?: "SMALL" | "MEDIUM" | "LARGE"
+  label?: string
+  color?: {
+    PRIMARY: string
   }
-  
-  export default function Input({ size, label, color, icon, type, placeholder }: InputProps) {
-    return (
-      <form>
-        {label && <label className="block mb-2">{label}</label>}
-  
-        <div className="relative">
-          <input
-            style={{ backgroundColor: color.PRIMARY }} 
-            className="bg-stone-800 border rounded-2xl pt-2 pb-2 pl-5 pr-10 outline-none"
-            placeholder={placeholder}
-            type={type}
-          />
-  
-          {icon && (
-            <button
-              type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-              {icon}
-            </button>
-          )}
-        </div>
-      </form>
-    )
-  }
+  icon?: React.ReactNode
+  type?: "password" | "email" | "text" | "number"
+  placeholder?: string
+}
+
+export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#7C4DFF" }, icon, type = "text", placeholder,}: InputProps) {
+
+  const sizeClasses = {
+    SMALL: "px-3 py-2 text-sm",
+    MEDIUM: "px-4 py-2 text-base",
+    LARGE: "px-5 py-3 text-lg",
+  }[size]
+
+  return (
+    <form className="flex flex-col w-fit">
+      {label && (
+        <label className="block mb-2 text-sm font-medium text-stone-800">
+          {label}
+        </label>
+      )}
+
+      <div
+        className={`flex items-center rounded-2xl shadow-sm border border-transparent transition ${sizeClasses}`}
+        style={{
+          backgroundColor: color.PRIMARY,
+          width: "240px",
+        }}
+      >
+        <input
+          type={type}
+          placeholder={placeholder}
+          className="bg-transparent outline-none text-gray-100 placeholder-gray-300 flex-1"
+        />
+
+        {icon && (
+          <button
+            type="button"
+            className="text-gray-300 hover:text-white cursor-pointer"
+          >
+            {icon}
+          </button>
+        )}
+      </div>
+    </form>
+  )
+}
+
+
   
