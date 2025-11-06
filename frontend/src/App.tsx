@@ -5,7 +5,11 @@ import TestView from "./pages/TestView";
 import LoginPageView from "./pages/LoginPageView";
 
 function App() {
-  return <div>{/* <LoginPageView /> */}</div>;
+  return (
+    <div>
+      <LoginPageView />
+    </div>
+  );
 }
 
 export default App;
