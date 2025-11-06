@@ -1,17 +1,12 @@
 import Input from "./components/Input";
 import { IoMdEyeOff } from "react-icons/io";
+import Post from "./components/Post";
+import TestView from "./pages/TestView";
 
 function App() {
   return (
     <div>
-      <Input
-        size="MEDIUM"
-        label="Email"
-        color={{ PRIMARY: "#1E1E1E" }}
-        type="email"
-        placeholder="Enter Email: "
-        icon={<IoMdEyeOff />}
-      />
+      <TestView />
     </div>
   );
 }
