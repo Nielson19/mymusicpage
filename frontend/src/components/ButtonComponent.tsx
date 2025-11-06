@@ -24,26 +24,25 @@ const ButtonComponent = ({ onClick, label, size }: ButtonComponentProps) => {
   if (size === "small") {
     sizeVal = "";
     // Apply small button styles
-    sizeVal = "py-2 px-8";
+    sizeVal = "py-2 px-1";
   } else if (size === "medium") {
     // Apply medium button styles
-    sizeVal = "py-2 px-20";
+    sizeVal = "py-2 px-10";
   } else if (size === "large") {
     // Apply large button styles
-    sizeVal = "py-3 px-40";
+    sizeVal = "py-2 px-30";
   }
   return (
     <div>
       <button
-        className={`bg-primary-500 text-white hover:bg-primary-800 focus:ring-2 focus:ring-primary-300
+        className={`bg-secondary-500 text-white hover:bg-secondary-800 focus:ring-2 focus:ring-primary-300
             shadow-md 
             shadow-black/20 
             text-lg font-bold 
             ${sizeVal} 
-            rounded-full 
+            rounded-lg 
             transition duration-300`}
-        onClick={onClick}
-      >
+          onClick={onClick}>
         {label || "Click me"}
       </button>
     </div>

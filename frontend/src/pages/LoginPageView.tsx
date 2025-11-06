@@ -1,5 +1,3 @@
-import ButtonComponent from "../components/ButtonComponent";
-
 function LoginPageView() {
   return (
     <div className="login-page">
