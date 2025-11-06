@@ -42,8 +42,7 @@ const ButtonComponent = ({ onClick, label, size }: ButtonComponentProps) => {
             ${sizeVal} 
             rounded-lg 
             transition duration-300`}
-        onClick={onClick}
-      >
+          onClick={onClick}>
         {label || "Click me"}
       </button>
     </div>
