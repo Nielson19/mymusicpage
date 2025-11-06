@@ -6,7 +6,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 
 
 function SettingsPageView() {
-    const [ personalSettingsOpen, setPersonalSettingsOpen ] = useState(false);
+    const [ personalSettingsOpen, setPersonalSettingsOpen ] = useState(true);
     const [ signInSettingsOpen, setSignInSettingsOpen ] = useState(false);
     const [showHide, setShowHide] = useState(false);
     
@@ -67,7 +67,7 @@ function SettingsPageView() {
                     }}
                 >
                     {/* Icon Here */}
-                        <MdOutlineLock />
+                    <MdOutlineLock />
                     <h2 className="text-xl">
                         Sign-in & Security
                     </h2>
@@ -75,50 +75,44 @@ function SettingsPageView() {
                 
             </div>
         </nav>
-        <section className="absolute left-60 md:left-80 top-0 right-0 bottom-0 p-6">
-            {/* Here fecth all the information for each setting option */}
+        <section className="absolute left-80 md:left-90 top-10 right-0 bottom-0 p-6">
+            {/* Personal Settings*/}
             {personalSettingsOpen && 
                 <div className="flex flex-col gap-6">
                     <h2 className="mb-6 text-4xl">Personal Settings</h2>
                     <div className="inputDiv">
-                        {/* Make them an input field comemierda */}
-                        {/* <div className="relative border border-white rounded-xl w-100 h-12">
-                            <p className="absolute top-1 left-2 text-xs text-gray-400">Email</p>
-                        </div> */}
                         <input type="text" className="inputBox" required/>
                         <span>Email</span>
                     </div>
                     <div className="inputDiv">
-                        {/* Make them an input field comemierda */}
-                        {/* <div className="relative border border-white rounded-xl w-100 h-12">
-                            <p className="absolute top-1 left-2 text-xs text-gray-400">Email</p>
-                        </div> */}
                         <input type="tel" className="inputBox" required/>
                         <span>Phone</span>
                     </div>
+                </div>
+                
+            }
+            {/* SignIn & Security Settings */}
+            {signInSettingsOpen && 
+                <div className="flex flex-col gap-6">
+                    <h2 className="mb-6 text-4xl">Change Username</h2>
+                    <div className="inputDiv">
+                        <input type="tel" className="inputBox" required/>
+                        <span>Username</span>
+                    </div>
                     <div className="flex gap-2">
                         <div className="inputDiv">
-                            {/* Make them an input field comemierda */}
-                            {/* <div className="relative border border-white rounded-xl w-100 h-12">
-                                <p className="absolute top-1 left-2 text-xs text-gray-400">Email</p>
-                            </div> */}
-                            <input type={showHide ? 'password' : 'text'} className="inputBox" required/>
+                            <input type={showHide ? 'text' : 'password'} className="inputBox" required/>
                             <span>Password</span>
                         </div>
                         <button 
                             className="text-lg cursor-pointer rounded-lg"
                             onClick={() => {setShowHide(!showHide)}}
                         >
-                            {showHide ? <FaRegEye/> : <FaRegEyeSlash/> }
+                            {showHide ? <FaRegEyeSlash/> : <FaRegEye/> }
                         </button>
                     </div>
-                    
-                </div>
-                
-            }
-
-            {signInSettingsOpen && 
-                <h2>Sign-In & Security Settings</h2>
+                </div> 
+                               
             }
         </section>
     </div>
