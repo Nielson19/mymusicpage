@@ -5,7 +5,7 @@ import { VscSettings } from "react-icons/vsc";
 export default function SearchBar() {
   return (
     <form
-      className="flex items-center bg-[#1E1E1E] rounded-2xl px-3 py-2 w-[320px] shadow-sm border border-transparent transition">
+      className="flex items-center bg-[#1E1E1E] rounded-2xl px-3 py-2 w-[320px] shadow-sm border border-transparent transition focus-within:border-purple-500">
       <button type="submit" className="text-gray-400 hover:text-white cursor-pointer">
         <LuSearch size={25} />
       </button>

@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="">
       <LoginPageView />
-      <Input size="MEDIUM" label="Email: " color={{ PRIMARY: "#7C4DFF" }} type="password" placeholder="Enter Email: " icon={<IoMdEyeOff />}/>
+      <Input size="MEDIUM" label="Email: " color={{ PRIMARY: "#1E1E1E" }} type="password" placeholder="Enter Email: " icon={<IoMdEyeOff />}/>
       <SearchBar />
     </div>
   );
