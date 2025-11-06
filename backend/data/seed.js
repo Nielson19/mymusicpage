@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { faker } from "@faker-js/faker";
 
-// import your models
+// import models
 import User from "../models/user.model.js";
 import Song from "../models/song.model.js";
 import Playlist from "../models/playlist.model.js";
@@ -14,13 +14,13 @@ dotenv.config();
 const { MONGO_URI, DB_NAME } = process.env;
 
 // --- Config: tweak counts here ---
+
 const NUM_SONGS = 60;
 const NUM_USERS = 12;
 const PLAYLISTS_PER_USER = [1, 3]; // min, max
 const PLAYLIST_SIZE = [5, 15];     // min, max # of songs in a playlist
 const POSTS_PER_USER = [1, 4];     // min, max
 
-// make results reproducible when you re-run
 faker.seed(42);
 
 function randInt(min, max) {
@@ -35,7 +35,7 @@ function pickMany(arr, min, max) {
 }
 
 async function connectDB() {
-  await mongoose.connect(MONGO_URI, { dbName: DB_NAME });
+  await mongoose.connect(process.env.MONGO_URI, { dbName: process.env.DB_NAME });
   console.log("Connected to MongoDB for seeding");
 }
 
@@ -50,7 +50,6 @@ async function clearCollections() {
 }
 
 function makeSpotifyId() {
-  // Spotify IDs are 22-char Base62; we’ll fake with alphanumeric(22)
   return faker.string.alphanumeric({ length: 22 });
 }
 
@@ -88,7 +87,7 @@ async function createUsers() {
       users.push({
         username: `${username}_${i}`, // ensure uniqueness
         email,
-        password: faker.internet.password({ length: 12 }), // matches your schema’s "password"
+        password: faker.internet.password({ length: 12 }), // matches schema’s "password"
         profile_picture: faker.image.avatar(),
         banner_picture: "",
         bio: faker.lorem.sentence().slice(0, 280),
