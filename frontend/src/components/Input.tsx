@@ -9,6 +9,8 @@ type InputProps = {
   icon?: React.ReactNode;
   type?: "password" | "email" | "text" | "number";
   placeholder?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function Input({
