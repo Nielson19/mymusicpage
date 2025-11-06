@@ -6,7 +6,7 @@
  * @param {string} [props.label] - Optional label text to display on the button. Defaults to "Click me".
  * @param {"small" | "medium" | "large"} [props.size] - Optional size of the button.
  *        Determines the padding applied to the button.
- *        Accepts "small", "medium", or "large".
+ *        Accepts "small", "medium", or "large".npm
  */
 
 // Define the props for the ButtonComponent
@@ -32,16 +32,13 @@ const ButtonComponent = ({ onClick, label, size }: ButtonComponentProps) => {
     // Apply large button styles
     sizeVal = "py-2 px-30";
   }
+
   return (
     <div>
       <button
-        className={`bg-secondary-500 text-white hover:bg-secondary-800 focus:ring-2 focus:ring-primary-300
-            shadow-md 
-            shadow-black/20 
-            text-lg font-bold 
-            ${sizeVal} 
-            rounded-lg 
-            transition duration-300`}
+        className={`bg-[#7C4DFF] hover:bg-[#6E42E6] text-white font-semibold 
+                    rounded-full shadow-md transition duration-300 
+                    focus:outline-none focus:ring-2 focus:ring-[#9C72FF] ${sizeVal}`}
         onClick={onClick}
       >
         {label || "Click me"}

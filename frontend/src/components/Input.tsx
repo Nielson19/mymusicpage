@@ -32,13 +32,13 @@ export default function Input({
   return (
     <form className="flex align-center flex-col w-fit">
       {label && (
-        <label className="block mb-2 text-sm font-medium text-stone-800">
+        <label className="block mb-2 text-sm font-medium text-gray-300">
           {label}
         </label>
       )}
 
       <div
-        className={` bg-gray-800 flex items-center rounded-2xl shadow-sm border border-transparent transition ${sizeClasses}`}
+        className={`flex items-center rounded-2xl shadow-sm border border-transparent transition ${sizeClasses}`}
         style={{
           backgroundColor: color.PRIMARY,
         }}
@@ -46,7 +46,9 @@ export default function Input({
         <input
           type={type}
           placeholder={placeholder}
-          className="bg-transparent outline-none text-gray-100 placeholder-gray-300 flex-1"
+          value={value}
+          onChange={onChange}
+          className="bg-transparent outline-none text-gray-200 placeholder-gray-400 flex-1"
         />
 
         {icon && (
