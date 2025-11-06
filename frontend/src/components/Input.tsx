@@ -7,7 +7,7 @@ type InputProps = {
     PRIMARY: string
   }
   icon?: React.ReactNode
-  type?: "password" | "email" | "text" | "number" | "tel"
+  type?: "password" | "email" | "text" | "number" | "tel" | "date" | "checkbox" | "radio" | "file"
   placeholder?: string
 }
 
