@@ -13,7 +13,6 @@ router.use(
     })
 );
 
-router.get('/', auth.test)
 router.post('/register', auth.registerUser)
 router.post('/login', auth.loginUser)
 

@@ -2,11 +2,6 @@ import User from '../models/user.model.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-
-const test = (req, res) => {
-    res.json('test working')
-}
-
 const hashPassword = async (password) => bcrypt.hash(password, 10);
 const comparePassword = async (password, hashed) => bcrypt.compare(password, hashed);
 
@@ -99,7 +94,6 @@ const loginUser = async (req, res) => {
 
 
 export default {
-    test,
     hashPassword,
     comparePassword,
     registerUser,
