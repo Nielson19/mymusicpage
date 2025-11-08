@@ -20,6 +20,8 @@ export default function Input({
   icon,
   type = "text",
   placeholder,
+  value,
+  onChange,
 }: InputProps) {
   const sizeClasses = {
     SMALL: "px-3 py-2 text-sm",
@@ -40,7 +42,7 @@ export default function Input({
       )}
 
       <div
-        className={`flex items-center rounded-2xl shadow-sm border border-transparent transition ${sizeClasses}`}
+        className={`flex items-center rounded-2xl shadow-sm border border-gray-800 transition ${sizeClasses}`}
         style={{
           backgroundColor: color.PRIMARY,
         }}

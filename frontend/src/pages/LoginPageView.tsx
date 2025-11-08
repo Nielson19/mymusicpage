@@ -1,15 +1,34 @@
-import React, { useState } from "react";
 import ButtonComponent from "../components/ButtonComponent";
 import Input from "../components/Input";
-import Headphoneslogo from "../assets/icons/Headphoneslogo.png";
+import Headphoneslogo from "../assets/icons/HeadphonesNoBG.png";
+import { useState } from "react";
+import axios from "axios";
 
 function LoginPageView() {
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const loginUser = async (e) => {
+    e.preventDefault(); // avoid that the page reloads
+    try {
+      const response = await axios.get("/");
+      console.log("Response received:", response.status);
+      console.log("Login successful:", response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    // Implement login logic here
+  };
+
+  const { email, password } = data;
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
       <img
         src={Headphoneslogo}
         alt="Headphones logo"
-        className="w-1/4 h-1/ mb-6"
+        className="w-1/4 h-1/4 mb-6"
       />
 
       <h1 className="text-4xl font-bold mb-8">Login</h1>
@@ -20,8 +39,8 @@ function LoginPageView() {
           label="Email"
           placeholder="user@example.com"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
           color={{ PRIMARY: "#111111" }}
+          onChange={(e) => setData({ ...data, email: e.target.value })}
         />
       </div>
 
@@ -31,8 +50,8 @@ function LoginPageView() {
           label="Password"
           placeholder="••••••••"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
           color={{ PRIMARY: "#111111" }}
+          onChange={(e) => setData({ ...data, password: e.target.value })}
         />
       </div>
 
