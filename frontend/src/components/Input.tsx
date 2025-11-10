@@ -25,7 +25,7 @@ export default function Input({
 }: InputProps) {
   const sizeClasses = {
     SMALL: "px-3 py-2 text-sm",
-    MEDIUM: "px-4 py-2 text-base",
+    MEDIUM: "px-4 py-2 text-lg",
     LARGE: "px-5 py-3 text-lg",
   }[size];
 

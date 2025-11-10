@@ -7,8 +7,8 @@ import LoginPageView from "./pages/LoginPageView";
 function App() {
   return (
     <div>
-      {/* <LoginPageView /> */}
-      <TestView />
+      <LoginPageView />
+      {/* <TestView /> */}
     </div>
   );
 }
