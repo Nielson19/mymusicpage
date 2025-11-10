@@ -1,7 +1,7 @@
 {
   "name": "mymusic-backend",
   "version": "1.0.0",
-  "type": "module",  
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
@@ -11,11 +11,11 @@
   "dependencies": {
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "mongoose": "^8.19.2"
+    "mongoose": "^8.19.2",
+    "package.json": "^0.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.1.0",
     "nodemon": "^3.1.10"
   }
 }
-
