@@ -1,5 +1,3 @@
-import PlaceholderPic from "../assets/images/stock.jpg";
-import PostPic from "../assets/images/postpic.png";
 
 
 interface PostProps {

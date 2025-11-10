@@ -21,6 +21,10 @@ export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E
     LARGE: "px-5 py-3 text-lg",
   }[size];
 
+  function onChange() {
+    console.log("Hey")
+  }
+
   const iconFunction = () => {
     console.log("Icon clicked");
   };
@@ -42,6 +46,8 @@ export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E
         <input
           type={type}
           placeholder={placeholder}
+          value={value}
+          onChange={onChange}
           className="bg-transparent outline-none text-gray-200 placeholder-gray-400 flex-1"
         />
 
