@@ -52,7 +52,6 @@ const Slider = ({ min, max, defaultValue, step = 1, onChange }: SliderProps) => 
 
   return (
     <div className="p-4 border-2 border-stone-900 bg-stone-800 rounded">
-      <p className="text-xl font-bold mb-2">Slider (Value: {value})</p>
       <div 
         ref={trackRef}
         onMouseDown={handleMouseDown}
