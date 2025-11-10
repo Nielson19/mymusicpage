@@ -3,14 +3,13 @@ import { IoMdEyeOff } from "react-icons/io";
 import Post from "./components/Post";
 import TestView from "./pages/TestView";
 import LoginPageView from "./pages/LoginPageView";
-import Post from "./components/Post";
+import testLink from "/Users/asadchaudhry/Desktop/mymusicpage/frontend/src/assets/images/postpic.png"
+import testLink2 from '/Users/asadchaudhry/Desktop/mymusicpage/frontend/src/assets/images/stock.jpg'
 
 function App() {
   return (
-    <div className="">
-      <LoginPageView />
-      <Input size="MEDIUM" label="Email: " color={{ PRIMARY: "#1E1E1E" }} type="password" placeholder="Enter Email: " icon={<IoMdEyeOff />}/>
-      <SearchBar />
+    <div className="flex flex-row justify-center items-center h-screen w-screen">
+      <Post imgLink={testLink2} size="SQUARE" songName="Baby" aristName="Justin Bieber" />
     </div>
   );
 }
