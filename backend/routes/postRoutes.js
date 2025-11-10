@@ -1,10 +1,9 @@
-const express = require('express');
+import express from 'express';
+import Post from '../models/post.model.js'; 
+import User from '../models/user.model.js';  
+import Song from '../models/song.model.js';  
+
 const router = express.Router();
-
-
-const Post = require('../models/post');
-const User = require('../models/user');
-const Song = require('../models/song');
 
 router.post('/', async (req, res) => {
   try {
@@ -29,7 +28,7 @@ router.get('/:id', async (req, res) => {
     const postId = req.params.id;
     const post = await Post.findById(postId)
       .populate('user_id', 'username profile_picture') 
-      .populate('song_id'); 
+      .populate('song_id');
 
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
@@ -41,4 +40,4 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
