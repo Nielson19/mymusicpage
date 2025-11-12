@@ -4,11 +4,11 @@ interface PostProps {
   imgLink: string;
   size: "SQUARE" | "PORTRAIT";
   songName: string;
-  aristName: string;
+  artistName: string;
   background?: string
 }
 
-function Post({imgLink, size, songName, aristName, background = imgLink }: PostProps) {
+function Post({imgLink, size, songName, artistName, background = imgLink }: PostProps) {
 
   return (
     <div className="group p-6 border bg-black">
@@ -36,7 +36,7 @@ function Post({imgLink, size, songName, aristName, background = imgLink }: PostP
                 {songName}
               </h3>
               <p className="opacity-0 text-sm text-white group-hover:opacity-100 transition-opacity duration-900">
-                {aristName}
+                {artistName}
               </p>
             </div>
           </div>
