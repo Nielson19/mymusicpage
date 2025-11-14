@@ -11,8 +11,8 @@ const InputField: React.FC<InputFieldProps> = ({label, value, onChange}) => {
     return(
         <div className="inputDiv">
             <input 
-                type="tel" 
-                className="inputBox" 
+                type="text" 
+                className="inputBox text-gray-300" 
                 value={value || ""}
                 onChange={onChange}
                 required

@@ -50,116 +50,130 @@ function SettingsPageView() {
         // Cancel Settings
     }
 
-  return (
-    <div className="h-dvh bg-black text-white">
-        {/* Left Side Nav */}
-        <nav className="absolute top-0 left-0 bottom-0 w-60 md:w-80 p-6 border-r border-slate-600">
-            <div className="flex flex-row justify-center items-center gap-4 mt-4">
-                <IoIosSettings className="text-4xl"/>
-                <div className="font-semibold text-5xl">
-                    <h1>Settings</h1>
-                </div>
+    return (
+        <div className="h-dvh bg-[#0b0b0d] text-gray-200 flex cursor-default">
+            {/* Sidebar */}
+            <nav className="w-64 md:w-72 p-6 border-r border-white/5 bg-[#0e0e10]/80 backdrop-blur-md relative">
+
+            {/* Header */}
+            <div className="flex items-center gap-3 px-2 mt-4 mb-8">
+                <IoIosSettings className="text-4xl text-purple-400" />
+                <h1 className="text-3xl font-semibold tracking-wide">Settings</h1>
             </div>
-            {/* Display Settings Titles */}
-            <div className="p-4 mt-4">
+
+            {/* Nav Section */}
+            <div className="space-y-2 mt-6">
+
                 {/* Personal Settings */}
-                <div 
-                    className="flex flex-row items-center gap-2 p-4 rounded-xl hover:bg-gray-900 hover:cursor-pointer"
-                    onClick={() => {
-                        setPersonalSettingsOpen(true),
-                        setSignInSettingsOpen(false)
-                    }}
+                <div
+                onClick={() => {
+                    setPersonalSettingsOpen(true)
+                    setSignInSettingsOpen(false)
+                }}
+                className={`
+                    flex items-center gap-3 p-4 rounded-xl cursor-pointer 
+                    transition duration-150
+                    ${personalSettingsOpen 
+                    ? "bg-purple-600/20 border border-purple-600/40" 
+                    : "hover:bg-white/5"
+                    }
+                `}
                 >
-                    {/* Icon Here */}
-                    <FaRegUser />
-                    <h2 className="text-xl">
-                        Personal Settings
-                    </h2>
+                <FaRegUser className="text-xl" />
+                <h2 className="text-lg font-medium tracking-wide">Personal Settings</h2>
                 </div>
-                {/* Sing-In AND Security Settings */}
-                <div 
-                    className="flex flex-row items-center gap-2 p-4 rounded-xl hover:bg-gray-900 hover:cursor-pointer"
-                     onClick={() => {
-                        setPersonalSettingsOpen(false),
-                        setSignInSettingsOpen(true)
-                    }}
+
+                {/* Sign-In Security */}
+                <div
+                onClick={() => {
+                    setPersonalSettingsOpen(false)
+                    setSignInSettingsOpen(true)
+                }}
+                className={`
+                    flex items-center gap-3 p-4 rounded-xl cursor-pointer 
+                    transition duration-150
+                    ${signInSettingsOpen 
+                    ? "bg-purple-600/20 border border-purple-600/40" 
+                    : "hover:bg-white/5"
+                    }
+                `}
                 >
-                    {/* Icon Here */}
-                    <MdOutlineLock />
-                    <h2 className="text-xl">
-                        Sign-in & Security
-                    </h2>
+                <MdOutlineLock className="text-xl" />
+                <h2 className="text-lg font-medium tracking-wide">Sign-in & Security</h2>
                 </div>
-                
+
             </div>
-        </nav>
-        {/* Main area with setting options */}
-        <section className="absolute left-80 md:left-80 top-0 right-0 bottom-0 p-12">
-            {/* Personal Settings*/}
-            {personalSettingsOpen && 
-                <div className="flex flex-col gap-6">
-                    <h2 className="mb-6 text-4xl">Personal Settings</h2>
-                    <InputField 
-                        label="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <InputField 
-                        label="Phone"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                    />
+            </nav>
+
+            
+            {/* Main Content */}
+            <section className="flex-1 p-12 overflow-y-auto">
+
+            {/* PERSONAL SETTINGS */}
+            {personalSettingsOpen && (
+                <div className="flex flex-col gap-6 animate-fadeIn">
+                <h2 className="text-4xl mb-4 font-light tracking-wide">Personal Settings</h2>
+
+                <div className="bg-[#121215] border border-white/10 shadow-lg p-8 rounded-2xl space-y-6 w-fit">
+                    <InputField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <InputField label="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
                 </div>
-                
-            }
-            {/* SignIn & Security Settings */}
-            {signInSettingsOpen && 
-                <div className="flex flex-col gap-6">
-                    <h2 className="mb-6 text-4xl">Change Username</h2>
-                    <InputField 
-                        label="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <div className="flex gap-2">
-                        <div className="inputDiv">
-                            <input 
-                             type={showHide ? 'text' : 'password'} 
-                             className="inputBox" 
-                             value={password}
-                             onChange={(e) => setPassword(e.target.value)}
-                             required/>
-                            <span>Password</span>
-                        </div>
-                        <button 
-                            className="text-lg cursor-pointer rounded-lg"
-                            onClick={() => {setShowHide(!showHide)}}
-                        >
-                            {showHide ? <FaRegEyeSlash/> : <FaRegEye/> }
-                        </button>
+                </div>
+            )}
+
+            {/* SIGN-IN SETTINGS */}
+            {signInSettingsOpen && (
+                <div className="flex flex-col gap-6 animate-fadeIn">
+                <h2 className="text-4xl mb-4 font-light tracking-wide">Sign-in & Security</h2>
+
+                <div className="bg-[#121215] border border-white/10 shadow-lg p-8 rounded-2xl space-y-6 w-fit">
+                    <InputField label="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+
+                    <div className="flex gap-3 items-end">
+                    <div className="inputDiv">
+                        <input
+                        type={showHide ? "text" : "password"}
+                        className="inputBox"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        />
+                        <span>Password</span>
                     </div>
-                </div> 
-                               
-            }
+
+                    <button
+                        className="text-2xl p-2 rounded-lg hover:bg-white/10 transition"
+                        onClick={() => setShowHide(!showHide)}
+                    >
+                        {showHide ? <FaRegEyeSlash /> : <FaRegEye />}
+                    </button>
+                    </div>
+                </div>
+                </div>
+            )}
 
             {/* Save / Cancel */}
-            <div className="fixed bottom-20 right-20 flex flex-row gap-2">
-                <button 
-                    className="border border-purple-700 p-2 px-4 rounded-xl bg-purple-600 hover:bg-purple-950"
+            <div className="fixed bottom-14 right-20 flex gap-3">
+                <button
+                    className="bg-purple-600 px-6 py-2 rounded-xl border border-purple-500 cursor-pointer
+                                hover:bg-purple-700 transition active:scale-95"
                     onClick={handleSaveSettings}
                 >
+                Save
+                </button>
 
-                        Save
-                    </button>
-                <button 
-                    className="border border-purple-700 p-2 px-4 rounded-xl bg-gray-600 hover:bg-gray-900"
+                <button
+                    className="bg-gray-700 px-6 py-2 rounded-xl border border-gray-600 cursor-pointer 
+                                hover:bg-gray-800 transition active:scale-95"
                     onClick={handleCancel}
                 >
-                    Cancel
+                Cancel
                 </button>
             </div>
-        </section>
-    </div>
+
+            </section>
+
+        </div>
     );
 }
 

@@ -51,7 +51,7 @@
   }
 
   .inputBox:focus~span, .inputBox:valid~span {
-    @apply text-purple-600 transform translate-x-[10px] translate-y-[-10px] text-sm p-0 bg-black duration-100
+    @apply text-purple-600 transform translate-x-[10px] translate-y-[-10px] text-sm p-0 bg-neutral-900 duration-100
   }
 
   .inputBox:focus, .inputBox:valid {
