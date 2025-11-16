@@ -7,9 +7,9 @@ import Post from "./Post";
 export default function CreatePost() {
   const [songName, setSongName] = useState("");
   const [artistName, setArtistName] = useState("");
-  const [imgLink, setImgLink] = useState(""); // can be a URL string typed by user
-  const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null); // local preview from file input
-  const [background, setBackground] = useState<string>(""); // gif URL or uploaded background
+  const [imgLink, setImgLink] = useState("");
+  const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
+  const [background, setBackground] = useState("");
 
   const handleGifSelect = (gifUrl: string) => {
     setBackground(gifUrl);
@@ -24,7 +24,6 @@ export default function CreatePost() {
     setBackground(url);
   };
 
-  // If user types an image link manually, use that (doesn't auto-clear uploadedFileUrl)
   const handleImgLinkChange = (value: string) => {
     setImgLink(value);
     if (value.trim() !== "" && background === "") {
@@ -40,7 +39,6 @@ export default function CreatePost() {
       </div>
 
       <div className="flex flex-col items-center gap-4">
-        {/* Upload background */}
         <label className="flex flex-col items-center cursor-pointer">
           <div className="w-24 h-24 rounded-lg border-2 border-dashed border-gray-500 flex items-center justify-center transition">
             <FaPlus className="text-gray-300 hover:scale-105 transition" size={32} />
@@ -52,7 +50,6 @@ export default function CreatePost() {
         {/* Giphy Picker (lifted selection via callback) */}
         <GiphyPicker onSelectGif={handleGifSelect} />
 
-        {/* Song / Artist inputs */}
         <input
           type="text"
           placeholder="Song Name"
@@ -67,14 +64,12 @@ export default function CreatePost() {
           onChange={(e) => setArtistName(e.target.value)}
           className="w-full bg-transparent border-2 border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none"/>
 
-        {/* Manual image link input (typing a link updates the preview live) */}
         <input
           placeholder="Image Link"
           value={imgLink}
           onChange={(e) => handleImgLinkChange(e.target.value)}
           className="w-full bg-transparent border-2 border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none"/>
 
-        {/* Live preview using the Post component */}
         <div className="w-full mt-4">
           <h3 className="text-sm font-stretch-90% mb-2">Live Preview:</h3>
           <div className="flex justify-center">
