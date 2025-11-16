@@ -1,5 +1,3 @@
-
-
 interface PostProps {
   imgLink: string;
   size: "SQUARE" | "PORTRAIT";
@@ -10,8 +8,12 @@ interface PostProps {
 
 function Post({imgLink, size, songName, artistName, background = imgLink }: PostProps) {
 
+  if (background === "") {
+    background = imgLink
+  }
+
   return (
-    <div className="group p-6 border bg-black">
+    <div className="group p-6">
       <div
         className={`w-64 h-64 overflow-hidden ${
           size === "PORTRAIT" ? "h-96" : ""

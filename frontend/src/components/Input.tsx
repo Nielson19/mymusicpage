@@ -1,5 +1,3 @@
-import React from "react";
-
 type InputProps = {
   size?: "SMALL" | "MEDIUM" | "LARGE";
   label?: string;
@@ -9,11 +7,11 @@ type InputProps = {
   icon?: React.ReactNode;
   type?: "password" | "email" | "text" | "number";
   placeholder?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E1E" }, icon, type = "text", placeholder,}: InputProps) {
+export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E1E" }, icon, type = "text", placeholder, value}: InputProps) {
 
   const sizeClasses = {
     SMALL: "px-3 py-2 text-sm",
