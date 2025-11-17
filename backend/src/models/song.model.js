@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+/*
+
+
+*/
+
 const apiInfoSchema = new mongoose.Schema(
   {
     spotify_id: {
@@ -22,13 +27,13 @@ const apiInfoSchema = new mongoose.Schema(
   { _id: false }
 );
 
-const songSchema = new mongoose.Schema({
-  name: {
+const musicSchema = new mongoose.Schema({
+  track_name: {
     type: String,
-    required: [true, "Song name is required"],
+    required: [true, "Track name is required"],
     trim: true,
-    minLength: [1, "Song name must be at least 1 character"],
-    maxLength: [150, "Song name cannot exceed 150 characters"],
+    minLength: [1, "Track name must be at least 1 character"],
+    maxLength: [150, "Track name cannot exceed 150 characters"],
   },
   api_info: {
     type: apiInfoSchema,
@@ -36,4 +41,4 @@ const songSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Song", songSchema);
+export default mongoose.model("Song", musicSchema);

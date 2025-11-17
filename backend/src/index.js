@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
-import { connectDB } from './config/db.js'
+import { connectDB } from '../config/db.config.js'
 
-import authRouter from './routes/authRoute.js';
-import musicRoutes from './routes/music.route.js';
+import authRouter from '../routes/authRoute.js';
+import musicRoutes from '../routes/music.route.js';
 
 dotenv.config();
 const app = express();

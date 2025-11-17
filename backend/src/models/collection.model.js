@@ -1,3 +1,5 @@
+//Consider renaming to collection.model.js
+
 import mongoose from "mongoose";
 
 const playlistSchema = new mongoose.Schema({
