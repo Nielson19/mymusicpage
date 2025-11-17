@@ -11,7 +11,7 @@ function TestView() {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col w-screen h-screen justify-center items-center gap-10">
       {/* <CreatePost /> */}
-      <CreatePlaylist />
+      <CreatePost />
       {/* <GiphyPicker /> */}
     </div>
   );
