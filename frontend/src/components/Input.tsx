@@ -1,5 +1,3 @@
-import React from "react";
-
 type InputProps = {
   size?: "SMALL" | "MEDIUM" | "LARGE";
   label?: string;
@@ -9,32 +7,28 @@ type InputProps = {
   icon?: React.ReactNode;
   type?: "password" | "email" | "text" | "number";
   placeholder?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function Input({
-  size = "MEDIUM",
-  label,
-  color = { PRIMARY: "#1E1E1E" },
-  icon,
-  type = "text",
-  placeholder,
-  value,
-  onChange,
-}: InputProps) {
+export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E1E" }, icon, type = "text", placeholder, value}: InputProps) {
+
   const sizeClasses = {
     SMALL: "px-3 py-2 text-sm",
     MEDIUM: "px-4 py-2 text-lg",
     LARGE: "px-5 py-3 text-lg",
   }[size];
 
+  function onChange() {
+    console.log("Hey")
+  }
+
   const iconFunction = () => {
     console.log("Icon clicked");
   };
 
   return (
-    <form className="flex align-center flex-col w-fit">
+    <form className="flex flex-col w-fit">
       {label && (
         <label className="block mb-2 text-sm font-medium text-gray-300">
           {label}
