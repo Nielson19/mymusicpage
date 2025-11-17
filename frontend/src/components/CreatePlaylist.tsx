@@ -1,6 +1,6 @@
 import { CiLock } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
-import { MdOutlineCancel } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
 import Input from "./Input";
 
 export default function CreatePlaylist() {
@@ -9,7 +9,7 @@ export default function CreatePlaylist() {
             <div className="w-full max-w-md bg-gray-800 rounded-2xl p-8 shadow-xl text-white">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-3xl font-semibold text-center">Create a playlist</h2>
-                <MdOutlineCancel className="cursor-pointer hover:scale-105 transition" size={24} />
+                <IoMdClose className="cursor-pointer hover:scale-105 transition" size={24} />
               </div>
 
         <div className="flex flex-col items-center gap-6">

@@ -1,21 +1,25 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
-import { MdOutlineCancel } from "react-icons/md";
 import GiphyPicker from "./GiphyPicker";
 import Post from "./Post";
-
+import type { PostProps } from "./Post";
+import { IoMdClose } from "react-icons/io";
 export default function CreatePost() {
   const [songName, setSongName] = useState("");
   const [artistName, setArtistName] = useState("");
   const [imgLink, setImgLink] = useState("");
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
   const [background, setBackground] = useState("");
+  const [size, setSize] = useState<PostProps["size"]>("PORTRAIT");
+
+  const toggleSize = () => {
+    setSize(prev => (prev === "PORTRAIT" ? "SQUARE" : "PORTRAIT"));
+  };
 
   const handleGifSelect = (gifUrl: string) => {
     setBackground(gifUrl);
   };
 
-  // File input change -> create preview URL and set background to it
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -35,7 +39,7 @@ export default function CreatePost() {
     <div className="w-full max-w-md bg-gray-800 rounded-2xl p-8 shadow-xl text-white my-10">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-semibold text-center">Create a post</h2>
-        <MdOutlineCancel className="cursor-pointer hover:scale-105 transition" size={24} />
+        <IoMdClose className="cursor-pointer hover:scale-105 transition" size={24} />
       </div>
 
       <div className="flex flex-col items-center gap-4">
@@ -70,12 +74,13 @@ export default function CreatePost() {
           onChange={(e) => handleImgLinkChange(e.target.value)}
           className="w-full bg-transparent border-2 border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none"/>
 
+          <button onClick={toggleSize} className="bg-purple-500 cursor-pointer rounded-xl py-3 font-semibold hover:scale-105 transition w-full"> Toggle Size </button>
         <div className="w-full mt-4">
           <h3 className="text-sm font-stretch-90% mb-2">Live Preview:</h3>
           <div className="flex justify-center">
             <Post
               imgLink={imgLink || uploadedFileUrl || "../images/stock.jpg"}
-              size="PORTRAIT"
+              size ={size}
               songName={songName || "Song Name"}
               artistName={artistName || "Song Artist"}
               background={background || imgLink || uploadedFileUrl || "../images/stock.jpg"}/>

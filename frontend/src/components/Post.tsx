@@ -1,4 +1,4 @@
-interface PostProps {
+export interface PostProps {
   imgLink: string;
   size: "SQUARE" | "PORTRAIT";
   songName: string;

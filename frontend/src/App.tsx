@@ -9,7 +9,7 @@ import CreatePost from "./components/CreatePost";
 
 function App() {
   return (
-    <div className="flex bg-purple-700 items-center justify-center gap-3">
+    <div className="flex bg-purple-500 items-center justify-center">
       <CreatePost />
       </div>
   );
