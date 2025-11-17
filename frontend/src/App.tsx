@@ -1,9 +1,10 @@
 import ProfilePageView from "./pages/ProfilePageView";
+import TestView from "./pages/TestView";
 
 function App() {
   return (
     <div>
-      <LoginPageView />
+      <TestView />
     </div>
   );
 }
