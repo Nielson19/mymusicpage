@@ -9,6 +9,8 @@ const test = (req, res) => {
 /*
 const jwt = require('jsonwebtoken');
 */
+
+
 //register endpoint
 const registerUser = async (req, res) => {
     try {

@@ -80,8 +80,8 @@ function LoginPageView() {
           label="Continue with Spotify"
           icon={SpotifyIcon}
           size="LARGE"
-          link="#"
-          color="green-600"
+          link="https://accounts.spotify.com/en/login?continue=https%3A%2F%2Faccounts.spotify.com%2Fauthorize%3Fscope%3Duser-read-email%26response_type%3Dcode%26redirect_uri%3Dhttp%3A%2F%2F127.0.0.1%3A3002%2Fauth%2Fcallback%2Fspotify%26code_challenge_method%3DS256%26client_id%3Db7a1d92d477441edbb42504668be6fbb%26code_challenge%3DItc50Bo7xzQiagYgvU8Uuh90gsTqlSgNT7KIv4tvsQY&client_id=b7a1d92d477441edbb42504668be6fbb"
+          color="[#1ED760]"
         />
       </form>
     </div>
