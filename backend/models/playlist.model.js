@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+
+//TODO: Add image link for the playlist
+//TODO: Description for the playlist
+
 const playlistSchema = new mongoose.Schema({
   user_id: {
     type: mongoose.Schema.Types.ObjectId,

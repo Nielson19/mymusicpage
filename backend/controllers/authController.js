@@ -1,7 +1,7 @@
 import User from '../models/user.js';
 import bcrypt from 'bcrypt';
 
-
+//test endpoint
 const test = (req, res) => {
     res.json('test working')
 }
@@ -9,7 +9,7 @@ const test = (req, res) => {
 /*
 const jwt = require('jsonwebtoken');
 */
-
+//register endpoint
 const registerUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -50,6 +50,8 @@ const registerUser = async (req, res) => {
     }
 
 };
+
+//hash password
 const hashPassword = (password) => {
     return new Promise((resolve, reject) => {
         bcrypt.genSalt(10, (err, salt) => {
@@ -66,6 +68,7 @@ const hashPassword = (password) => {
     })
 }
 
+//compare password
 const comparePassword = (password, hashed) => {
     return bcrypt.compare(password, hashed)
 }
@@ -103,7 +106,7 @@ const loginUser = async (req, res) => {
     }
 }
 
-
+//export all functions
 export default {
     test,
     hashPassword,
