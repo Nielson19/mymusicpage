@@ -12,6 +12,9 @@ interface AuthButtonProps {
 function AuthButtonComp(props: AuthButtonProps) {
   return (
     <button
+      onClick={() => {
+        window.location.href = props.link as string;
+      }}
       className={`flex items-center justify-center gap-4 
     ${props.size === "SMALL" ? "px-3 py-1 text-sm" : ""} 
     ${props.size === "MEDIUM" ? "px-4 py-2 text-base" : ""} 
