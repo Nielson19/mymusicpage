@@ -1,5 +1,12 @@
+import ProfilePageView from "./pages/ProfilePageView";
+import TestView from "./pages/TestView";
+
 function App() {
-  return <div>App</div>;
+  return (
+    <div>
+      <TestView />
+    </div>
+  );
 }
 
 export default App;
