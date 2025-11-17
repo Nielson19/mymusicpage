@@ -3,11 +3,16 @@ import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import MusicPlayerFeature from "../components/MusicPlayerFeature";
 import ProfilePageView from "./ProfilePageView";
 import LoginPageView from "./LoginPageView";
+import CreatePost from "../components/CreatePost";
+import CreatePlaylist from "../components/CreatePlaylist";
+import GiphyPicker from "../components/GiphyPicker";
 
 function TestView() {
   return (
-    <div>
-      <LoginPageView />
+    <div className="min-h-screen bg-black text-white flex flex-col w-screen h-screen justify-center items-center gap-10">
+      {/* <CreatePost /> */}
+      <CreatePlaylist />
+      {/* <GiphyPicker /> */}
     </div>
   );
 }

@@ -7,8 +7,8 @@ import CreatePost from "./components/CreatePost";
 
 function App() {
   return (
-    <div className="flex bg-purple-500 items-center justify-center">
-      <CreatePost />
+    <div>
+      <TestView />
     </div>
   );
 }
