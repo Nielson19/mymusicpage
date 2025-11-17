@@ -4,6 +4,8 @@ import Headphoneslogo from "../assets/icons/HeadphonesNoBG.png";
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import AuthButtonComp from "../components/LoginFormComp/authButtonComp";
+import SpotifyIcon from "../assets/icons/SpotifyWhiteLogo.png";
 
 function LoginPageView() {
   const [data, setData] = useState({
@@ -69,6 +71,18 @@ function LoginPageView() {
         </a>
 
         <ButtonComponent label="Login" type="submit" size="large" />
+        <div className="my-4 flex items-center gap-2">
+          <hr className="w-24 border-gray-600" />
+          <span className="text-gray-400">or</span>
+          <hr className="w-24 border-gray-600" />
+        </div>
+        <AuthButtonComp
+          label="Continue with Spotify"
+          icon={SpotifyIcon}
+          size="LARGE"
+          link="#"
+          color="green-600"
+        />
       </form>
     </div>
   );
