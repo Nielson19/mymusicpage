@@ -6,10 +6,6 @@ import MusicPlayerFeature from "../components/MusicPlayerFeature";
 function TestView() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      {/* <Post size="PORTRAIT" />
-      <Post size="SQUARE" /> */}
-
-      {/* <MusicPlayerStatic /> */}
       <MusicPlayerFeature />
     </div>
   );
