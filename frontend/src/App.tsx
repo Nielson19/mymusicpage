@@ -1,5 +1,6 @@
 // import SettingsPageView from "./pages/SettingsPageView";
-import PlaylistPage from "./pages/PlaylistPage";
+// import PlaylistPage from "./pages/PlaylistPage";
+import MainDashboard from "./pages/MainDashboard";
 // import Input from "./components/Input";
 // import SearchBar from "./components/SearchBar";
 // import { IoMdEyeOff } from "react-icons/io";
@@ -7,7 +8,7 @@ import PlaylistPage from "./pages/PlaylistPage";
 function App() {
   return (
     <div className="">
-      <PlaylistPage />
+      <MainDashboard />
     </div>
   );
 }
