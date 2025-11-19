@@ -4,7 +4,6 @@ import GiphyPicker from "./GiphyPicker";
 import Post from "./Post";
 import type { PostProps } from "./Post";
 import { IoMdClose } from "react-icons/io";
-import Slider from "./Slider";
 import Toggle from "./Toggle";
 export default function CreatePost() {
   const [songName, setSongName] = useState("");
@@ -12,7 +11,7 @@ export default function CreatePost() {
   const [imgLink, setImgLink] = useState("");
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
   const [background, setBackground] = useState("");
-  const [size, setSize] = useState<PostProps["size"]>("PORTRAIT");
+  const [size, setSize] = useState<PostProps["size"]>("SQUARE");
 
   const handleGifSelect = (gifUrl: string) => {
     setBackground(gifUrl);

@@ -9,9 +9,9 @@ import GiphyPicker from "../components/GiphyPicker";
 
 function TestView() {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col w-screen h-screen justify-center items-center gap-10">
+    <div>
       {/* <CreatePost /> */}
-      <CreatePost />
+      <LoginPageView />
       {/* <GiphyPicker /> */}
     </div>
   );
