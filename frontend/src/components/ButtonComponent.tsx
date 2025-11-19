@@ -14,10 +14,17 @@
 interface ButtonComponentProps {
   onClick?: () => void;
   label?: string;
-  size?: "small" | "medium" | "large";
+  size?: "small" | "medium" | "large" | "full";
+  type?: "button" | "submit" | "reset";
+  className?: string;
 }
 
-const ButtonComponent = ({ onClick, label, size }: ButtonComponentProps) => {
+const ButtonComponent = ({
+  onClick,
+  label,
+  size,
+  type = "button",
+}: ButtonComponentProps) => {
   let sizeVal = "";
 
   // Determine padding based on size prop
@@ -31,11 +38,15 @@ const ButtonComponent = ({ onClick, label, size }: ButtonComponentProps) => {
   } else if (size === "large") {
     // Apply large button styles
     sizeVal = "py-2 px-30";
+  } else if (size === "full") {
+    // Apply full width button styles
+    sizeVal = "w-full py-3 px-0";
   }
 
   return (
     <div>
-       <button
+      <button
+        type={type}
         className={`bg-[#7C4DFF] hover:bg-[#6E42E6] text-white font-semibold 
                     rounded-full shadow-md transition duration-300 
                     focus:outline-none focus:ring-2 focus:ring-[#9C72FF] ${sizeVal}`}

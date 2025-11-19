@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MusicPlayerFeature from "../components/MusicPlayerFeature";
 import {
   Upload,
   MoreHorizontal,
@@ -11,25 +12,17 @@ import {
 function ProfilePageView() {
   const [activeTab, setActiveTab] = useState("Home");
 
-
   const galleryBlocks = [...Array(15)].map((_, i) => (
     <div key={i} className="bg-[#0E1117] w-full h-64 rounded-lg"></div>
   ));
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
+      <div className="relative w-full h-64 bg-gradient-to-b from-[#f767ff] to-[#590080] flex items-center justify-center">
+        {/* Music player featured */}
 
-      <div className="relative w-full h-64 bg-gradient-to-b from-[#ff9b73] to-[#ff6a3d]">
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-[#ff7849] px-6 py-3 rounded-xl shadow-lg flex items-center justify-between w-[300px]">
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold">Niel Klopen</span>
-            <span className="text-xs text-orange-100">0:52 / 0:52</span>
-          </div>
-
-          <div className="w-1/3 bg-gray-300 h-1 rounded-full overflow-hidden">
-            <div className="w-full h-full bg-black"></div>
-          </div>
+        <div className="left-1/2 flex items-center justify-between shadow-2xl rounded-2xl">
+          <MusicPlayerFeature />
         </div>
 
         <button className="absolute top-4 right-4 bg-white/40 p-3 rounded-md">
@@ -38,10 +31,7 @@ function ProfilePageView() {
       </div>
 
       <div className="w-full bg-white text-black pb-6 pt-12 relative">
-
-        <button
-         className="absolute top-6 left-6 bg-black w-10 h-10 rounded-xl flex items-center justify-center shadow-lg"
-        >
+        <button className="absolute top-6 left-6 bg-black w-10 h-10 rounded-xl flex items-center justify-center shadow-lg">
           <Palette className="text-white w-5 h-5" />
         </button>
 
@@ -61,7 +51,6 @@ function ProfilePageView() {
         </div>
 
         <div className="flex items-start w-full px-20">
-
           <div className="pt-10 w-20" />
 
           <div className="flex-1 flex flex-col items-center -mt-16">
@@ -87,21 +76,26 @@ function ProfilePageView() {
         </div>
 
         <div className="flex justify-center gap-8 mt-6 text-gray-600 text-sm border-b border-gray-300 pb-3">
-          {["Home", "Playlist1", "Playlist2", "Playlist3", "Playlist4", "Recommendations"].map(
-            (tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`pb-1 ${
-                  activeTab === tab
-                    ? "text-black font-semibold border-b-2 border-black"
-                    : ""
-                }`}
-              >
-                {tab}
-              </button>
-            )
-          )}
+          {[
+            "Home",
+            "Playlist1",
+            "Playlist2",
+            "Playlist3",
+            "Playlist4",
+            "Recommendations",
+          ].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`pb-1 ${
+                activeTab === tab
+                  ? "text-black font-semibold border-b-2 border-black"
+                  : ""
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
       </div>
 
