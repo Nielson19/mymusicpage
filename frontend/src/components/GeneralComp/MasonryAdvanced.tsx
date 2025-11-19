@@ -40,18 +40,22 @@ function MasonryAdvanced({
 
   return (
     <div
-      className="w-full overflow-x-auto"
-      style={{ padding: `${gap}px 0`, scrollBehavior: "smooth" }}
+      className="w-full flex justify-center px-4"
+      style={{ padding: `${gap}px 0` }}
     >
-      <div className="flex" style={{ gap: `${gap}px` }}>
+      <div
+        className="flex justify-center flex-wrap"
+        style={{ gap: `${gap}px`, maxWidth: "100%" }}
+      >
         {columns.map((column, index) => (
           <div
             key={index}
             className="flex flex-col"
             style={{
               minWidth: `${minColumnWidth}px`,
+              maxWidth: `${minColumnWidth * 1.2}px`,
               gap: `${gap}px`,
-              flexShrink: 0,
+              flex: "1 1 auto",
             }}
           >
             {/* Playlist header with hover */}
@@ -100,11 +104,3 @@ function MasonryAdvanced({
 }
 
 export default MasonryAdvanced;
-
-
-
-
-
-
-
-

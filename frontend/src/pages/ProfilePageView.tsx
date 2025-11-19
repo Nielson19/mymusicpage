@@ -100,13 +100,14 @@ function ProfilePageView() {
           ))}
         </div>
       </div>
-
-          <MasonryAdvanced 
+      <div className="w-full bg-black px-4 py-8">
+        <MasonryAdvanced
           dataSources={mockPlaylists}
-          columnCount={4}  // test 1 or 2 columns
           gap={16}
-          minColumnWidth={200}/> 
-        </div>
+          minColumnWidth={200}
+        />
+      </div>
+    </div>
   );
 }
 
