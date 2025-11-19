@@ -50,12 +50,13 @@ function MasonryAdvanced({
         {columns.map((column, index) => (
           <div
             key={index}
-            className="flex flex-col"
+            className="flex flex-col overflow-y-auto scrollbar-none"
             style={{
               minWidth: `${minColumnWidth}px`,
               maxWidth: `${minColumnWidth * 1.2}px`,
               gap: `${gap}px`,
               flex: "1 1 auto",
+              maxHeight: "70vh", // Set a fixed height for independent scrolling
             }}
           >
             {/* Playlist header with hover */}
@@ -63,7 +64,7 @@ function MasonryAdvanced({
               <div
                 className={`
                   text-sm font-medium mb-2 p-2 rounded-lg cursor-pointer 
-                  transition-colors duration-300
+                  transition-colors duration-300 shrink-0
                   ${column.sourceInfo.color ? "text-white" : "text-gray-700"}
                   hover:brightness-90
                 `}
@@ -75,27 +76,33 @@ function MasonryAdvanced({
               </div>
             )}
 
-            {/* Posts */}
-            {column.items.map((item, idx) => (
-              <div
-                key={`${item.sourceId}-${idx}`}
-                className="rounded-lg overflow-hidden shadow-md transition-transform duration-200 hover:scale-105 hover:shadow-xl"
-                style={{
-                  aspectRatio: item.size === "PORTRAIT" ? "3 / 4" : "1 / 1",
-                  backgroundColor: item.background || "#f3f4f6",
-                }}
-              >
-                <img
-                  src={item.imgLink}
-                  alt={item.songName}
-                  className="w-full h-full object-cover"
-                />
-                <div className="p-2">
-                  <p className="font-medium">{item.songName}</p>
-                  <p className="text-sm text-gray-500">{item.artistName}</p>
+            {/* Scrollable Posts Container */}
+            <div
+              className="flex flex-col flex-1 overflow-y-auto scrollbar-none"
+              style={{ gap: `${gap}px` }}
+            >
+              {/* Posts */}
+              {column.items.map((item, idx) => (
+                <div
+                  key={`${item.sourceId}-${idx}`}
+                  className="rounded-lg overflow-hidden shadow-md transition-transform duration-200 hover:scale-105 hover:shadow-xl shrink-0"
+                  style={{
+                    aspectRatio: item.size === "PORTRAIT" ? "3 / 4" : "1 / 1",
+                    backgroundColor: item.background || "#f3f4f6",
+                  }}
+                >
+                  <img
+                    src={item.imgLink}
+                    alt={item.songName}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="p-2">
+                    <p className="font-medium">{item.songName}</p>
+                    <p className="text-sm text-gray-500">{item.artistName}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         ))}
       </div>

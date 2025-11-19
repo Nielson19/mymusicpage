@@ -100,7 +100,8 @@ function ProfilePageView() {
           ))}
         </div>
       </div>
-      <div className="w-full bg-black px-4 py-8">
+      {/* TODO Here is the custom part for the theme in the bottom make login form paint color in the corner */}
+      <div className="w-full bg-white px-4 py-8">
         <MasonryAdvanced
           dataSources={mockPlaylists}
           gap={16}
