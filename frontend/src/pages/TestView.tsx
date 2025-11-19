@@ -6,12 +6,13 @@ import LoginPageView from "./LoginPageView";
 import CreatePost from "../components/CreatePost";
 import CreatePlaylist from "../components/CreatePlaylist";
 import GiphyPicker from "../components/GiphyPicker";
+import Masonry from "../components/GeneralComp/Column";
 
 function TestView() {
   return (
     <div>
       {/* <CreatePost /> */}
-      <LoginPageView />
+      <Masonry />
       {/* <GiphyPicker /> */}
     </div>
   );
