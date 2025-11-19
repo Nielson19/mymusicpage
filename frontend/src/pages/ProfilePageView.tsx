@@ -8,6 +8,8 @@ import {
   Palette,
   X,
 } from "lucide-react";
+import MasonryAdvanced from "../components/GeneralComp/MasonryAdvanced";
+import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 
 function ProfilePageView() {
   const [activeTab, setActiveTab] = useState("Home");
@@ -99,12 +101,12 @@ function ProfilePageView() {
         </div>
       </div>
 
-      <div className="w-full bg-black py-10 min-h-[800px]">
-        <div className="grid grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {galleryBlocks}
+          <MasonryAdvanced 
+          dataSources={mockPlaylists}
+          columnCount={4}  // test 1 or 2 columns
+          gap={16}
+          minColumnWidth={200}/> 
         </div>
-      </div>
-    </div>
   );
 }
 

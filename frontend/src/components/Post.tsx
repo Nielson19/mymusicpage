@@ -38,7 +38,7 @@ function Post({
                 className="w-12 h-12 aspect-square rounded-md shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
               />
             </div>
-            <div>
+            <div className="mb-2">
               <h3 className="opacity-0 text-lg text-white font-bold group-hover:opacity-100 transition-opacity duration-700">
                 {songName}
               </h3>
