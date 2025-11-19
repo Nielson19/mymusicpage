@@ -6,14 +6,14 @@ import LoginPageView from "./LoginPageView";
 import CreatePost from "../components/CreatePost";
 import CreatePlaylist from "../components/CreatePlaylist";
 import GiphyPicker from "../components/GiphyPicker";
-import Masonry from "../components/GeneralComp/Column";
+import Masonry from "../components/GeneralComp/Masonry";
+import SignupPageView from "./SignupPageView";
+import ForgotPasswordPage from "../components/GeneralComp/ForgotPassword";
 
 function TestView() {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col w-screen h-screen justify-center items-center gap-10">
-      {/* <CreatePost /> */}
-      <Masonry />
-      {/* <GiphyPicker /> */}
+    <div>
+      <ForgotPasswordPage />
     </div>
   );
 }
