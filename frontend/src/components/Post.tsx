@@ -3,13 +3,18 @@ export interface PostProps {
   size: "SQUARE" | "PORTRAIT";
   songName: string;
   artistName: string;
-  background?: string
+  background?: string;
 }
 
-function Post({imgLink, size, songName, artistName, background = imgLink }: PostProps) {
-
+function Post({
+  imgLink,
+  size,
+  songName,
+  artistName,
+  background = imgLink,
+}: PostProps) {
   if (background === "") {
-    background = imgLink
+    background = imgLink;
   }
 
   return (
