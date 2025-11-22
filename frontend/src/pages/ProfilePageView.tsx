@@ -1,22 +1,34 @@
 import React, { useState } from "react";
 import MusicPlayerFeature from "../components/MusicPlayerFeature";
-import {
-  Upload,
-  MoreHorizontal,
-  SquarePen,
-  Volume2,
-  Palette,
-  X,
-} from "lucide-react";
+import {Upload, MoreHorizontal, SquarePen, Volume2, Palette, X, VolumeX,} from "lucide-react";
 import MasonryAdvanced from "../components/GeneralComp/MasonryAdvanced";
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 
 function ProfilePageView() {
   const [activeTab, setActiveTab] = useState("Home");
+  const [dark, setDark] = useState(false);
+  const [mute, setMute] = useState(false)
+  
+  // Dynamic tabs: Home + playlist names + Recommendations
+  const tabs = ["Home", ...mockPlaylists.map(p => p.name), "Recommendations"];
 
-  const galleryBlocks = [...Array(15)].map((_, i) => (
-    <div key={i} className="bg-[#0E1117] w-full h-64 rounded-lg"></div>
-  ));
+  const tabToPlaylist: Record<string, typeof mockPlaylists> = {
+    Home: mockPlaylists, // show all playlists
+    Recommendations: mockPlaylists.slice(-1), // example, last playlist
+  };
+
+  // Automatically map each playlist name to itself
+  mockPlaylists.forEach((playlist) => {
+    tabToPlaylist[playlist.name] = [playlist];
+  });
+
+  function themeButton() {
+    setDark(prevClick => !prevClick)
+  }
+
+  function handleMute() {
+    setMute(prevClick => !prevClick)
+  }
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
@@ -24,16 +36,16 @@ function ProfilePageView() {
         {/* Music player featured */}
 
         <div className="left-1/2 flex items-center justify-between shadow-2xl rounded-2xl">
-          <MusicPlayerFeature />
+          <MusicPlayerFeature muted={mute} />
         </div>
 
-        <button className="absolute top-4 right-4 bg-white/40 p-3 rounded-md">
-          <Volume2 className="text-white w-6 h-6" />
+        <button onClick={handleMute} className="absolute top-4 right-4 bg-white/40 p-3 rounded-md">
+          {mute ?<VolumeX className="text-white w-6 h-6"/> : <Volume2 className="text-white w-6 h-6"/>}
         </button>
       </div>
 
       <div className="w-full bg-white text-black pb-6 pt-12 relative">
-        <button className="absolute top-6 left-6 bg-black w-10 h-10 rounded-xl flex items-center justify-center shadow-lg">
+        <button onClick={themeButton} className="absolute top-6 left-6 bg-black w-10 h-10 rounded-xl flex items-center justify-center shadow-lg">
           <Palette className="text-white w-5 h-5" />
         </button>
 
@@ -76,16 +88,8 @@ function ProfilePageView() {
 
           <div className="w-20"></div>
         </div>
-
         <div className="flex justify-center gap-8 mt-6 text-gray-600 text-sm border-b border-gray-300 pb-3">
-          {[
-            "Home",
-            "Playlist1",
-            "Playlist2",
-            "Playlist3",
-            "Playlist4",
-            "Recommendations",
-          ].map((tab) => (
+          {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -100,10 +104,9 @@ function ProfilePageView() {
           ))}
         </div>
       </div>
-      {/* TODO Here is the custom part for the theme in the bottom make login form paint color in the corner */}
-      <div className="w-full bg-white px-4 py-8">
+      <div className={`w-full px-4 py-8 ${ dark ? "bg-black text-white transition-colors duration-300 ease-in-out" : "bg-white text-black transition-colors duration-300 ease-in-out"}`}>
         <MasonryAdvanced
-          dataSources={mockPlaylists}
+          dataSources={tabToPlaylist[activeTab] || []}
           gap={16}
           minColumnWidth={200}
         />
@@ -112,4 +115,4 @@ function ProfilePageView() {
   );
 }
 
-export default ProfilePageView;
+export default ProfilePageView; 
