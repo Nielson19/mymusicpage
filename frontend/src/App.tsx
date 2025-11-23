@@ -10,7 +10,11 @@ import MasonryAdvanced from "./components/GeneralComp/MasonryAdvanced";
 // import { mockPlaylists } from "./components/GeneralComp/MockPlaylists";
 
 function App() {
-  return <div>{/* <LoginPageView /> */}</div>;
+  return (
+    <div>
+      <TestView />
+    </div>
+  );
 }
 
 export default App;

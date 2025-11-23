@@ -2,39 +2,61 @@ import React from "react";
 import { motion } from "framer-motion";
 import { IoMdSettings, IoIosSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
-
-
-const items = [
-  { id: 1, img: "https://placehold.co/400x600", title: "Desert Walk" },
-  { id: 2, img: "https://placehold.co/500x400", title: "Soft Shadows" },
-  { id: 3, img: "https://placehold.co/350x500", title: "Industrial Speaker" },
-  { id: 4, img: "https://placehold.co/450x450", title: "Sculpture" },
-  { id: 5, img: "https://placehold.co/300x450", title: "Abstract Hair" },
-  { id: 6, img: "https://placehold.co/500x700", title: "Minimal Form" },
-  { id: 7, img: "https://placehold.co/300x300", title: "Balance Mobile" },
-  { id: 8, img: "https://placehold.co/400x500", title: "Studio Shot" },
-];
+import MasonryAdvanced from "../components/GeneralComp/MasonryAdvanced";
+import type { DataSource } from "../components/GeneralComp/MasonryAdvanced";
+// Import your data sources
+import { musicDataSources } from "../data/musicData";
+// Alternative: use mock data
+// import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 
 export default function MainDashboard() {
+  // Option 1: Use the custom music data sources
+  const dataSources: DataSource[] = musicDataSources;
+
+  // Option 2: Use user playlists
+  // const dataSources: DataSource[] = userPlaylists;
+
+  // Option 3: Combine different data sources
+  // const dataSources: DataSource[] = [...musicDataSources, ...userPlaylists];
+
+  // Option 4: Create custom data on the fly
+  // const dataSources: DataSource[] = [
+  //   {
+  //     id: "custom-playlist",
+  //     name: "My Custom Playlist",
+  //     color: "#ff6b6b",
+  //     items: [
+  //       {
+  //         imgLink: "https://picsum.photos/300/300",
+  //         size: "SQUARE",
+  //         songName: "Song Name",
+  //         artistName: "Artist Name"
+  //       }
+  //     ]
+  //   }
+  // ];
+
   return (
     <div className="min-h-screen bg-[#0b0b0d] text-gray-200 p-6 cursor-default relative overflow-x-hidden">
-      
       {/* Header */}
-      <div className="w-full flex items-center justify-between mb-10  
+      <div
+        className="w-full flex items-center justify-between mb-10  
                       backdrop-blur-xl bg-white/5
-                      shadow-lg rounded-2xl px-6 py-4 sticky top-4 z-20">
-
+                      shadow-lg rounded-2xl px-6 py-4 sticky top-4 z-20"
+      >
         {/* Logo */}
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-linear-to-br from-gray-600 to-gray-800 rounded-xl"></div>
-          <span className="text-xl font-semibold tracking-wide">MyMusicApp</span>
+          <span className="text-xl font-semibold tracking-wide">
+            MyMusicApp
+          </span>
         </div>
 
         {/* Search Bar */}
         <div className="flex-1 max-w-xl px-10">
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-              <IoIosSearch/>
+              <IoIosSearch />
             </span>
             <input
               type="text"
@@ -52,11 +74,9 @@ export default function MainDashboard() {
         <div className="flex items-center space-x-4">
           <button className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center">
             <FaUser />
-
           </button>
           <button className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center">
             <IoMdSettings />
-
           </button>
         </div>
       </div>
@@ -68,29 +88,17 @@ export default function MainDashboard() {
           Explore new tracks, artists, and visual song posters curated for you.
         </p>
       </div>
-
-      {/* === Masonry Grid (Modernized Cards) === */}
-      <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-        {items.map((item) => (
-          <motion.div
-            key={item.id}
-            whileHover={{ y: -4, scale: 1.03 }}
-            transition={{ type: "spring", stiffness: 200, damping: 18 }}
-            className="break-inside-avoid rounded-2xl overflow-hidden bg-[#111]/80 
-                       shadow-md hover:shadow-xl border border-white/5 
-                       backdrop-blur-sm transition"
-          >
-            <img src={item.img} alt={item.title} className="w-full object-cover" />
-
-            {/* Make appear on hover */}
-            {/* <div className="p-5">
-              <h3 className="text-lg font-medium tracking-wide">{item.title}</h3>
-              <p className="text-gray-400 text-sm mt-1">Recommended for you</p>
-            </div> */}
-          </motion.div>
-        ))}
-      </div>
-
+      <MasonryAdvanced
+        dataSources={dataSources}
+        columnCount={7}
+        distributionStrategy="source-per-column"
+        gap={20}
+        duplicateCount={5}
+        infiniteScroll={true}
+        autoScroll={true}
+        autoScrollSpeed={1.5}
+        pauseOnHover={true}
+      />
     </div>
   );
 }

@@ -18,14 +18,14 @@ function Post({
   }
 
   return (
-    <div className="group p-6">
+    <div className="group rounded-2xl overflow-hidden">
       <div
         className={`w-64 h-64 overflow-hidden ${
           size === "PORTRAIT" ? "h-96" : ""
         }`}
       >
         <div
-          className="flex flex-col aspect-square bg-cover bg-center bg-no-repeat justify-end relative w-full h-full group-hover:scale-105 transition-transform duration-500"
+          className="flex flex-col aspect-square bg-cover bg-center bg-no-repeat justify-end relative w-full h-full group-hover:scale-105 transition-transform duration-500 rounded-2xl"
           style={{
             backgroundImage: `url(${background})`,
           }}

@@ -4,7 +4,7 @@ import { FaPause } from "react-icons/fa";
 import { FaForward } from "react-icons/fa";
 import { FaBackward } from "react-icons/fa";
 import testAudio from "../assets/audio/Victory Lap Klop Remix 11-10.wav"; // Add this import
-import ImageCoverPlaceholder from "../assets/images/postpic.png";
+import { Data } from "../components/GeneralComp/MockPlaylists";
 
 interface MusicPlayerStaticProps {
   songTitle?: string;
