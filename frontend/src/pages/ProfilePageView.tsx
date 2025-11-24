@@ -1,23 +1,31 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MusicPlayerFeature from "../components/MusicPlayerFeature";
-import {Upload, MoreHorizontal, SquarePen, Volume2, Palette, X, VolumeX,} from "lucide-react";
+import {
+  Upload,
+  MoreHorizontal,
+  SquarePen,
+  Volume2,
+  Palette,
+  X,
+  VolumeX,
+} from "lucide-react";
 import MasonryAdvanced from "../components/GeneralComp/MasonryAdvanced";
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 
 function ProfilePageView() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Home");
   const [dark, setDark] = useState(false);
   const [mute, setMute] = useState(false);
   
-  // Dynamic tabs: Home + playlist names + Recommendations
   const tabs = ["Home", ...mockPlaylists.map(p => p.name), "Recommendations"];
 
   const tabToPlaylist: Record<string, typeof mockPlaylists> = {
-    Home: mockPlaylists, // show all playlists
-    Recommendations: mockPlaylists.slice(-1), // example, last playlist
+    Home: mockPlaylists,
+    Recommendations: mockPlaylists.slice(-1),
   };
 
-  // Automatically map each playlist name to itself
   mockPlaylists.forEach((playlist) => {
     tabToPlaylist[playlist.name] = [playlist];
   });
@@ -30,10 +38,23 @@ function ProfilePageView() {
     setMute(prevClick => !prevClick)
   }
 
+  function onTabClick(tab: string) {
+    if (tab === "Home" || tab === "Recommendations") {
+      setActiveTab(tab);
+      return;
+    }
+
+    const playlist = mockPlaylists.find((p) => p.name === tab);
+    if (playlist && playlist.id) {
+      navigate(`/playlist/${encodeURIComponent(String(playlist.id))}`, { state: { playlist } });
+    } else {
+      setActiveTab(tab);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       <div className="relative w-full h-64 bg-linear-to-b from-[#f767ff] to-[#590080] flex items-center justify-center">
-        {/* Music player featured */}
 
         <div className="left-1/2 flex items-center justify-between shadow-2xl rounded-2xl">
           <MusicPlayerFeature muted={mute} />
@@ -89,7 +110,7 @@ function ProfilePageView() {
           {tabs.map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => onTabClick(tab)} // ✅ updated handler
               className={`pb-1 ${
                 activeTab === tab
                   ? "text-black font-semibold border-b-2 border-black"
@@ -120,4 +141,4 @@ function ProfilePageView() {
   );
 }
 
-export default ProfilePageView; 
+export default ProfilePageView;

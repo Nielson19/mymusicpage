@@ -79,8 +79,7 @@ function MasonryAdvanced({
             {/* Scrollable Posts Container */}
             <div
               className="flex flex-col flex-1 overflow-x-hidden overflow-y-auto scrollbar-none"
-              style={{ gap: `${gap}px` }}
-            >
+              style={{ gap: `${gap}px` }}>
               {/* Posts */}
               {column.items.map((item, idx) => (
                 <div
@@ -89,18 +88,9 @@ function MasonryAdvanced({
                   style={{
                     aspectRatio: item.size === "PORTRAIT" ? "3 / 4" : "1 / 1",
                     backgroundColor: item.background || "#f3f4f6",
-                  }}
-                >
-                  <img
-                    src={item.imgLink}
-                    alt={item.songName}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="p-2">
-                    <p className="font-medium">{item.songName}</p>
-                    <p className="text-sm text-gray-500">{item.artistName}</p>
+                  }}>
+                  <Post imgLink={item.imgLink} size={item.size} songName={item.songName} artistName={item.artistName} /> 
                   </div>
-                </div>
               ))}
             </div>
           </div>

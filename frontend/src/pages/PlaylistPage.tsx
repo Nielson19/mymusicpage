@@ -1,34 +1,56 @@
 import React from "react";
+import { useLocation, useParams } from "react-router-dom"; 
 import Masonry from "../components/GeneralComp/MasonryStatic";
+import { mockPlaylists } from "../components/GeneralComp/MockPlaylists"; 
 
 const PlaylistPage: React.FC = () => {
+  const location = useLocation();
+  const params = useParams<{ id: string }>(); 
+
+  const playlistFromState = location.state?.playlist;
+
+  const id = params.id;
+  const playlistFromId = id
+    ? mockPlaylists.find((p) => p.id === decodeURIComponent(id))
+    : undefined;
+  
+  const playlist = playlistFromState || playlistFromId;
+
+  if (!playlist) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-500">
+        Playlist not found.
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#0b0b0d] text-gray-200 cursor-default">
       {/* Header */}
       <div className="w-full h-64 md:h-80 bg-linear-to-b from-orange-300 to-pink-300 relative">
         <div className="absolute bottom-4 left-6 flex items-center gap-4">
           <img
-            src="https://placehold.co/150x150/png"
+            src={playlist.coverImg || "https://placehold.co/150x150/png"}
             alt="cover"
             className="w-32 h-32 md:w-40 md:h-40 rounded-xl shadow-xl object-cover"
           />
 
           <div>
             <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-black">
-              My Synthwave Playlist
+              {playlist.name}
             </h1>
 
             <p className="text-black/80 text-lg mt-1">
-              A collection of neon nostalgia & retro vibes.
+              {playlist.description || "A collection of tracks."}
             </p>
 
             <div className="flex items-center gap-3 mt-4">
               <img
-                src="https://placehold.co/40x40"
+                src={playlist.creatorImg || "https://placehold.co/40x40"}
                 alt="creator"
                 className="w-10 h-10 rounded-full"
               />
-              <span className="text-black/80">Alex Smith</span>
+              <span className="text-black/80">{playlist.creatorName || "Unknown"}</span>
             </div>
           </div>
         </div>
@@ -46,17 +68,17 @@ const PlaylistPage: React.FC = () => {
           Edit Playlist
         </button>
       </div>
+
+      {/* Playlist Content */}
       <Masonry
         dataSource={{
-          id: "playlist1",
-          name: "My Synthwave Playlist",
-          items: Array.from({ length: 20 }, (_, i) => ({
-            imgLink: `https://picsum.photos/300/300?random=${i + 1}`,
-            songName: `Song ${i + 1}`,
-            artistName: `Artist ${i + 1}`,
+          id: playlist.id,
+          name: playlist.name,
+          items: playlist.items.map((item: typeof playlist.items[0]) => ({
+            ...item,
             size: "SQUARE" as const,
           })),
-          color: "#FF6EC7",
+          color: playlist.color || "#FF6EC7",
         }}
         columnCount={7}
         gap={20}
@@ -66,3 +88,4 @@ const PlaylistPage: React.FC = () => {
 };
 
 export default PlaylistPage;
+
