@@ -1,3 +1,5 @@
+// TODO: Link the items to actual song/artist pages from the database and API
+// TODO: Hold the information of the POST so its always dislayed in all the pages correspoinding of its group
 export interface PostProps {
   imgLink: string;
   size: "SQUARE" | "PORTRAIT";

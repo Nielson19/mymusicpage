@@ -8,7 +8,7 @@ import {
   Palette,
   X,
 } from "lucide-react";
-import MasonryAdvanced from "../components/GeneralComp/MasonryAdvanced";
+import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 
 function ProfilePageView() {

@@ -1,4 +1,4 @@
-import type { DataSource } from "../components/GeneralComp/MasonryAdvanced";
+import type { DataSource } from "../components/GeneralComp/MasonryDynamic";
 
 // Example 1: Static data sources for different music categories
 export const musicDataSources: DataSource[] = [

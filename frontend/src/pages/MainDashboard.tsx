@@ -2,13 +2,13 @@ import React from "react";
 import { motion } from "framer-motion";
 import { IoMdSettings, IoIosSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
-import MasonryAdvanced from "../components/GeneralComp/MasonryAdvanced";
-import type { DataSource } from "../components/GeneralComp/MasonryAdvanced";
+import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
+import type { DataSource } from "../components/GeneralComp/MasonryDynamic";
+
 // Import your data sources
 import { musicDataSources } from "../data/musicData";
 import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import AppLogo from "../assets/icons/HeadphonesNoBG.png";
-import App from "../App";
 // Alternative: use mock data
 // import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 
