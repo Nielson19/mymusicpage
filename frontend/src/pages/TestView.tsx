@@ -12,10 +12,10 @@ import PlaylistPage from "./PlaylistPage";
 function TestView() {
   return (
     <div>
-      {/* <ProfilePageView /> */}
+      <ProfilePageView />
       {/* <CreatePost /> */}
       {/* <GiphyPicker /> */}
-      <PlaylistPage />
+      {/* <PlaylistPage /> */}
     </div>
   );
 }

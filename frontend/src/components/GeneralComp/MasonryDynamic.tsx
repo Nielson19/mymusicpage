@@ -275,19 +275,19 @@ function MasonryAdvanced({
             }}
           >
             {/* Column header - only show for source-per-column strategy */}
-            {/* {distributionStrategy === "source-per-column" &&
+            {distributionStrategy === "source-per-column" &&
               column.sourceInfo && (
                 <div
                   className={`
-                  text-md font-medium mb-2 p-2 rounded-lg cursor-pointer bg-transparent
+                  text-md font-medium mb-2 p-2 cursor-pointer bg-transparent
                   transition-colors duration-500 shrink-0 justify-center flex items-center
-                  ${column.sourceInfo.color ? "text-white" : "text-gray-700"}
-                  hover:brightness-80 
+                  ${column.sourceInfo.color ? "text-black" : "text-gray-700"}
+                  hover:brightness-80 border-b-1 mb-8
                 `}
                 >
                   {column.sourceInfo.name}
                 </div>
-              )} */}
+              )}
 
             {/* Scrollable Posts Container */}
             <div

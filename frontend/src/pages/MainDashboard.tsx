@@ -9,35 +9,11 @@ import type { DataSource } from "../components/GeneralComp/MasonryDynamic";
 import { musicDataSources } from "../data/musicData";
 import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import AppLogo from "../assets/icons/HeadphonesNoBG.png";
-// Alternative: use mock data
-// import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 
 export default function MainDashboard() {
-  // Option 1: Use the custom music data sources
   const dataSources: DataSource[] = musicDataSources;
 
-  // Option 2: Use user playlists
-  // const dataSources: DataSource[] = userPlaylists;
-
-  // Option 3: Combine different data sources
-  // const dataSources: DataSource[] = [...musicDataSources, ...userPlaylists];
-
-  // Option 4: Create custom data on the fly
-  // const dataSources: DataSource[] = [
-  //   {
-  //     id: "custom-playlist",
-  //     name: "My Custom Playlist",
-  //     color: "#ff6b6b",
-  //     items: [
-  //       {
-  //         imgLink: "https://picsum.photos/300/300",
-  //         size: "SQUARE",
-  //         songName: "Song Name",
-  //         artistName: "Artist Name"
-  //       }
-  //     ]
-  //   }
-  // ];
+  //TODO: Create the conponent on the top to filter the different data sources one is "For You" and "Following"
 
   return (
     <div className="min-h-screen bg-[#0b0b0d] text-gray-200 p-6 cursor-default relative overflow-x-hidden">
