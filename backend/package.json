@@ -4,16 +4,15 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "seed": "node data/seed.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "seed": "node src/data/seed.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "mongoose": "^8.19.2",
-    "package.json": "^0.0.0"
+    "mongoose": "^8.19.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.1.0",

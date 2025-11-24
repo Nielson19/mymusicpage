@@ -1,10 +1,17 @@
 import mongoose from "mongoose";
 
+const songSchema = new mongoose.Schema({
+  apple_id: {type: String, unique: true, required: true},
+  name: {type: String, required: true},
+  artist_name: String,
+  album_name: String,
+  preview_url: String,
+  release_date: Date,
+  primary_genre: String,
+  is_streamable: {type: Boolean, required: true},
+})
+
 /*
-
-
-*/
-
 const apiInfoSchema = new mongoose.Schema(
   {
     spotify_id: {
@@ -40,5 +47,6 @@ const musicSchema = new mongoose.Schema({
     required: true,
   },
 });
+*/
 
-export default mongoose.model("Song", musicSchema);
+export default mongoose.model("Song", songSchema);
