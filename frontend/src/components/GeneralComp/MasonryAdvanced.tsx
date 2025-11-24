@@ -60,7 +60,7 @@ function MasonryAdvanced({
             }}
           >
             {/* Playlist header with hover */}
-            {column.sourceInfo && (
+            {/* {column.sourceInfo && (
               <div
                 className={`
                   text-sm font-medium mb-2 p-2 rounded-lg cursor-pointer 
@@ -74,11 +74,11 @@ function MasonryAdvanced({
               >
                 {column.sourceInfo.name}
               </div>
-            )}
+            )} */}
 
             {/* Scrollable Posts Container */}
             <div
-              className="flex flex-col flex-1 overflow-y-auto scrollbar-none"
+              className="flex flex-col flex-1 overflow-x-hidden overflow-y-auto scrollbar-none"
               style={{ gap: `${gap}px` }}
             >
               {/* Posts */}

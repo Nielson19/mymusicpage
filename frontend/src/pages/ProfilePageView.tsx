@@ -7,7 +7,7 @@ import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 function ProfilePageView() {
   const [activeTab, setActiveTab] = useState("Home");
   const [dark, setDark] = useState(false);
-  const [mute, setMute] = useState(false)
+  const [mute, setMute] = useState(false);
   
   // Dynamic tabs: Home + playlist names + Recommendations
   const tabs = ["Home", ...mockPlaylists.map(p => p.name), "Recommendations"];
@@ -40,7 +40,7 @@ function ProfilePageView() {
         </div>
 
         <button onClick={handleMute} className="absolute top-4 right-4 bg-white/40 p-3 rounded-md">
-          {mute ?<VolumeX className="text-white w-6 h-6"/> : <Volume2 className="text-white w-6 h-6"/>}
+          {mute ? <VolumeX className="text-white w-6 h-6"/> : <Volume2 className="text-white w-6 h-6"/>}
         </button>
       </div>
 
@@ -50,16 +50,16 @@ function ProfilePageView() {
         </button>
 
         <div className="absolute top-4 right-6 flex items-center gap-3">
-          <button className="flex items-center gap-1 bg-black text-white px-3 py-[6px] rounded-lg text-sm">
+          <button className="flex items-center gap-1 bg-black text-white px-3 py-1.5 rounded-lg text-sm">
             <SquarePen className="w-4 h-4" />
             Create
           </button>
 
-          <button className="bg-white border px-3 py-[6px] rounded-lg hover:bg-gray-100">
+          <button className="bg-white border px-3 py-1.5 rounded-lg hover:bg-gray-100">
             <Upload className="w-4 h-4 text-black" />
           </button>
 
-          <button className="bg-white border px-3 py-[6px] rounded-lg hover:bg-gray-100">
+          <button className="bg-white border px-3 py-1.5 rounded-lg hover:bg-gray-100">
             <MoreHorizontal className="w-4 h-4 text-black" />
           </button>
         </div>
@@ -73,10 +73,7 @@ function ProfilePageView() {
             <h1 className="text-xl font-bold mt-4">Your Name</h1>
             <p className="text-gray-500 text-sm">Add headline</p>
 
-            <a
-              href="#"
-              className="text-[#7C4DFF] text-sm mt-1 hover:text-[#9b6cff]"
-            >
+            <a href="#" className="text-[#7C4DFF] text-sm mt-1 hover:text-[#9b6cff]">
               patreon.com/ASMobbin
             </a>
 
@@ -97,19 +94,23 @@ function ProfilePageView() {
                 activeTab === tab
                   ? "text-black font-semibold border-b-2 border-black"
                   : ""
-              }`}
-            >
+              }`}>
               {tab}
             </button>
           ))}
         </div>
       </div>
+      <div
+        key={activeTab}
+        className={`transition-opacity duration-[1500ms] ease-in-out opacity-0`}
+        style={{ animation: 'fadeIn 1.5s forwards' }}>
       <div className={`w-full px-4 py-8 ${ dark ? "bg-black text-white transition-colors duration-300 ease-in-out" : "bg-white text-black transition-colors duration-300 ease-in-out"}`}>
         <MasonryAdvanced
           dataSources={tabToPlaylist[activeTab] || []}
           gap={16}
           minColumnWidth={200}
         />
+      </div>
       </div>
     </div>
   );
