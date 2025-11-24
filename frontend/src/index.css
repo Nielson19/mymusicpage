@@ -37,3 +37,24 @@
         @apply flex flex-col justify-center items-center h-screen bg-gray-900;
     }
 }
+
+@layer utilities {
+  .inputDiv {
+    @apply flex flex-col relative w-80
+  }
+  .inputBox{
+    @apply border border-white p-2 rounded-xl
+  } 
+
+  .inputBox~span {
+    @apply absolute text-slate-500 p-2
+  }
+
+  .inputBox:focus~span, .inputBox:valid~span {
+    @apply text-purple-600 transform translate-x-[10px] translate-y-[-10px] text-sm p-0 bg-neutral-900 duration-100
+  }
+
+  .inputBox:focus, .inputBox:valid {
+    @apply border-purple-600
+  }
+}

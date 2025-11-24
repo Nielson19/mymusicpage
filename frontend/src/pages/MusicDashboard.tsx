@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MasonryAdvanced from "../components/GeneralComp/MasonryAdvanced";
+import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
 import {
   useMultiSourceMasonry,
   exampleAPIFunctions,
