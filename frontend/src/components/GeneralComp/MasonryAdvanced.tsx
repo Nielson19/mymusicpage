@@ -144,11 +144,35 @@ function MasonryAdvanced({
     isScrollingManually.current = new Array(columnCount).fill(false);
     scrollTimeouts.current = new Array(columnCount).fill(0);
     isHovering.current = new Array(columnCount).fill(false);
-    // Initialize alternating scroll directions: up, down, up, down...
+    // Initialize alternating scroll directions: down, up, down, up...
     scrollDirections.current = new Array(columnCount)
       .fill(false)
-      .map((_, index) => index % 2 === 0);
+      .map((_, index) => index % 2 === 0); // true = down, false = up
   }, [columnCount]);
+
+  // Set initial scroll positions after content loads
+  useEffect(() => {
+    if (!autoScroll && !infiniteScroll) return;
+
+    const setInitialPositions = () => {
+      scrollRefs.current.forEach((scrollContainer, index) => {
+        if (!scrollContainer) return;
+
+        const { scrollHeight, clientHeight } = scrollContainer;
+        const maxScroll = scrollHeight - clientHeight;
+
+        if (maxScroll > 0) {
+          // Odd columns (index 0, 2, 4...) start at top, even columns (index 1, 3, 5...) start at bottom
+          const startPosition = index % 2 === 0 ? 0 : maxScroll;
+          scrollContainer.scrollTop = startPosition;
+        }
+      });
+    };
+
+    // Set positions after content is rendered
+    const timeout = setTimeout(setInitialPositions, 200);
+    return () => clearTimeout(timeout);
+  }, [columnCount, autoScroll, infiniteScroll]);
 
   // Auto scroll animation function
   const autoScrollColumn = useCallback(
@@ -167,23 +191,28 @@ function MasonryAdvanced({
       const isScrollingDown = scrollDirections.current[columnIndex];
       const maxScroll = scrollHeight - clientHeight;
 
+      if (maxScroll <= 0) {
+        // Not enough content to scroll
+        return;
+      }
+
       if (isScrollingDown) {
         // Scroll down
-        const newScrollTop = scrollTop + autoScrollSpeed;
+        const newScrollTop = Math.min(scrollTop + autoScrollSpeed, maxScroll);
+        scrollContainer.scrollTop = newScrollTop;
+
         if (newScrollTop >= maxScroll) {
           // Reverse direction when reaching bottom
           scrollDirections.current[columnIndex] = false;
-        } else {
-          scrollContainer.scrollTop = newScrollTop;
         }
       } else {
         // Scroll up
-        const newScrollTop = scrollTop - autoScrollSpeed;
+        const newScrollTop = Math.max(scrollTop - autoScrollSpeed, 0);
+        scrollContainer.scrollTop = newScrollTop;
+
         if (newScrollTop <= 0) {
           // Reverse direction when reaching top
           scrollDirections.current[columnIndex] = true;
-        } else {
-          scrollContainer.scrollTop = newScrollTop;
         }
       }
 
@@ -195,15 +224,23 @@ function MasonryAdvanced({
     [autoScroll, autoScrollSpeed]
   );
 
-  // Start auto scroll for all columns
+  // Start auto scroll for all columns after content is ready
   useEffect(() => {
     if (!autoScroll) return;
 
-    for (let i = 0; i < columnCount; i++) {
-      autoScrollColumn(i);
-    }
+    const startAutoScroll = () => {
+      for (let i = 0; i < columnCount; i++) {
+        if (scrollRefs.current[i]) {
+          autoScrollColumn(i);
+        }
+      }
+    };
+
+    // Start auto scroll after content is loaded and positioned
+    const timeout = setTimeout(startAutoScroll, 300);
 
     return () => {
+      clearTimeout(timeout);
       // Cleanup animation frames
       animationFrameIds.current.forEach((id) => {
         if (id) cancelAnimationFrame(id);
@@ -402,6 +439,42 @@ function MasonryAdvanced({
     infiniteScroll,
     duplicateCount,
   ]);
+
+  // Restart auto-scroll when columns content changes
+  useEffect(() => {
+    if (!autoScroll) return;
+
+    const restartAutoScroll = () => {
+      // Cancel any existing animations
+      animationFrameIds.current.forEach((id) => {
+        if (id) cancelAnimationFrame(id);
+      });
+
+      // Reset staggered starting positions after content change
+      scrollRefs.current.forEach((scrollContainer, index) => {
+        if (!scrollContainer) return;
+
+        const { scrollHeight, clientHeight } = scrollContainer;
+        const maxScroll = scrollHeight - clientHeight;
+
+        if (maxScroll > 0) {
+          // Odd columns (index 0, 2, 4...) start at top, even columns (index 1, 3, 5...) start at bottom
+          const startPosition = index % 2 === 0 ? 0 : maxScroll;
+          scrollContainer.scrollTop = startPosition;
+        }
+      });
+
+      // Start auto scroll for all columns
+      for (let i = 0; i < columnCount; i++) {
+        if (scrollRefs.current[i]) {
+          setTimeout(() => autoScrollColumn(i), 400 + i * 100); // Stagger start times
+        }
+      }
+    };
+
+    const timeout = setTimeout(restartAutoScroll, 100);
+    return () => clearTimeout(timeout);
+  }, [columns, autoScroll, columnCount, autoScrollColumn]);
 
   return (
     <div

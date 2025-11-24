@@ -6,6 +6,7 @@ import MasonryAdvanced from "../components/GeneralComp/MasonryAdvanced";
 import type { DataSource } from "../components/GeneralComp/MasonryAdvanced";
 // Import your data sources
 import { musicDataSources } from "../data/musicData";
+import MusicPlayerStatic from "../components/MusicPlayerStatic";
 // Alternative: use mock data
 // import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 
@@ -99,6 +100,7 @@ export default function MainDashboard() {
         autoScrollSpeed={1.5}
         pauseOnHover={true}
       />
+      <MusicPlayerStatic />
     </div>
   );
 }
