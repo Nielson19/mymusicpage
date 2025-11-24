@@ -17,9 +17,6 @@ interface MasonryAdvancedProps {
   distributionStrategy?: "round-robin" | "source-per-column" | "fill-columns";
   infiniteScroll?: boolean;
   duplicateCount?: number;
-  autoScroll?: boolean;
-  autoScrollSpeed?: number;
-  pauseOnHover?: boolean;
 }
 
 function randomSize(): "PORTRAIT" | "SQUARE" {
@@ -74,16 +71,6 @@ function randomSize(): "PORTRAIT" | "SQUARE" {
  *                                     Higher values provide smoother infinite scrolling but use more memory.
  *                                     Only applies when infiniteScroll is enabled.
  *
- * @param {boolean} [autoScroll=false] - Enables automatic scrolling animation. Columns will automatically
- *                                      scroll in alternating directions (up/down/up/etc). Pauses when user
- *                                      interacts and resumes after 5 seconds of inactivity.
- *
- * @param {number} [autoScrollSpeed=1] - Speed of automatic scrolling animation in pixels per frame.
- *                                      Higher values = faster scrolling. Recommended range: 0.5-3.
- *
- * @param {boolean} [pauseOnHover=true] - Whether to pause auto-scroll when hovering over columns.
- *                                       Also pauses on manual scroll with 5-second resume timer.
- *
  * Features:
  * - Independent column scrolling (each column scrolls separately)
  * - Hidden scrollbars for clean appearance
@@ -93,8 +80,6 @@ function randomSize(): "PORTRAIT" | "SQUARE" {
  * - Source identification via headers or tags
  * - Color-coded theming based on data source colors
  * - Optional infinite scrolling with seamless content looping
- * - Automatic scrolling with alternating directions per column
- * - Smart pause/resume on user interaction
  *
  * @example
  * // Display playlists as separate columns
@@ -106,15 +91,13 @@ function randomSize(): "PORTRAIT" | "SQUARE" {
  * />
  *
  * @example
- * // Auto-scrolling columns with infinite scroll
+ * // Infinite scroll masonry
  * <MasonryAdvanced
  *   dataSources={musicPlaylists}
  *   distributionStrategy="round-robin"
  *   columnCount={3}
  *   infiniteScroll={true}
- *   autoScroll={true}
- *   autoScrollSpeed={1.5}
- *   pauseOnHover={true}
+ *   duplicateCount={5}
  * />
  */
 
@@ -126,179 +109,13 @@ function MasonryAdvanced({
   distributionStrategy = "round-robin",
   infiniteScroll = false,
   duplicateCount = 3,
-  autoScroll = false,
-  autoScrollSpeed = 1,
-  pauseOnHover = true,
 }: MasonryAdvancedProps) {
   const scrollRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const animationFrameIds = useRef<number[]>([]);
-  const isScrollingManually = useRef<boolean[]>([]);
-  const scrollTimeouts = useRef<number[]>([]);
-  const isHovering = useRef<boolean[]>([]);
-  const scrollDirections = useRef<boolean[]>([]); // true = down, false = up
 
   // Initialize refs
   useEffect(() => {
     scrollRefs.current = new Array(columnCount).fill(null);
-    animationFrameIds.current = new Array(columnCount).fill(0);
-    isScrollingManually.current = new Array(columnCount).fill(false);
-    scrollTimeouts.current = new Array(columnCount).fill(0);
-    isHovering.current = new Array(columnCount).fill(false);
-    // Initialize alternating scroll directions: down, up, down, up...
-    scrollDirections.current = new Array(columnCount)
-      .fill(false)
-      .map((_, index) => index % 2 === 0); // true = down, false = up
   }, [columnCount]);
-
-  // Set initial scroll positions after content loads
-  useEffect(() => {
-    if (!autoScroll && !infiniteScroll) return;
-
-    const setInitialPositions = () => {
-      scrollRefs.current.forEach((scrollContainer, index) => {
-        if (!scrollContainer) return;
-
-        const { scrollHeight, clientHeight } = scrollContainer;
-        const maxScroll = scrollHeight - clientHeight;
-
-        if (maxScroll > 0) {
-          // Odd columns (index 0, 2, 4...) start at top, even columns (index 1, 3, 5...) start at bottom
-          const startPosition = index % 2 === 0 ? 0 : maxScroll;
-          scrollContainer.scrollTop = startPosition;
-        }
-      });
-    };
-
-    // Set positions after content is rendered
-    const timeout = setTimeout(setInitialPositions, 200);
-    return () => clearTimeout(timeout);
-  }, [columnCount, autoScroll, infiniteScroll]);
-
-  // Auto scroll animation function
-  const autoScrollColumn = useCallback(
-    (columnIndex: number) => {
-      const scrollContainer = scrollRefs.current[columnIndex];
-      if (
-        !scrollContainer ||
-        !autoScroll ||
-        isScrollingManually.current[columnIndex] ||
-        isHovering.current[columnIndex]
-      ) {
-        return;
-      }
-
-      const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
-      const isScrollingDown = scrollDirections.current[columnIndex];
-      const maxScroll = scrollHeight - clientHeight;
-
-      if (maxScroll <= 0) {
-        // Not enough content to scroll
-        return;
-      }
-
-      if (isScrollingDown) {
-        // Scroll down
-        const newScrollTop = Math.min(scrollTop + autoScrollSpeed, maxScroll);
-        scrollContainer.scrollTop = newScrollTop;
-
-        if (newScrollTop >= maxScroll) {
-          // Reverse direction when reaching bottom
-          scrollDirections.current[columnIndex] = false;
-        }
-      } else {
-        // Scroll up
-        const newScrollTop = Math.max(scrollTop - autoScrollSpeed, 0);
-        scrollContainer.scrollTop = newScrollTop;
-
-        if (newScrollTop <= 0) {
-          // Reverse direction when reaching top
-          scrollDirections.current[columnIndex] = true;
-        }
-      }
-
-      // Continue animation
-      animationFrameIds.current[columnIndex] = requestAnimationFrame(() =>
-        autoScrollColumn(columnIndex)
-      );
-    },
-    [autoScroll, autoScrollSpeed]
-  );
-
-  // Start auto scroll for all columns after content is ready
-  useEffect(() => {
-    if (!autoScroll) return;
-
-    const startAutoScroll = () => {
-      for (let i = 0; i < columnCount; i++) {
-        if (scrollRefs.current[i]) {
-          autoScrollColumn(i);
-        }
-      }
-    };
-
-    // Start auto scroll after content is loaded and positioned
-    const timeout = setTimeout(startAutoScroll, 300);
-
-    return () => {
-      clearTimeout(timeout);
-      // Cleanup animation frames
-      animationFrameIds.current.forEach((id) => {
-        if (id) cancelAnimationFrame(id);
-      });
-    };
-  }, [autoScroll, columnCount, autoScrollColumn]);
-
-  // Handle manual scroll - pause auto scroll
-  const handleManualScroll = useCallback(
-    (columnIndex: number) => {
-      if (!autoScroll) return;
-
-      // Cancel current animation
-      if (animationFrameIds.current[columnIndex]) {
-        cancelAnimationFrame(animationFrameIds.current[columnIndex]);
-      }
-
-      // Mark as manually scrolling
-      isScrollingManually.current[columnIndex] = true;
-
-      // Clear existing timeout
-      if (scrollTimeouts.current[columnIndex]) {
-        clearTimeout(scrollTimeouts.current[columnIndex]);
-      }
-
-      // Resume auto scroll after 5 seconds
-      scrollTimeouts.current[columnIndex] = window.setTimeout(() => {
-        isScrollingManually.current[columnIndex] = false;
-        autoScrollColumn(columnIndex);
-      }, 5000);
-    },
-    [autoScroll, autoScrollColumn]
-  );
-
-  // Handle mouse enter/leave for pause on hover
-  const handleMouseEnter = useCallback(
-    (columnIndex: number) => {
-      if (!pauseOnHover || !autoScroll) return;
-
-      isHovering.current[columnIndex] = true;
-      if (animationFrameIds.current[columnIndex]) {
-        cancelAnimationFrame(animationFrameIds.current[columnIndex]);
-      }
-    },
-    [pauseOnHover, autoScroll]
-  );
-
-  const handleMouseLeave = useCallback(
-    (columnIndex: number) => {
-      if (!pauseOnHover || !autoScroll) return;
-
-      isHovering.current[columnIndex] = false;
-      if (!isScrollingManually.current[columnIndex]) {
-        autoScrollColumn(columnIndex);
-      }
-    },
-    [pauseOnHover, autoScroll, autoScrollColumn]
-  );
 
   // Function to duplicate items for infinite scroll
   const duplicateItems = (items: any[]) => {
@@ -316,7 +133,7 @@ function MasonryAdvanced({
     return duplicated;
   };
 
-  // Handle infinite scroll logic and manual scroll detection
+  // Handle infinite scroll logic
   const handleScroll = useCallback(
     (columnIndex: number) => {
       const scrollContainer = scrollRefs.current[columnIndex];
@@ -333,11 +150,8 @@ function MasonryAdvanced({
           scrollContainer.scrollTop = resetPosition;
         }
       }
-
-      // Handle auto-scroll pause on manual scroll
-      handleManualScroll(columnIndex);
     },
-    [infiniteScroll, duplicateCount, handleManualScroll]
+    [infiniteScroll, duplicateCount]
   );
   // Prepare columns based on distribution strategy
   const columns = useMemo(() => {
@@ -440,42 +254,6 @@ function MasonryAdvanced({
     duplicateCount,
   ]);
 
-  // Restart auto-scroll when columns content changes
-  useEffect(() => {
-    if (!autoScroll) return;
-
-    const restartAutoScroll = () => {
-      // Cancel any existing animations
-      animationFrameIds.current.forEach((id) => {
-        if (id) cancelAnimationFrame(id);
-      });
-
-      // Reset staggered starting positions after content change
-      scrollRefs.current.forEach((scrollContainer, index) => {
-        if (!scrollContainer) return;
-
-        const { scrollHeight, clientHeight } = scrollContainer;
-        const maxScroll = scrollHeight - clientHeight;
-
-        if (maxScroll > 0) {
-          // Odd columns (index 0, 2, 4...) start at top, even columns (index 1, 3, 5...) start at bottom
-          const startPosition = index % 2 === 0 ? 0 : maxScroll;
-          scrollContainer.scrollTop = startPosition;
-        }
-      });
-
-      // Start auto scroll for all columns
-      for (let i = 0; i < columnCount; i++) {
-        if (scrollRefs.current[i]) {
-          setTimeout(() => autoScrollColumn(i), 400 + i * 100); // Stagger start times
-        }
-      }
-    };
-
-    const timeout = setTimeout(restartAutoScroll, 100);
-    return () => clearTimeout(timeout);
-  }, [columns, autoScroll, columnCount, autoScrollColumn]);
-
   return (
     <div
       className="w-full flex justify-center px-4"
@@ -488,16 +266,13 @@ function MasonryAdvanced({
         {columns.map((column, index) => (
           <div
             key={index}
-            className="flex flex-col overflow-y-auto scrollbar-none"
+            className="flex flex-col"
             style={{
               minWidth: `${minColumnWidth}px`,
               maxWidth: `${minColumnWidth * 1.2}px`,
-              gap: `${gap}px`,
               flex: "1 1 auto",
               maxHeight: "70vh", // Set a fixed height for independent scrolling
             }}
-            onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={() => handleMouseLeave(index)}
           >
             {/* Column header - only show for source-per-column strategy */}
             {/* {distributionStrategy === "source-per-column" &&

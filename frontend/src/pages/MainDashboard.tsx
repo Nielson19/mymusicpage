@@ -7,6 +7,8 @@ import type { DataSource } from "../components/GeneralComp/MasonryAdvanced";
 // Import your data sources
 import { musicDataSources } from "../data/musicData";
 import MusicPlayerStatic from "../components/MusicPlayerStatic";
+import AppLogo from "../assets/icons/HeadphonesNoBG.png";
+import App from "../App";
 // Alternative: use mock data
 // import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 
@@ -47,7 +49,7 @@ export default function MainDashboard() {
       >
         {/* Logo */}
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-linear-to-br from-gray-600 to-gray-800 rounded-xl"></div>
+          <img src={AppLogo} alt="App Logo" className="w-20 h-20 rounded-xl" />
           <span className="text-xl font-semibold tracking-wide">
             MyMusicApp
           </span>
@@ -96,9 +98,6 @@ export default function MainDashboard() {
         gap={20}
         duplicateCount={5}
         infiniteScroll={true}
-        autoScroll={true}
-        autoScrollSpeed={1.5}
-        pauseOnHover={true}
       />
       <MusicPlayerStatic />
     </div>
