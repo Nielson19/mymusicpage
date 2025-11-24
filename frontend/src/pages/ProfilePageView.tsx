@@ -32,7 +32,7 @@ function ProfilePageView() {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      <div className="relative w-full h-64 bg-gradient-to-b from-[#f767ff] to-[#590080] flex items-center justify-center">
+      <div className="relative w-full h-64 bg-linear-to-b from-[#f767ff] to-[#590080] flex items-center justify-center">
         {/* Music player featured */}
 
         <div className="left-1/2 flex items-center justify-between shadow-2xl rounded-2xl">
@@ -78,8 +78,8 @@ function ProfilePageView() {
             </a>
 
             <div className="flex items-center gap-6 mt-4 text-gray-700">
-              <X className="w-5 h-5" />
-              <span className="text-sm">Edit</span>
+              {/* <X className="w-5 h-5" />
+              <span className="text-sm">Edit</span> */}
             </div>
           </div>
 
@@ -109,6 +109,10 @@ function ProfilePageView() {
           dataSources={tabToPlaylist[activeTab] || []}
           gap={16}
           minColumnWidth={200}
+          columnCount={6}
+          infiniteScroll={true}
+          duplicateCount={5}
+          distributionStrategy="source-per-column"
         />
       </div>
       </div>
