@@ -4,17 +4,14 @@ import GiphyPicker from "./GiphyPicker";
 import Post from "./Post";
 import type { PostProps } from "./Post";
 import { IoMdClose } from "react-icons/io";
+import Toggle from "./Toggle";
 export default function CreatePost() {
   const [songName, setSongName] = useState("");
   const [artistName, setArtistName] = useState("");
   const [imgLink, setImgLink] = useState("");
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
   const [background, setBackground] = useState("");
-  const [size, setSize] = useState<PostProps["size"]>("PORTRAIT");
-
-  const toggleSize = () => {
-    setSize(prev => (prev === "PORTRAIT" ? "SQUARE" : "PORTRAIT"));
-  };
+  const [size, setSize] = useState<PostProps["size"]>("SQUARE");
 
   const handleGifSelect = (gifUrl: string) => {
     setBackground(gifUrl);
@@ -73,8 +70,17 @@ export default function CreatePost() {
           value={imgLink}
           onChange={(e) => handleImgLinkChange(e.target.value)}
           className="w-full bg-transparent border-2 border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none"/>
+          
+          <div className="self-start flex items-center gap-3 w-full">
+          <span className="text-sm text-gray-300">Portrait</span>
 
-          <button onClick={toggleSize} className="bg-purple-500 cursor-pointer rounded-xl py-3 font-semibold hover:scale-105 transition w-full"> Toggle Size </button>
+          <Toggle
+            isOn={size === "SQUARE"}
+            onChange={(val) => setSize(val ? "SQUARE" : "PORTRAIT")}
+            defaultVal={size === "SQUARE"} />
+
+          <span className="text-sm text-gray-300">Square</span>
+        </div>
         <div className="w-full mt-4">
           <h3 className="text-sm font-stretch-90% mb-2">Live Preview:</h3>
           <div className="flex justify-center">

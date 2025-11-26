@@ -8,6 +8,8 @@ import {
   Palette,
   X,
 } from "lucide-react";
+import MasonryAdvanced from "../components/GeneralComp/MasonryAdvanced";
+import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 
 function ProfilePageView() {
   const [activeTab, setActiveTab] = useState("Home");
@@ -98,11 +100,13 @@ function ProfilePageView() {
           ))}
         </div>
       </div>
-
-      <div className="w-full bg-black py-10 min-h-[800px]">
-        <div className="grid grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {galleryBlocks}
-        </div>
+      {/* TODO Here is the custom part for the theme in the bottom make login form paint color in the corner */}
+      <div className="w-full bg-white px-4 py-8">
+        <MasonryAdvanced
+          dataSources={mockPlaylists}
+          gap={16}
+          minColumnWidth={200}
+        />
       </div>
     </div>
   );
