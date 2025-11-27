@@ -1,4 +1,4 @@
-import express, { Router } from 'express';
+import { Router } from 'express';
 import { fetchItunesSearch } from '../services/itunes.service.js';
 import Song from '../models/song.model.js';
 
