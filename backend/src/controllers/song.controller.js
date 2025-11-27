@@ -7,3 +7,8 @@ TO-DO LIST:
 * When saving, use upsert (findOneAndUpdate with upsert:true) to avoid duplicates and to allow repeated imports without duplicate songs.
 
 */
+
+search_terms = "";
+
+//https://itunes.apple.com/search?term=TERM1+TERM2&limit=50&entity=song&media=music
+//https://itunes.apple.com/search?term={search_terms}&limit=50&entity=song&media=music
