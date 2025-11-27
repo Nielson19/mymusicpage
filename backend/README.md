@@ -1,52 +1,38 @@
-# Code Notes & Learnings Log
-This is an optional log of what we have done for each file to help understand the different parts without flooding the files with comments.
+# For Debugging:
+## HTTP status codes
+### 1xx: Informational
+* 100 Continue            - Client should continue with request
+* 101 Switching Protocols - Server is switching protocols (e.g., to WebSocket)
 
-# /(backend global)
-### /package.json & /package-lock.json
-These are all the dependecies necessary to download in order to test out the code. Otherwise, a lot of different moving parts won't work properly
+### 2xx: Success
+* 200 OK                  - Standard success for GET/PUT/PATCH
+* 201 Created             - Resource successfully created (usually POST)
+* 202 Accepted            - Request accepted for processing, but not completed
+* 204 No Content          - Request succeeded, but no content returned (often DELETE)
 
-* The easiest way to get all the dependecies is changing directory into the backend folder 'cd backend' (while in the mymusicpage directory) and then doing 'npm install'
+### 3xx: Redirection
+* 301 Moved Permanently   - Resource moved to a new URL permanently
+* 302 Found               - Resource moved temporarily
+* 304 Not Modified        - Cached version is still valid
+* 307 Temporary Redirect  - Like 302, but method (POST/GET) must not change
+* 308 Permanent Redirect  - Like 301, but method (POST/GET) must not change
 
-    * 'npm install' will simply download everything within the package.json file with the same dependecies and their versions that everyone will collectively be using.
+### 4xx: Client Errors
+* 400 Bad Request         - Server cannot process request (syntax error)
+* 401 Unauthorized        - Authentication is required and has failed/missing
+* 403 Forbidden           - Server understands request but refuses (permissions)
+* 404 Not Found           - Resource does not exist
+* 405 Method Not Allowed  - HTTP method not supported for this resource
+* 408 Request Timeout     - Server timed out waiting for the request
+* 409 Conflict            - Request conflicts with current state (e.g., duplicate entry)
+* 410 Gone                - Resource is permanently gone
+* 418 I'm a teapot        - (April Fools joke, but sometimes used)
+* 422 Unprocessable       - Semantic error (validation failed)
+* 429 Too Many Requests   - Rate limiting applied
 
-### /.env (Environment Variables)
-Every developer will individually have their own .env file that is .gitignore'd. This allows for our safekeeping of different secrets like API keys.
-
-* The dotenv package (npm install dotenv) is needed to load these variables into the app.
-
-* You must call require('dotenv').config() at the very top of index.js for it to work.
-
-* Best Practice: No spaces around the '=' symbol (this can mess up how the secret is put into the code).
-
-### /index.js
-This is going to be the front door of the app. It'll start up the server with 'app.listen()', load up the middleware, and then hand off any requests made to their respective routes.
-
-## /controllers
-### /song.controller.js
-
-## /data
-
-## /helpers
-### /spotify.helper.js
-Purpose: This file's only job is to talk to Spotify. It's a "specialist" in a sense. (Chris: Still fully understanding)
-
-* Chris: If you guys need the Spotify API account key, just lmk
-
-getToken() Function:
-
-* This function uses the Client Credentials Flow. This is a server-to-server request that doesn't need a user to log in. It's gonna work great for getting public data, like searching the song catalog.
-
-* It uses request.post to send a POST request to Spotify's token endpoint.
-
-The authOptions object packages up all the settings for the request.
-
-## /models
-### /playlist.model.js
-### /post.model.js
-### /song.model.js
-### /user.model.js
-
-## /node_modules
-
-## /routes
-### /song.route.js
+### 5xx: Server Errors
+* 500 Internal Server Err - Generic server error
+* 501 Not Implemented     - Server lacks capability to fulfill request
+* 502 Bad Gateway         - Invalid response from an upstream server
+* 503 Service Unavailable - Server overload or maintenance
+* 504 Gateway Timeout     - Upstream server failed to send request in time
