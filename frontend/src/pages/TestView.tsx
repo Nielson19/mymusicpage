@@ -8,14 +8,21 @@ import MainDashboard from "./MainDashboard";
 import { Music } from "lucide-react";
 import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import PlaylistPage from "./PlaylistPage";
+import SignupPageView from "./SignupPageView";
+import SettingsPageView from "./SettingsPageView";
 
 function TestView() {
   return (
     <div>
-      <ProfilePageView />
-      {/* <CreatePost /> */}
-      {/* <GiphyPicker /> */}
+      {/* <LoginPageView /> */}
+      <SignupPageView />
+      {/* <ProfilePageView /> */}
+      {/* <MainDashboard /> */}
+      {/* <SettingsPageView /> */}
       {/* <PlaylistPage /> */}
+
+      {/* <CreatePost /> */}
+      {/* <CreatePlaylist /> */}
     </div>
   );
 }
