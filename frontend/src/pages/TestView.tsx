@@ -15,9 +15,9 @@ function TestView() {
   return (
     <div>
       {/* <LoginPageView /> */}
-      <SignupPageView />
+      {/* <SignupPageView /> */}
       {/* <ProfilePageView /> */}
-      {/* <MainDashboard /> */}
+      <MainDashboard />
       {/* <SettingsPageView /> */}
       {/* <PlaylistPage /> */}
 

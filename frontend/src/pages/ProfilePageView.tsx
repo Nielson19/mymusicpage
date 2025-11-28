@@ -6,13 +6,16 @@ import {
   SquarePen,
   Volume2,
   Palette,
+  Home,
   X,
 } from "lucide-react";
 import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePageView() {
   const [activeTab, setActiveTab] = useState("Home");
+  const Navigate = useNavigate();
 
   const galleryBlocks = [...Array(15)].map((_, i) => (
     <div key={i} className="bg-[#0E1117] w-full h-64 rounded-lg"></div>
@@ -27,8 +30,17 @@ function ProfilePageView() {
           <MusicPlayerFeature />
         </div>
 
-        <button className="absolute top-4 right-4 bg-white/40 p-3 rounded-md">
+        <button className="absolute top-4 right-4 bg-black p-3 rounded-md">
           <Volume2 className="text-white w-6 h-6" />
+        </button>
+
+        <button
+          onClick={() => {
+            Navigate("/");
+          }}
+          className="absolute top-4 left-4 bg-black p-3 rounded-md"
+        >
+          <Home className="text-white w-6 h-6" />
         </button>
       </div>
 

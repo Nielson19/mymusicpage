@@ -9,8 +9,10 @@ import type { DataSource } from "../components/GeneralComp/MasonryDynamic";
 import { musicDataSources } from "../data/musicData";
 import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import AppLogo from "../assets/icons/HeadphonesNoBG.png";
+import { useNavigate } from "react-router-dom";
 
 export default function MainDashboard() {
+  const Navigate = useNavigate();
   const dataSources: DataSource[] = musicDataSources;
 
   //TODO: Create the conponent on the top to filter the different data sources one is "For You" and "Following"
@@ -51,7 +53,12 @@ export default function MainDashboard() {
 
         {/* Profile + Settings */}
         <div className="flex items-center space-x-4">
-          <button className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center">
+          <button
+            onClick={() => {
+              Navigate("/profile/username");
+            }}
+            className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center"
+          >
             <FaUser />
           </button>
           <button className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center">
