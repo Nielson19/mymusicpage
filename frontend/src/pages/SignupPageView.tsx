@@ -18,13 +18,13 @@ function SignupPageView() {
   const signupUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/signup", {
+      const response = await axios.post("/api/register", {
         username,
         email,
         password,
       });
       console.log("Response received:", response.status);
-      console.log("Signup successful:", response.data);
+      toast.success("Signup successful:", response.data);
       toast.success("Account created successfully!");
     } catch (error) {
       toast.error("Signup failed. Please try again.");
