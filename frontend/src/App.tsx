@@ -1,9 +1,9 @@
 import TestView from "./pages/TestView";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ProtectedRoute } from "./components/AuthComponents/ProtectedRoute";
-import axios from "axios";
 
 // TODO: add auth context
+// import { AuthProvider } from "./contexts/AuthContext";
 
 // Pages
 import LoginPageView from "./pages/LoginPageView";
@@ -13,7 +13,7 @@ import ProfilePageView from "./pages/ProfilePageView";
 import PlaylistPage from "./pages/PlaylistPage";
 import SettingsPageView from "./pages/SettingsPageView";
 
-axios.defaults.baseURL = "http://localhost:3002/";
+axios.defaults.baseURL = "http://localhost:3002";
 axios.defaults.withCredentials = true;
 
 function App() {

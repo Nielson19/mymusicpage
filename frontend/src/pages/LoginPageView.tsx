@@ -17,7 +17,7 @@ function LoginPageView() {
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // avoid that the page reloads
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post("/api/login", {
         email,
         password,
       });

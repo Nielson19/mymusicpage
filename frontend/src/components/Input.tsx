@@ -11,7 +11,7 @@ type InputProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E1E" }, icon, type = "text", placeholder, value}: InputProps) {
+export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E1E" }, icon, type = "text", placeholder, value, onChange }: InputProps) {
 
   const sizeClasses = {
     SMALL: "px-3 py-2 text-sm",
@@ -19,16 +19,16 @@ export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E
     LARGE: "px-5 py-3 text-lg",
   }[size];
 
-  function onChange() {
-    console.log("Hey")
-  }
+  // function onChange() {
+  //   console.log("Hey")
+  // }
 
   const iconFunction = () => {
     console.log("Icon clicked");
   };
 
   return (
-    <form className="flex flex-col w-fit">
+    <div className="flex flex-col w-fit">
       {label && (
         <label className="block mb-2 text-sm font-medium text-gray-300">
           {label}
@@ -59,6 +59,6 @@ export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E
           </button>
         )}
       </div>
-    </form>
+    </div>
   );
 }

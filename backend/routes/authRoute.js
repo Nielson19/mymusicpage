@@ -9,11 +9,10 @@ const router = Router();
 router.use(
     cors({
         credentials: true,
-        origin: 'http://localhost:3002'
+        origin: 'http://localhost:5173'
     })
 );
 
-router.get('/', auth.test)
 router.post('/register', auth.registerUser)
 router.post('/login', auth.loginUser)
 
