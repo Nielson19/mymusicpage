@@ -83,7 +83,7 @@ const loginUser = async (req, res) => {
       secure: process.env.NODE_ENV === 'production',
       maxAge: 7 * 24 * 60 * 60 * 1000, 
     });
-
+    //return res.json({ message: 'Login successful' });
     const { password: _pw, ...safeUser } = user.toObject();
     return res.json(safeUser);
   } catch (err) {

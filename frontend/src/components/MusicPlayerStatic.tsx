@@ -72,7 +72,7 @@ function MusicPlayerStatic(_props: MusicPlayerStaticProps) {
 
   return (
     <div
-      className="fixed bottom-0 left-0 w-full flex flex-row justify-center items-center text-white p-4 border rounded-2xl border-blue-500 z-50 overflow-auto"
+      className="fixed bottom-0 left-0 w-full flex flex-row justify-center items-center text-white p-4 z-50 overflow-auto"
       style={{ background: `url(${ImageCoverPlaceholder})` }}
     >
       {/* Hidden audio element */}

@@ -1,31 +1,68 @@
-import ProfilePageView from "./pages/ProfilePageView";
 import TestView from "./pages/TestView";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { ProtectedRoute } from "./components/AuthComponents/ProtectedRoute";
+
+// TODO: add auth context
+// import { AuthProvider } from "./contexts/AuthContext";
+
+// Pages
 import LoginPageView from "./pages/LoginPageView";
 import SignupPageView from "./pages/SignupPageView";
-import GiphyPicker from "./components/GiphyPicker";
-import CreatePlaylist from "./components/CreatePlaylist";
-import CreatePost from "./components/CreatePost";
-import MasonryAdvanced from "./components/GeneralComp/MasonryAdvanced";
-import { mockPlaylists } from "./components/GeneralComp/MockPlaylists";
+import MainDashboard from "./pages/MainDashboard";
+import ProfilePageView from "./pages/ProfilePageView";
+import PlaylistPage from "./pages/PlaylistPage";
+import SettingsPageView from "./pages/SettingsPageView";
 import axios from "axios";
-import { Toaster } from "react-hot-toast";
-import { Routes, Route } from "react-router-dom";
 
 axios.defaults.baseURL = "http://localhost:3002";
 axios.defaults.withCredentials = true;
 
 function App() {
   return (
-    <div>
-      
-      <LoginPageView />
-      {/* <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
-      <Routes>
-          <Route path='/register' element={<SignupPageView/>}/>
-          <Route path='/login' element={<LoginPageView/>}/> 
-      </Routes> */}
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/login" element={<LoginPageView />} />
+      <Route path="/signup" element={<SignupPageView />} />
 
-    </div>
+      {/* These are the pages that will require authentication to join in */}
+      {/* Protected Routes */}
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute isAuthenticated={true}>
+            <MainDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile/:username"
+        element={
+          <ProtectedRoute isAuthenticated={true}>
+            <ProfilePageView />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/playlist/:playlistId"
+        element={
+          <ProtectedRoute isAuthenticated={true}>
+            <PlaylistPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute isAuthenticated={true}>
+            <SettingsPageView />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Route for testing */}
+      {/* Test View Route */}
+      <Route path="/test" element={<TestView />} />
+    </Routes>
   );
 }
 

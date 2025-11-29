@@ -6,13 +6,16 @@ import {
   SquarePen,
   Volume2,
   Palette,
+  Home,
   X,
 } from "lucide-react";
-import MasonryAdvanced from "../components/GeneralComp/MasonryAdvanced";
+import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePageView() {
   const [activeTab, setActiveTab] = useState("Home");
+  const Navigate = useNavigate();
 
   const galleryBlocks = [...Array(15)].map((_, i) => (
     <div key={i} className="bg-[#0E1117] w-full h-64 rounded-lg"></div>
@@ -20,15 +23,24 @@ function ProfilePageView() {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      <div className="relative w-full h-64 bg-gradient-to-b from-[#f767ff] to-[#590080] flex items-center justify-center">
+      <div className="relative w-full h-64 bg-linear-to-b from-[#f767ff] to-[#590080] flex items-center justify-center">
         {/* Music player featured */}
 
         <div className="left-1/2 flex items-center justify-between shadow-2xl rounded-2xl">
           <MusicPlayerFeature />
         </div>
 
-        <button className="absolute top-4 right-4 bg-white/40 p-3 rounded-md">
+        <button className="absolute top-4 right-4 bg-black p-3 rounded-md">
           <Volume2 className="text-white w-6 h-6" />
+        </button>
+
+        <button
+          onClick={() => {
+            Navigate("/");
+          }}
+          className="absolute top-4 left-4 bg-black p-3 rounded-md"
+        >
+          <Home className="text-white w-6 h-6" />
         </button>
       </div>
 
@@ -69,35 +81,12 @@ function ProfilePageView() {
             </a>
 
             <div className="flex items-center gap-6 mt-4 text-gray-700">
-              <X className="w-5 h-5" />
-              <span className="text-sm">Edit</span>
+              {/* <X className="w-5 h-5" />
+              <span className="text-sm">Edit</span> */}
             </div>
           </div>
 
           <div className="w-20"></div>
-        </div>
-
-        <div className="flex justify-center gap-8 mt-6 text-gray-600 text-sm border-b border-gray-300 pb-3">
-          {[
-            "Home",
-            "Playlist1",
-            "Playlist2",
-            "Playlist3",
-            "Playlist4",
-            "Recommendations",
-          ].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`pb-1 ${
-                activeTab === tab
-                  ? "text-black font-semibold border-b-2 border-black"
-                  : ""
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
         </div>
       </div>
       {/* TODO Here is the custom part for the theme in the bottom make login form paint color in the corner */}
@@ -106,6 +95,10 @@ function ProfilePageView() {
           dataSources={mockPlaylists}
           gap={16}
           minColumnWidth={200}
+          columnCount={6}
+          infiniteScroll={true}
+          duplicateCount={5}
+          distributionStrategy="source-per-column"
         />
       </div>
     </div>
