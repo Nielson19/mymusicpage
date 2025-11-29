@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useParams } from "react-router-dom"; 
-import Masonry from "../components/GeneralComp/MasonryStatic";
-import { mockPlaylists } from "../components/GeneralComp/MockPlaylists"; 
+import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
+import ShareButton from "../components/ShareButton";
 
 const PlaylistPage: React.FC = () => {
   const location = useLocation();
@@ -25,6 +25,7 @@ const PlaylistPage: React.FC = () => {
   }
 
   return (
+    <div className="transition-opacity duration-500 ease-in opacity-0 animate-fadeIn">
     <div className="min-h-screen bg-[#0b0b0d] text-gray-200 cursor-default">
       {/* Header */}
       <div className="w-full h-64 md:h-80 bg-linear-to-b from-orange-300 to-pink-300 relative">
@@ -61,31 +62,38 @@ const PlaylistPage: React.FC = () => {
         <button className="bg-purple-600 px-6 py-2 rounded-xl hover:bg-purple-700 transition cursor-pointer">
           Play
         </button>
-        <button className="bg-white/10 px-6 py-2 rounded-xl hover:bg-white/20 transition cursor-pointer">
-          Share
-        </button>
+        <ShareButton playlistId={playlist.id} />
         <button className="bg-white/10 px-6 py-2 rounded-xl hover:bg-white/20 transition cursor-pointer">
           Edit Playlist
         </button>
       </div>
 
       {/* Playlist Content */}
-      <Masonry
-        dataSource={{
-          id: playlist.id,
-          name: playlist.name,
-          items: playlist.items.map((item: typeof playlist.items[0]) => ({
-            ...item,
-            size: "SQUARE" as const,
-          })),
-          color: playlist.color || "#FF6EC7",
-        }}
-        columnCount={7}
-        gap={20}
-      />
+      <div className="px-6 py-6">
+        <h2 className="text-2xl font-semibold mb-4 text-black/80">Tracks</h2>
+        <ul className="flex flex-col gap-2">
+          
+          {playlist.items.map((song, index) => (
+            <li
+              key={index}
+              className="flex items-center justify-between p-2 rounded hover:bg-black/20 cursor-pointer"
+            >
+              <div className="flex items-center gap-4">
+                <span className="w-6 text-gray-400">{index + 1}</span>
+                <div className="flex flex-col">
+                  <span className="text-gray-200">{song.songName}</span>
+                  <span className="text-gray-400 text-sm">{song.artistName}</span>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
+  </div>
   );
 };
 
 export default PlaylistPage;
+
 

@@ -89,7 +89,7 @@ function MasonryAdvanced({
                     aspectRatio: item.size === "PORTRAIT" ? "3 / 4" : "1 / 1",
                     backgroundColor: item.background || "#f3f4f6",
                   }}>
-                  <Post imgLink={item.imgLink} size={item.size} songName={item.songName} artistName={item.artistName} /> 
+                  <Post imgLink={item.imgLink} size={item.size} songName={item.songName} artistName={item.artistName} background={item.background} /> 
                   </div>
               ))}
             </div>

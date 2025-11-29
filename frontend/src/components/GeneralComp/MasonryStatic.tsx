@@ -20,7 +20,7 @@ function randomSize(): "PORTRAIT" | "SQUARE" {
   return Math.random() > 0.5 ? "PORTRAIT" : "SQUARE";
 }
 
-function Masonry({
+function MasonryStatic({
   dataSource,
   gap = 16,
   minColumnWidth = 280,
@@ -93,4 +93,4 @@ function Masonry({
   );
 }
 
-export default Masonry;
+export default MasonryStatic;
