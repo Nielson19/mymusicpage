@@ -70,7 +70,7 @@ const PlaylistPage: React.FC = () => {
 
       {/* Playlist Content */}
       <div className="px-6 py-6">
-        <h2 className="text-2xl font-semibold mb-4 text-black/80">Tracks</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white text-underline">Tracks</h2>
         <ul className="flex flex-col gap-2">
           
           {playlist.items.map((song, index) => (
