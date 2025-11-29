@@ -1,5 +1,9 @@
 function DashboardView() {
-  return <div>DashboardView</div>;
+  return (
+    <div className="dashboard-view">
+      <h1>Dashboard</h1>
+    </div>
+  );
 }
 
 export default DashboardView;

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Schema for external API information about the song
 const apiInfoSchema = new mongoose.Schema(
   {
     spotify_id: {
@@ -22,6 +23,7 @@ const apiInfoSchema = new mongoose.Schema(
   { _id: false }
 );
 
+// Main schema for songs
 const songSchema = new mongoose.Schema({
   name: {
     type: String,
