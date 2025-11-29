@@ -12,6 +12,7 @@ import MainDashboard from "./pages/MainDashboard";
 import ProfilePageView from "./pages/ProfilePageView";
 import PlaylistPage from "./pages/PlaylistPage";
 import SettingsPageView from "./pages/SettingsPageView";
+import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3002";
 axios.defaults.withCredentials = true;
