@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MusicPlayerFeature from "../components/MusicPlayerFeature";
-import {
-  Upload,
-  MoreHorizontal,
-  SquarePen,
-  Volume2,
-  Palette,
-  X,
-  VolumeX,
-} from "lucide-react";
+import {Upload, MoreHorizontal, SquarePen, Volume2, Palette, X, VolumeX} from "lucide-react";
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 import MasonryDynamic from "../components/GeneralComp/MasonryDynamic";
 
@@ -127,8 +119,9 @@ function ProfilePageView() {
         key={activeTab}
         className={`transition-opacity duration-[1500ms] ease-in-out opacity-0`}
         style={{ animation: 'fadeIn 1.5s forwards' }}>
-      <div className={`w-full px-4 py-8 ${dark ? "text-white bg-black transition-colors ease-in-out duration-300" : "text-gray-600 border-gray-300 transition-colors ease-in-out duration-300"}`}>
+      <div className={`w-full px-4 py-8`}>
       <MasonryDynamic
+          dark = {dark}
           dataSources={tabToPlaylist[activeTab] || []}
           gap={16}
           minColumnWidth={200}

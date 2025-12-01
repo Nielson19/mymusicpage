@@ -1,13 +1,22 @@
-import React from "react";
+import React, {useState} from "react";
 import { useLocation, useParams } from "react-router-dom"; 
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 import ShareButton from "../components/ShareButton";
+import Post from "../components/Post";
 
 const PlaylistPage: React.FC = () => {
   const location = useLocation();
   const params = useParams<{ id: string }>(); 
 
   const playlistFromState = location.state?.playlist;
+
+  const [shuffle, setShuffle] = useState(false);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+
+  function PlayButton() {
+    setShuffle(true)
+    setCurrentSongIndex(Math.floor(Math.random() * playlist.items.length))
+  }
 
   const id = params.id;
   const playlistFromId = id
@@ -25,7 +34,7 @@ const PlaylistPage: React.FC = () => {
   }
 
   return (
-    <div className="transition-opacity duration-500 ease-in opacity-0 animate-fadeIn">
+    <div className="transition-opacity duration-500 ease-in opacity-0 animate-slideUpFade">
     <div className="min-h-screen bg-[#0b0b0d] text-gray-200 cursor-default">
       {/* Header */}
       <div className="w-full h-64 md:h-80 bg-linear-to-b from-orange-300 to-pink-300 relative">
@@ -59,7 +68,7 @@ const PlaylistPage: React.FC = () => {
 
       {/* Playlist Actions */}
       <div className="flex items-center gap-4 px-6 py-6 border-b border-white/5">
-        <button className="bg-purple-600 px-6 py-2 rounded-xl hover:bg-purple-700 transition cursor-pointer">
+        <button onClick={PlayButton} className="bg-purple-600 px-6 py-2 rounded-xl hover:bg-purple-700 transition cursor-pointer">
           Play
         </button>
         <ShareButton playlistId={playlist.id} />
@@ -69,28 +78,20 @@ const PlaylistPage: React.FC = () => {
       </div>
 
       {/* Playlist Content */}
-      <div className="px-6 py-6">
-        <h2 className="text-2xl font-semibold mb-4 text-white text-underline">Tracks</h2>
-        <ul className="flex flex-col gap-2">
-          
-          {playlist.items.map((song, index) => (
-            <li
-              key={index}
-              className="flex items-center justify-between p-2 rounded hover:bg-black/20 cursor-pointer"
-            >
-              <div className="flex items-center gap-4">
-                <span className="w-6 text-gray-400">{index + 1}</span>
-                <div className="flex flex-col">
-                  <span className="text-gray-200">{song.songName}</span>
-                  <span className="text-gray-400 text-sm">{song.artistName}</span>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div className="flex mt-2 gap-5 justify-center flex-wrap">
+      {playlist.items.map((song, index) => (
+      <Post
+        key={song.id || index}
+        imgLink={song.imgLink || "https://placehold.co/150x150/png"}
+        size={song.size}
+        songName={song.songName}
+        artistName={song.artistName}
+        background={song.imgLink}
+      />
+    ))}
     </div>
   </div>
+</div>
   );
 };
 
