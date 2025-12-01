@@ -6,9 +6,9 @@ try {
 
         console.log(`\n✅ MongoDB Connected!`);
         console.log(`-----------------------------------`);
-        console.log(`📂 Database Name:   "${conn.connection.name}"`);
-        console.log(`🖥️  Host / Cluster:  ${conn.connection.host}`);
-        console.log(`-----------------------------------\n`);
+        console.log(` Database Name:   "${conn.connection.name}"`);
+        console.log(` Host / Cluster:  ${conn.connection.host}`);
+        console.log(`-----------------------------------`);
     }
     // MongoDB will give an error if it takes longer than 30 seconds. If it crashes though, Netlify will ensure the server restarts and tries again.
     catch (error) {

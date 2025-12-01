@@ -18,14 +18,18 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended: true}))
 
-// Developer-ONLY test routes
-if (process.env.NODE_ENV === 'development') {
-    app.use('/test', testRoutes);
-    console.log("Development test routes enabled!");
-}
-
 app.use('/api', authRoutes);
 app.use('/api/song', songRoutes);
+
+// development v. production
+const NODE_ENV = process.env.NODE_ENV;
+
+// Developer-ONLY test routes
+// /test/{test-views.html}
+if (NODE_ENV === 'development') {
+    app.use('/test', testRoutes);
+    console.log(`\nDevelopment test routes enabled!`);
+}
 
 // Port, defaults to 3000 (for testing)
 const PORT = process.env.PORT || 3000;
@@ -33,7 +37,15 @@ const PORT = process.env.PORT || 3000;
 // Async function to test MongoDB connection BEFORE starting the server.
 const startServer = async () => {
   await connectDB(); // from ./config/db.js
-  app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
+  app.listen(PORT, () => {
+    if (NODE_ENV == 'development'){
+      console.log(`\nRunning on LocalHost: http://localhost:${PORT}`)
+    }
+    else{
+      console.log(`\nServer started on port ${PORT}`);
+    }
+    console.log(`\n-----------------------------------`);
+  });
 };
 
 startServer();
