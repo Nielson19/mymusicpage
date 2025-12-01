@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import ButtonComponent from "../components/ButtonComponent";
 import Input from "../components/Input";
 import Headphoneslogo from "../assets/icons/HeadphonesNoBG.png";
@@ -7,12 +7,15 @@ import { toast } from "react-hot-toast";
 import AuthButtonComp from "../components/LoginFormComp/authButtonComp";
 import SpotifyIcon from "../assets/icons/SpotifyWhiteLogo.png";
 import { useNavigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 function SignupPageView() {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     username: "",
     email: "",
     password: "",
+    passwordConfirm: "",
   });
 
   const signupUser = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,10 +25,12 @@ function SignupPageView() {
         username,
         email,
         password,
+        passwordConfirm: password,
       });
       console.log("Response received:", response.status);
       toast.success("Signup successful:", response.data);
-      toast.success("Account created successfully!");
+
+      navigate("/login");
     } catch (error) {
       toast.error("Signup failed. Please try again.");
     }
@@ -89,9 +94,11 @@ function SignupPageView() {
             type="password"
             label="Confirm Password"
             placeholder="••••••••"
-            value={data.password}
+            value={data.passwordConfirm}
             color={{ PRIMARY: "#111111" }}
-            onChange={(e) => setData({ ...data, password: e.target.value })}
+            onChange={(e) =>
+              setData({ ...data, passwordConfirm: e.target.value })
+            }
           />
         </div>
 

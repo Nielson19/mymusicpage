@@ -1,6 +1,7 @@
 import TestView from "./pages/TestView";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ProtectedRoute } from "./components/AuthComponents/ProtectedRoute";
+import { Toaster } from "react-hot-toast";
 
 // TODO: add auth context
 // import { AuthProvider } from "./contexts/AuthContext";
@@ -19,50 +20,68 @@ axios.defaults.withCredentials = true;
 
 function App() {
   return (
-    <Routes>
-      {/* Public Routes */}
-      <Route path="/login" element={<LoginPageView />} />
-      <Route path="/signup" element={<SignupPageView />} />
+    <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={
+          // Define default options
+          {
+            className: "",
+            duration: 2000,
+            removeDelay: 300,
+            style: {
+              background: "#363636",
+              color: "#fff",
+            },
+          }
+        }
+      />
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/login" element={<LoginPageView />} />
+        <Route path="/signup" element={<SignupPageView />} />
 
-      {/* These are the pages that will require authentication to join in */}
-      {/* Protected Routes */}
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute isAuthenticated={true}>
-            <MainDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile/:username"
-        element={
-          <ProtectedRoute isAuthenticated={true}>
-            <ProfilePageView />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/playlist/:playlistId"
-        element={
-          <ProtectedRoute isAuthenticated={true}>
-            <PlaylistPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/settings"
-        element={
-          <ProtectedRoute isAuthenticated={true}>
-            <SettingsPageView />
-          </ProtectedRoute>
-        }
-      />
+        {/* These are the pages that will require authentication to join in */}
+        {/* Protected Routes */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute isAuthenticated={true}>
+              <MainDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile/:username"
+          element={
+            <ProtectedRoute isAuthenticated={true}>
+              <ProfilePageView />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/playlist/:playlistId"
+          element={
+            <ProtectedRoute isAuthenticated={true}>
+              <PlaylistPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute isAuthenticated={true}>
+              <SettingsPageView />
+            </ProtectedRoute>
+          }
+        />
 
-      {/* Route for testing */}
-      {/* Test View Route */}
-      <Route path="/test" element={<TestView />} />
-    </Routes>
+        {/* Route for testing */}
+        {/* Test View Route */}
+        <Route path="/test" element={<TestView />} />
+      </Routes>
+    </>
   );
 }
 

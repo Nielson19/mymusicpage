@@ -7,12 +7,12 @@ const comparePassword = async (password, hashed) => bcrypt.compare(password, has
 
 const registerUser = async (req, res) => {
   try {
-    let { username, email, password } = req.body ?? {};
+    let { username, email, password, passwordConfirm } = req.body ?? {};
 
     username = typeof username === 'string' ? username.trim() : '';
     email = typeof email === 'string' ? email.trim().toLowerCase() : '';
     password = typeof password === 'string' ? password.trim() : '';
-
+    passwordConfirm = typeof passwordConfirm === 'string' ? passwordConfirm.trim() : '';
     //basic validations
     if (!username) return res.status(400).json({ error: 'Username is required' });
     if (username.length < 3 || username.length > 30) {
@@ -28,6 +28,10 @@ const registerUser = async (req, res) => {
       return res.status(400).json({
         error: 'Password is required and must be 3-30 characters',
       });
+    }
+
+    if (password !== passwordConfirm) {
+      return res.status(400).json({ error: 'Passwords do not match' });
     }
 
     //unique checks (email OR username)

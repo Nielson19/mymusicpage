@@ -14,6 +14,11 @@ import { useNavigate } from "react-router-dom";
 export default function MainDashboard() {
   const Navigate = useNavigate();
   const dataSources: DataSource[] = musicDataSources;
+  const [createPostOpen, setCreatePostOpen] = React.useState(false);
+
+  const toggleCreatePost = () => {
+    setCreatePostOpen(!createPostOpen);
+  };
 
   //TODO: Create the conponent on the top to filter the different data sources one is "For You" and "Following"
 
@@ -53,6 +58,16 @@ export default function MainDashboard() {
 
         {/* Profile + Settings */}
         <div className="flex items-center space-x-4">
+          <button
+            className="px-4 py-2
+           bg-white text-black font-bold rounded-xl border border-white/10 flex items-center justify-center"
+            onClick={() => {
+              console.log("Create button clicked");
+              toggleCreatePost();
+            }}
+          >
+            Create
+          </button>
           <button
             onClick={() => {
               Navigate("/profile/username");
