@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 
 import testRoutes from './routes/testRoute.js';
 import authRoutes from './routes/authRoute.js';
+import postRoutes from './routes/postRoute.js';
 import songRoutes from './routes/songRoute.js';
 
 import { connectDB } from './config/dbConfig.js'
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({extended: true})) //? what was extended: true again
 
 app.use('/api', authRoutes);
+app.use('/api/post', postRoutes);
 app.use('/api/song', songRoutes);
 
 // development v. production

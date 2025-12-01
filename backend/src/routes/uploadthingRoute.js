@@ -1,6 +1,6 @@
 import express from 'express';
 import { createRouteHandler } from "uploadthing/express";
-import { ourFileRouter } from '../uploadthing.config.js';
+import { ourFileRouter } from '../config/uploadthingConfig.js';
 
 const router = express.Router();
 
@@ -8,11 +8,9 @@ const router = express.Router();
 const uploadthingHandler = createRouteHandler({
   router: ourFileRouter,
   config: {
-    
     token: process.env.UPLOADTHING_TOKEN,
   },
 });
-
 
 router.use("/uploadthing", uploadthingHandler);
 

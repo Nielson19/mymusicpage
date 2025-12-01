@@ -1,13 +1,13 @@
 import express from 'express';
-import Post from '../models/post.model.js'; 
-import User from '../models/user.model.js';  
-import Song from '../models/song.model.js';  
+import Post from '../models/postModel.js'; 
+import User from '../models/userModel.js';  
+import Song from '../models/songModel.js';  
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { user_id, song_id, caption, gif_picture, share } = req.body;
+    const { user_id, songAppleId, gif_picture_url, shape, shareable_links} = req.body;
     const newPost = new Post({
       user_id,
       song_id,

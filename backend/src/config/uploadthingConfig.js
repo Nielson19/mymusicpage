@@ -1,5 +1,5 @@
 import { createUploadthing } from "uploadthing/server";
-import User from '../models/user.model.js';
+import User from '../models/userModel.js';
 
 const f = createUploadthing();
 
