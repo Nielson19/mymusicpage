@@ -1,5 +1,5 @@
 <!--AI GENERATED TEST ENVIRONMENT
-http://localhost:3000/test/song_search.html
+http://localhost:3000/test/songSearch.html
 -->
 
 <!DOCTYPE html>
@@ -63,14 +63,14 @@ http://localhost:3000/test/song_search.html
                     div.className = 'result-item';
                     
                     // 👇 FIX: Use 'name' instead of 'trackName'
-                    // 👇 FIX: Use 'artist_name' instead of 'artistName'
+                    // 👇 FIX: Use 'artistName' instead of 'artistName'
                     // 👇 OPTIONAL: Show the 256x256 artwork too!
                     div.innerHTML = `
                         <div style="display:flex; align-items:center; gap:10px;">
-                            <img src="${song.artwork_url}" style="width:50px; height:50px; border-radius:4px;">
+                            <img src="${song.artworkUrl}" style="width:50px; height:50px; border-radius:4px;">
                             <div>
                                 <strong>${song.name}</strong> <br/> 
-                                <small>${song.artist_name}</small>
+                                <small>${song.artistName}</small>
                             </div>
                         </div>
                     `;

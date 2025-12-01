@@ -3,12 +3,11 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
-import testRoutes from './routes/test.route.js';
-import authRoutes from './routes/auth.route.js';
-import songRoutes from './routes/song.route.js';
+import testRoutes from './routes/testRoute.js';
+import authRoutes from './routes/authRoute.js';
+import songRoutes from './routes/songRoute.js';
 
-import { connectDB } from './config/db.config.js'
-import { fetchItunesSearch } from './services/itunes.service.js';
+import { connectDB } from './config/dbConfig.js'
 
 dotenv.config();
 const app = express();
@@ -16,7 +15,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true})) //? what was extended: true again
 
 app.use('/api', authRoutes);
 app.use('/api/song', songRoutes);
@@ -40,11 +39,11 @@ const startServer = async () => {
   app.listen(PORT, () => {
     if (NODE_ENV == 'development'){
       console.log(`\nRunning on LocalHost: http://localhost:${PORT}`)
+      console.log(`test-songSearch: http://localhost:${PORT}/test/songSearch.html`)
     }
     else{
       console.log(`\nServer started on port ${PORT}`);
     }
-    console.log(`\n-----------------------------------`);
   });
 };
 

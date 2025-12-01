@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Bottleneck from 'bottleneck';
 
-import { ErrorService } from '../services/error.service.js';
+import { ErrorService } from './errorService.js';
 
 const ITUNES_SEARCH_URL_BASE = 'https://itunes.apple.com/search';
 
@@ -45,3 +45,4 @@ export async function fetchItunesSearch(raw_term, limit = 50) { // Exported func
         return [] // Empty list on error so we don't crash the site
     }
 }
+
