@@ -1,6 +1,8 @@
 // TODO: Link the items to actual song/artist pages from the database and API
 // TODO: Hold the information of the POST so its always dislayed in all the pages correspoinding of its group
 export interface PostProps {
+  userID: string;
+  songID: string;
   imgLink: string;
   size: "SQUARE" | "PORTRAIT";
   songName: string;
@@ -10,6 +12,8 @@ export interface PostProps {
 
 function Post({
   imgLink,
+  userID, // no need to display
+  songID, // no need to display
   size,
   songName,
   artistName,
@@ -20,7 +24,11 @@ function Post({
   }
 
   return (
-    <div className="group rounded-2xl overflow-hidden">
+    <div
+      className="group rounded-2xl overflow-hidden"
+      data-user-id={userID}
+      data-song-id={songID}
+    >
       <div
         className={`w-64 h-64 overflow-hidden ${
           size === "PORTRAIT" ? "h-96" : ""

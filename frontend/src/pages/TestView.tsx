@@ -17,10 +17,11 @@ function TestView() {
       {/* <LoginPageView /> */}
       {/* <SignupPageView /> */}
       {/* <ProfilePageView /> */}
-      {/* <MainDashboard /> */}
+      <MainDashboard />
       {/* <SettingsPageView /> */}
       {/* <PlaylistPage /> */}
-      <CreatePost />
+
+      {/* <CreatePost /> */}
       {/* <CreatePlaylist /> */}
     </div>
   );
