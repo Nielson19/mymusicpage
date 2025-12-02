@@ -1,19 +1,18 @@
-//Consider renaming to collection.model.js
 
 import mongoose from "mongoose";
 
 const playlistSchema = new mongoose.Schema({
-  user_id: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: [true, "User ID is required"],
   },
   name: {
     type: String,
-    required: [true, "Playlist name is required"],
+    required: [true, "Collection name is required"],
     trim: true,
-    minLength: [1, "Playlist name must be at least 1 character"],
-    maxLength: [100, "Playlist name cannot exceed 100 characters"],
+    minLength: [1, "Collection name must be at least 1 character"],
+    maxLength: [100, "Collection name cannot exceed 100 characters"],
   },
   songs: [
     {
@@ -21,7 +20,7 @@ const playlistSchema = new mongoose.Schema({
       ref: "Song",
     },
   ],
-  created_at: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },

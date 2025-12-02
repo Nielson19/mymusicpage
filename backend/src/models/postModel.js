@@ -1,32 +1,34 @@
 import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
-  user_id: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: [true, "User ID is required"],
   },
-  song_id: {
+  songAppleId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Song",
+    required: [true, "Song's Apple ID is required"]
   },
+  giphyURL: {
+    type: String,
+    trim: true,
+    default: "",
+  },
+  likeCount: {
+    type: Number,
+    default: 0,
+    min: [0, "Likes cannot be negative"],
+  },
+  /* FUTURE IMPLEMENTATIONS
   caption: {
     type: String,
     trim: true,
     maxLength: [300, "Caption cannot exceed 300 characters"],
     default: "",
   },
-  gif_picture: {
-    type: String,
-    trim: true,
-    default: "",
-  },
-  number_of_likes: {
-    type: Number,
-    default: 0,
-    min: [0, "Likes cannot be negative"],
-  },
-  number_of_comments: {
+  numOfComments: {
     type: Number,
     default: 0,
     min: [0, "Comments cannot be negative"],
@@ -37,7 +39,8 @@ const postSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
-  created_at: {
+  */
+  createdAt: {
     type: Date,
     default: Date.now,
   },

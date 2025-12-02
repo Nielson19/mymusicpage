@@ -28,7 +28,7 @@ const songSchema = new mongoose.Schema(
     releaseDate: Date,
     isStreamable: {type: Boolean, required: true}
   },
-  { 
+  { // Saves a version int to show what version this doc is on (useless unless multiple ppl work on the same thing)
       versionKey: false 
   }
 );
@@ -40,6 +40,3 @@ songSchema.index(
 );
 
 export default mongoose.model("Song", songSchema);
-
-
-// TODO: Make a new updateAll for songs so that you can update things you want to modify (specifically 'text' at the moment.)
