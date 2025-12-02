@@ -22,7 +22,7 @@ function App() {
     <Routes>
       {/* Public Routes */}
       <Route path="/login" element={<LoginPageView />} />
-      <Route path="/signup" element={<SignupPageView />} />
+      <Route path="/register" element={<SignupPageView />} />
 
       {/* These are the pages that will require authentication to join in */}
       {/* Protected Routes */}
