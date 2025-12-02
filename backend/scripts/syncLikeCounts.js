@@ -1,0 +1,1 @@
+// Likes will increment and decrement but, on rare occassion, the count can be off so, it'll be nice to have a script to go through and recount them all in one go. (Which in production, we can do like once a week at night.)
