@@ -59,10 +59,10 @@ export default function CreatePost() {
     <div className="w-full max-w-md bg-black/80 border border-gray-800 rounded-2xl p-8 shadow-xl text-white my-10">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-semibold text-center">Create a post</h2>
-        <IoMdClose
+        {/* <IoMdClose
           className="cursor-pointer hover:scale-105 transition"
           size={24}
-        />
+        /> */}
       </div>
 
       <div className="flex flex-col items-center gap-4">
