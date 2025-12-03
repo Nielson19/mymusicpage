@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MusicPlayerFeature from "../components/MusicPlayerFeature";
 import {
   Upload,
@@ -11,10 +12,12 @@ import {
 } from "lucide-react";
 import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
+import MasonryDynamic from "../components/GeneralComp/MasonryDynamic";
 import { useNavigate } from "react-router-dom";
 import CreatePost from "../components/CreatePost";
 
 function ProfilePageView() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Home");
   const Navigate = useNavigate();
 
@@ -33,10 +36,43 @@ function ProfilePageView() {
   const handleOpenCreatePost = () => {
     setCreatePostOpen(true);
   };
+  const [dark, setDark] = useState(false);
+  const [mute, setMute] = useState(false);
 
-  const galleryBlocks = [...Array(15)].map((_, i) => (
-    <div key={i} className="bg-[#0E1117] w-full h-64 rounded-lg"></div>
-  ));
+  const tabs = ["Home", ...mockPlaylists.map((p) => p.name), "Recommendations"];
+
+  const tabToPlaylist: Record<string, typeof mockPlaylists> = {
+    Home: mockPlaylists,
+    Recommendations: mockPlaylists.slice(-1),
+  };
+
+  mockPlaylists.forEach((playlist) => {
+    tabToPlaylist[playlist.name] = [playlist];
+  });
+
+  function themeButton() {
+    setDark((prevClick) => !prevClick);
+  }
+
+  function handleMute() {
+    setMute((prevClick) => !prevClick);
+  }
+
+  function onTabClick(tab: string) {
+    if (tab === "Home" || tab === "Recommendations") {
+      setActiveTab(tab);
+      return;
+    }
+
+    const playlist = mockPlaylists.find((p) => p.name === tab);
+    if (playlist && playlist.id) {
+      navigate(`/playlist/${encodeURIComponent(String(playlist.id))}`, {
+        state: { playlist },
+      });
+    } else {
+      setActiveTab(tab);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
@@ -48,14 +84,19 @@ function ProfilePageView() {
         </div>
       )}
       <div className="relative w-full h-64 bg-linear-to-b from-[#f767ff] to-[#590080] flex items-center justify-center">
-        {/* Music player featured */}
-
         <div className="left-1/2 flex items-center justify-between shadow-2xl rounded-2xl">
-          <MusicPlayerFeature />
+          <MusicPlayerFeature muted={mute} />
         </div>
 
-        <button className="absolute top-4 right-4 bg-black p-3 rounded-md">
-          <Volume2 className="text-white w-6 h-6" />
+        <button
+          onClick={handleMute}
+          className={`absolute top-4 right-4 p-3 rounded-md bg-white/20 text-white`}
+        >
+          {mute ? (
+            <VolumeX className="text-white w-6 h-6" />
+          ) : (
+            <Volume2 className="text-white w-6 h-6" />
+          )}
         </button>
 
         <button
@@ -68,8 +109,19 @@ function ProfilePageView() {
         </button>
       </div>
 
-      <div className="w-full bg-white text-black pb-6 pt-12 relative">
-        <button className="absolute top-6 left-6 bg-black w-10 h-10 rounded-xl flex items-center justify-center shadow-lg">
+      <div
+        className={`w-full pb-6 pt-12 relative ${
+          dark
+            ? "bg-transparent text-white transition-colors duration-300 ease-in-out"
+            : "bg-white text-black transition-colors duration-300 ease-in-out"
+        }`}
+      >
+        <button
+          onClick={themeButton}
+          className={`absolute top-6 left-6 w-10 h-10 rounded-xl flex items-center justify-center shadow-lg ${
+            dark ? "bg-purple-500 text-white" : "bg-black text-white"
+          }`}
+        >
           <Palette className="text-white w-5 h-5" />
         </button>
 
@@ -82,12 +134,24 @@ function ProfilePageView() {
             Create
           </button>
 
-          <button className="bg-white border px-3 py-1.5 rounded-lg hover:bg-gray-100">
-            <Upload className="w-4 h-4 text-black" />
+          <button
+            className={`px-3 py-1.5 rounded-lg transition-colors flex items-center justify-center border ${
+              dark
+                ? "border-white/30 text-white transition-colors duration-300 ease-in-out"
+                : "border-black/30 text-black transition-colors duration-300 ease-in-out"
+            }`}
+          >
+            <Upload className="w-4 h-4" />
           </button>
 
-          <button className="bg-white border px-3 py-1.5 rounded-lg hover:bg-gray-100">
-            <MoreHorizontal className="w-4 h-4 text-black" />
+          <button
+            className={`px-3 py-1.5 rounded-lg transition-colors flex items-center justify-center border ${
+              dark
+                ? "border-white/30 text-white transition-colors ease-in-out duration-300"
+                : "border-black/30 text-black transition-colors ease-in-out duration-300"
+            }`}
+          >
+            <MoreHorizontal className="w-4 h-4" />
           </button>
         </div>
 
@@ -115,18 +179,45 @@ function ProfilePageView() {
 
           <div className="w-20"></div>
         </div>
+        {/* <div className="flex justify-center gap-8 mt-6 text-gray-600 text-sm border-b border-gray-300 pb-3">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => onTabClick(tab)}
+              className={`pb-1 ${
+                activeTab === tab
+                  ? "text-black font-semibold border-b-2 border-black"
+                  : ""
+              }`}>
+              {tab}
+            </button>
+          ))}
+        </div> */}
       </div>
-      {/* TODO Here is the custom part for the theme in the bottom make login form paint color in the corner */}
-      <div className="w-full bg-white px-4 py-8">
-        <MasonryAdvanced
-          dataSources={mockPlaylists}
-          gap={16}
-          minColumnWidth={200}
-          columnCount={6}
-          infiniteScroll={true}
-          duplicateCount={5}
-          distributionStrategy="source-per-column"
-        />
+      <div
+        key={activeTab}
+        className={`transition-opacity duration-[1500ms] ease-in-out opacity-0`}
+        style={{ animation: "fadeIn 1.5s forwards" }}
+      >
+        <div className={`w-full px-4 py-8`}>
+          <MasonryDynamic
+            dark={dark}
+            dataSources={tabToPlaylist[activeTab] || []}
+            gap={16}
+            minColumnWidth={200}
+            columnCount={5}
+            infiniteScroll={true}
+            duplicateCount={5}
+            distributionStrategy="source-per-column"
+            onPlaylistClick={(playlistId) =>
+              navigate(`/playlist/${encodeURIComponent(playlistId)}`, {
+                state: {
+                  playlist: mockPlaylists.find((p) => p.id === playlistId),
+                },
+              })
+            }
+          />
+        </div>
       </div>
     </div>
   );
