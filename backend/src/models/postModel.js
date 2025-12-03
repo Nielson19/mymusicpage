@@ -15,12 +15,17 @@ const postSchema = new mongoose.Schema(
     giphyURL: {
       type: String,
       trim: true,
-      default: "",
+      default: ""
+    },
+    shape: {
+      type: String,
+      enum: ["Portrait", "Square"],
+      default: "Portrait"
     },
     numOfLikes: {
       type: Number,
       default: 0,
-      min: [0, "Likes cannot be negative"],
+      min: [0, "Likes cannot be negative"]
     }
   },
 

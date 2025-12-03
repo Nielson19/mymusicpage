@@ -30,7 +30,7 @@ const collectionSchema = new mongoose.Schema(
     posts: [savedPostSchema]
   },
   {
-  timestamps: true
+    timestamps: true
   }
 );
 

@@ -7,13 +7,13 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { user_id, songAppleId, gif_picture_url, shape, shareable_links} = req.body;
+    const { userId, songAppleId, giphyUrl, shape, numOfLikes} = req.body;
     const newPost = new Post({
-      user_id,
-      song_id,
-      caption,
-      gif_picture,
-      share
+      userId,
+      songAppleId,
+      giphyUrl,
+      shape,
+      numOfLikes
     });
     const savedPost = await newPost.save();
     res.status(201).json(savedPost);
