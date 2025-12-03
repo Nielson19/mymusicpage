@@ -64,11 +64,9 @@ const userSchema = new mongoose.Schema(
     created_at: {
       type: Date,
       default: Date.now,
-    }
-  },
-  { 
-    versionKey: false 
+    },
   }
 );
+
 
 export default mongoose.model("User", userSchema);
