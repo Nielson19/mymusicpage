@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { SquarePen } from "lucide-react";
 import { IoMdSettings, IoIosSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
@@ -11,6 +12,7 @@ import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import AppLogo from "../assets/icons/HeadphonesNoBG.png";
 import { useNavigate } from "react-router-dom";
 import CreatePost from "../components/CreatePost";
+import InputSearch from "../components/InputSearch";
 
 export default function MainDashboard() {
   const Navigate = useNavigate();
@@ -45,7 +47,7 @@ export default function MainDashboard() {
       {createPostOpen && (
         <div className="z-100 w-screen h-screen bg-black/90 flex items-center justify-center fixed top-0 left-0">
           <div ref={outsideClickRef}>
-            <CreatePost />
+            <CreatePost className="mx-auto max-h-[90vh] overflow-y-auto" />
           </div>
         </div>
       )}
@@ -63,34 +65,19 @@ export default function MainDashboard() {
           </span>
         </div>
 
-        {/* Search Bar */}
-        <div className="flex-1 max-w-xl px-10">
-          <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-              <IoIosSearch />
-            </span>
-            <input
-              type="text"
-              placeholder="Search songs, artists, genres..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/10 
-                         border border-white/10 text-gray-200
-                         placeholder-gray-400
-                         focus:outline-none focus:border-gray-500
-                         transition"
-            />
-          </div>
-        </div>
+        <InputSearch className="w-1/3" icon={<IoIosSearch />} />
 
         {/* Profile + Settings */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 gb-white">
           <button
             className="px-4 py-2
-           bg-white text-black font-bold rounded-xl border border-white/10 flex items-center justify-center"
+           bg-white text-black font-bold rounded-xl border border-white/10 flex flex-row items-center justify-center gap-2"
             onClick={() => {
               console.log("Create button clicked");
               toggleCreatePost();
             }}
           >
+            <SquarePen className="w-4 h-4" />
             Create
           </button>
           <button

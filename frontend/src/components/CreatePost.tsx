@@ -3,11 +3,10 @@ import { FaPlus } from "react-icons/fa6";
 import GiphyPicker from "./GiphyPicker";
 import Post from "./Post";
 import type { PostProps } from "./Post";
-import { IoMdClose } from "react-icons/io";
 import Toggle from "./Toggle";
 import InputSearch from "./InputSearch";
 
-export default function CreatePost() {
+export default function CreatePost({ className = "" }: { className?: string }) {
   const [songName, setSongName] = useState("");
   const [artistName, setArtistName] = useState("");
   const [imgLink, setImgLink] = useState("");
@@ -56,9 +55,13 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="w-full max-w-md bg-black/80 border border-gray-800 rounded-2xl p-8 shadow-xl text-white my-10">
+    <div
+      className={`w-full max-w-md bg-black/80 border border-gray-800 rounded-2xl p-8 shadow-xl text-white my-10 ${className}`}
+    >
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-semibold text-center">Create a post</h2>
+        <h2 className="flex flex-col w-full text-3xl font-semibold text-center">
+          Create a post
+        </h2>
         {/* <IoMdClose
           className="cursor-pointer hover:scale-105 transition"
           size={24}
@@ -66,7 +69,7 @@ export default function CreatePost() {
       </div>
 
       <div className="flex flex-col items-center gap-4">
-        <label className="flex flex-col items-center cursor-pointer">
+        {/* <label className="flex flex-col items-center cursor-pointer">
           <div className="w-24 h-24 rounded-lg border-2 border-dashed border-gray-500 flex items-center justify-center transition">
             <FaPlus
               className="text-gray-300 hover:scale-105 transition"
@@ -80,7 +83,7 @@ export default function CreatePost() {
             className="hidden"
             onChange={handleFileChange}
           />
-        </label>
+        </label> */}
 
         {/* Giphy Picker (lifted selection via callback) */}
         <GiphyPicker onSelectGif={handleGifSelect} />

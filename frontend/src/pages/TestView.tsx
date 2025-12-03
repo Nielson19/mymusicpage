@@ -20,6 +20,9 @@ function TestView() {
       <MainDashboard />
       {/* <SettingsPageView /> */}
       {/* <PlaylistPage /> */}
+      {/* <GiphyPicker
+        onSelectGif={(url) => console.log("Selected GIF URL:", url)} */}
+      {/* /> */}
 
       {/* <CreatePost /> */}
       {/* <CreatePlaylist /> */}

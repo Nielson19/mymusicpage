@@ -12,10 +12,27 @@ import {
 import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 import { useNavigate } from "react-router-dom";
+import CreatePost from "../components/CreatePost";
 
 function ProfilePageView() {
   const [activeTab, setActiveTab] = useState("Home");
   const Navigate = useNavigate();
+
+  const [createPostOpen, setCreatePostOpen] = React.useState(false);
+  const outsideClickRef = React.useRef<HTMLDivElement>(null);
+
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      outsideClickRef.current &&
+      !outsideClickRef.current.contains(event.target as Node)
+    ) {
+      setCreatePostOpen(false);
+    }
+  };
+
+  const handleOpenCreatePost = () => {
+    setCreatePostOpen(true);
+  };
 
   const galleryBlocks = [...Array(15)].map((_, i) => (
     <div key={i} className="bg-[#0E1117] w-full h-64 rounded-lg"></div>
@@ -23,6 +40,13 @@ function ProfilePageView() {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
+      {createPostOpen && (
+        <div className="z-100 w-screen h-screen bg-black/90 flex items-center justify-center fixed top-0 left-0">
+          <div ref={outsideClickRef}>
+            <CreatePost className="mx-auto max-h-[90vh] overflow-y-auto" />
+          </div>
+        </div>
+      )}
       <div className="relative w-full h-64 bg-linear-to-b from-[#f767ff] to-[#590080] flex items-center justify-center">
         {/* Music player featured */}
 
@@ -50,16 +74,19 @@ function ProfilePageView() {
         </button>
 
         <div className="absolute top-4 right-6 flex items-center gap-3">
-          <button className="flex items-center gap-1 bg-black text-white px-3 py-[6px] rounded-lg text-sm">
+          <button
+            onClick={handleOpenCreatePost}
+            className="flex items-center gap-1 bg-black text-white px-3 py-1.5 rounded-lg text-sm"
+          >
             <SquarePen className="w-4 h-4" />
             Create
           </button>
 
-          <button className="bg-white border px-3 py-[6px] rounded-lg hover:bg-gray-100">
+          <button className="bg-white border px-3 py-1.5 rounded-lg hover:bg-gray-100">
             <Upload className="w-4 h-4 text-black" />
           </button>
 
-          <button className="bg-white border px-3 py-[6px] rounded-lg hover:bg-gray-100">
+          <button className="bg-white border px-3 py-1.5 rounded-lg hover:bg-gray-100">
             <MoreHorizontal className="w-4 h-4 text-black" />
           </button>
         </div>
