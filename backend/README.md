@@ -36,3 +36,22 @@
 * 502 Bad Gateway         - Invalid response from an upstream server
 * 503 Service Unavailable - Server overload or maintenance
 * 504 Gateway Timeout     - Upstream server failed to send request in time
+
+## Backend
+
+# Express, Mongodb, and Node.js
+
+npm i :for installing dependenices
+npm run dev :to start server
+
+Port runs localhost:3002
+
+# API endpoints
+
+GET:
+/api 
+
+POST:
+/api/register
+/api/login
+
