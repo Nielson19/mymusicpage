@@ -13,8 +13,6 @@ import AppLogo from "../assets/icons/HeadphonesNoBG.png";
 export default function MainDashboard() {
   const dataSources: DataSource[] = musicDataSources;
 
-  //TODO: Create the conponent on the top to filter the different data sources one is "For You" and "Following"
-
   return (
     <div className="min-h-screen bg-[#0b0b0d] text-gray-200 p-6 cursor-default relative overflow-x-hidden">
       {/* Header */}
@@ -67,6 +65,7 @@ export default function MainDashboard() {
           Explore new tracks, artists, and visual song posters curated for you.
         </p>
       </div>
+
       <MasonryAdvanced
         dataSources={dataSources}
         columnCount={7}
@@ -75,6 +74,7 @@ export default function MainDashboard() {
         duplicateCount={5}
         infiniteScroll={true}
       />
+
       <MusicPlayerStatic />
     </div>
   );
