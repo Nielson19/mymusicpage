@@ -1,29 +1,37 @@
-
 import mongoose from "mongoose";
 
-const playlistSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: [true, "User ID is required"],
-  },
-  name: {
-    type: String,
-    required: [true, "Collection name is required"],
-    trim: true,
-    minLength: [1, "Collection name must be at least 1 character"],
-    maxLength: [100, "Collection name cannot exceed 100 characters"],
-  },
-  songs: [
-    {
+const savedPostSchema = new mongoose.Schema(
+  {
+    postId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Song",
+      ref: 'Post',
+      required: true
     },
-  ],
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+    addedAt: {
+      type: Date,
+      default: Date.now
+    }
+  }, { _id: false });
 
-export default mongoose.model("Playlist", playlistSchema);
+const collectionSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "User ID is required"],
+    },
+    name: {
+      type: String,
+      required: [true, "A collection name is required"],
+      trim: true,
+      minLength: [1, "Collection name must be at least 1 character"],
+      maxLength: [100, "Collection name cannot exceed 100 characters"],
+    },
+    posts: [savedPostSchema]
+  },
+  {
+  timestamps: true
+  }
+);
+
+export default mongoose.model("Collection", collectionSchema);

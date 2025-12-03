@@ -30,6 +30,9 @@ const songSchema = new mongoose.Schema(
   },
   { // Saves a version int to show what version this doc is on (useless unless multiple ppl work on the same thing)
       versionKey: false 
+  },
+  {
+    timestamps: true
   }
 );
 
