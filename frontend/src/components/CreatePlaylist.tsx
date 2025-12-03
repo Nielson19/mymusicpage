@@ -13,14 +13,13 @@ export default function CreatePlaylist() {
 
     const imgs = [image1,image2,image3,image4,image5]
 
-    const [imgSelect, setImgSelect] = useState(false)
 
     function imgSelected() {
       console.log("Hello")
     }
 
     const mapImages = imgs.map((img,i) => (
-      <img onClick={imgSelected} key={i} src={img} alt="" className={`w-full h-[250px] object-cover flex-shrink-0 snap-start `} />
+      <img onClick={imgSelected} key={i} src={img} alt="background" className={`w-full h-[250px] object-cover flex-shrink-0 snap-start rounded-md`} />
     ))
 
 
@@ -46,7 +45,7 @@ export default function CreatePlaylist() {
               <FaPlus className="ml-1 inline-block" size={24} />
               </svg>
             </div> */}
-            <h2 className=" text-gray-300 mt-2">Choose Picture</h2>
+            <h2 className=" text-gray-300 mt-2">Choose Banner</h2>
             {/* <input type="file" className="hidden" /> */}
           {/* </label> */}
 
