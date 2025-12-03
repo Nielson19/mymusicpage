@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
-import testRoutes from './routes/testRoute.js';
-import authRoutes from './routes/authRoute.js';
+import testRouter from './routes/testRoute.js';
+import authRouter from './routes/authRoute.js';
 import postRoutes from './routes/postRoute.js';
-import songRoutes from './routes/songRoute.js';
+import songRouter from './routes/songRoute.js';
 
 import { connectDB } from './config/dbConfig.js';
 
@@ -18,9 +18,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true })); // wah eh
 
-app.use('/api', authRoutes);
+app.use('/api', authRouter);
 app.use('/api/post', postRoutes);
-app.use('/api/song', songRoutes);
+app.use('/api/song', songRouter);
 
 // development v. production
 const NODE_ENV = process.env.NODE_ENV;
@@ -28,7 +28,7 @@ const NODE_ENV = process.env.NODE_ENV;
 // Developer-ONLY test routes
 // /test/{test-views.html}
 if (NODE_ENV === 'development') {
-  app.use('/test', testRoutes);
+  app.use('/test', testRouter);
   console.log(`\nDevelopment test routes enabled!`);
 }
 
