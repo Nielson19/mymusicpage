@@ -68,9 +68,9 @@ const PlaylistPage: React.FC = () => {
 
       {/* Playlist Actions */}
       <div className="flex items-center gap-4 px-6 py-6 border-b border-white/5">
-        <button onClick={PlayButton} className="bg-purple-600 px-6 py-2 rounded-xl hover:bg-purple-700 transition cursor-pointer">
+        {/* <button onClick={PlayButton} className="bg-purple-600 px-6 py-2 rounded-xl hover:bg-purple-700 transition cursor-pointer">
           Play
-        </button>
+        </button> */}
         <ShareButton playlistId={playlist.id} />
         <button className="bg-white/10 px-6 py-2 rounded-xl hover:bg-white/20 transition cursor-pointer">
           Edit Playlist
