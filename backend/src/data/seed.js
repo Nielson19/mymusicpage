@@ -77,34 +77,34 @@ async function createSongs() {
 }
 
 async function createUsers() {
-    const users = [];
-  
-    for (let i = 0; i < 12; i++) {
-      // Generate username & email
-      const username = faker.internet.username({ firstName: faker.person.firstName() });
-      const email = faker.internet.email({ firstName: username });
-  
-      users.push({
-        username: `${username}_${i}`, // ensure uniqueness
-        email,
-        password: faker.internet.password({ length: 12 }), // matches schema’s "password"
-        profile_picture: faker.image.avatar(),
-        banner_picture: "",
-        bio: faker.lorem.sentence().slice(0, 280),
-        number_of_followers: 0,
-        number_of_following: 0,
-        social_links: [
-          `https://instagram.com/${username.toLowerCase()}`,
-          `https://x.com/${username.toLowerCase()}`,
-        ],
-      });
-    }
-  
-    const inserted = await User.insertMany(users, { ordered: false });
-    console.log(`👤 Inserted ${inserted.length} users`);
-    return inserted;
+  const users = [];
+
+  for (let i = 0; i < 12; i++) {
+    // Generate username & email
+    const username = faker.internet.username({ firstName: faker.person.firstName() });
+    const email = faker.internet.email({ firstName: username });
+
+    users.push({
+      username: `${username}_${i}`, // ensure uniqueness
+      email,
+      password: faker.internet.password({ length: 12 }), // matches schema’s "password"
+      profile_picture: faker.image.avatar(),
+      banner_picture: "",
+      bio: faker.lorem.sentence().slice(0, 280),
+      number_of_followers: 0,
+      number_of_following: 0,
+      social_links: [
+        `https://instagram.com/${username.toLowerCase()}`,
+        `https://x.com/${username.toLowerCase()}`,
+      ],
+    });
   }
-  
+
+  const inserted = await User.insertMany(users, { ordered: false });
+  console.log(`👤 Inserted ${inserted.length} users`);
+  return inserted;
+}
+
 
 async function createPlaylists(users, songs) {
   const playlists = [];

@@ -16,7 +16,7 @@ const auth = (req) => {
 
 // FileRouter
 export const ourFileRouter = {
-  
+
   profileImage: f({
     image: {
       maxFileSize: "4MB",
@@ -25,20 +25,20 @@ export const ourFileRouter = {
   })
     // Set permissions
     .middleware(async ({ req }) => {
-      
+
       const user = auth(req);
- 
-      
+
+
       if (!user) throw new Error("Unauthorized");
- 
-      
+
+
       return { userId: user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      
+
       console.log("Upload complete for userId:", metadata.userId);
       console.log("file url", file.url);
- 
+
       // Update user's profile picture in database
       try {
         await User.findByIdAndUpdate(
@@ -49,8 +49,8 @@ export const ourFileRouter = {
       } catch (error) {
         console.error("Failed to update profile picture:", error);
       }
- 
-      
+
+
       return { uploadedBy: metadata.userId, url: file.url };
     }),
 
@@ -67,7 +67,7 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Banner upload complete for userId:", metadata.userId);
-      
+
       try {
         await User.findByIdAndUpdate(
           metadata.userId,
@@ -77,7 +77,7 @@ export const ourFileRouter = {
       } catch (error) {
         console.error("Failed to update banner picture:", error);
       }
-      
+
       return { uploadedBy: metadata.userId, url: file.url };
     }),
-}
+};

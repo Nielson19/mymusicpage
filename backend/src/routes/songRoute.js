@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import * as songController from '../controllers/songController.js'
+import * as songController from '../controllers/songController.js';
 
 const router = Router();
 

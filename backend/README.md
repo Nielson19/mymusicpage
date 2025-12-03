@@ -1,3 +1,21 @@
+# MyMusicPage - Backend
+
+## Express, MongoDB, and Node.js
+
+* npm i :for installing dependenices
+* npm run dev :to start server
+
+Port runs localhost:3002
+
+## API endpoints
+
+GET:
+* /api 
+
+POST:
+* /api/register
+* /api/login
+
 # For Debugging:
 ## HTTP status codes
 ### 1xx: Informational
@@ -37,21 +55,4 @@
 * 503 Service Unavailable - Server overload or maintenance
 * 504 Gateway Timeout     - Upstream server failed to send request in time
 
-## Backend
-
-# Express, Mongodb, and Node.js
-
-npm i :for installing dependenices
-npm run dev :to start server
-
-Port runs localhost:3002
-
-# API endpoints
-
-GET:
-/api 
-
-POST:
-/api/register
-/api/login
 

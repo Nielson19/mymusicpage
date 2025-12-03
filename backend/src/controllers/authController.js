@@ -85,7 +85,7 @@ const loginUser = async (req, res) => {
       httpOnly: true,
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 7 * 24 * 60 * 60 * 1000, 
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     //return res.json({ message: 'Login successful' });
     const { password: _pw, ...safeUser } = user.toObject();
@@ -98,8 +98,8 @@ const loginUser = async (req, res) => {
 
 
 export default {
-    hashPassword,
-    comparePassword,
-    registerUser,
-    loginUser,
-}
+  hashPassword,
+  comparePassword,
+  registerUser,
+  loginUser,
+};

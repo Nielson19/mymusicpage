@@ -1,2 +1,4 @@
 node_modules
 .env
+.git-blame-ignore-revs
+package-lock.json

@@ -12,28 +12,30 @@ const app = express();
 
 //connect to db
 mongoose.connect(process.env.MONGO_DB)
-.then(() => console.log('Database Connected'))
-.catch((err) => console.log('Database not connected', err))
+  .then(() => console.log('Database Connected'))
+  .catch((err) => console.log('Database not connected', err));
 
 
 //middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use("/api", authRouter);
 app.use("/auth/*", ExpressAuth(
-    {providers: [Spotify({
-        clientId: process.env.AUTH_SPOTIFY_ID, 
-        clientSecret: process.env.AUTH_SPOTIFY_SECRET})],
-        callbacks: {
-             async redirect() {
-                return "http://127.0.0.1:3002/dashboard";
-            },
-        }
+  {
+    providers: [Spotify({
+      clientId: process.env.AUTH_SPOTIFY_ID,
+      clientSecret: process.env.AUTH_SPOTIFY_SECRET
+    })],
+    callbacks: {
+      async redirect() {
+        return "http://127.0.0.1:3002/dashboard";
+      },
     }
+  }
 ));
 
 
 //port
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`Server is running on ${PORT}`))
+app.listen(PORT, () => console.log(`Server is running on ${PORT}`));

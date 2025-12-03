@@ -1,13 +1,13 @@
 import express from 'express';
-import Post from '../models/postModel.js'; 
-import User from '../models/userModel.js';  
-import Song from '../models/songModel.js';  
+import Post from '../models/postModel.js';
+import User from '../models/userModel.js';
+import Song from '../models/songModel.js';
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { userId, songAppleId, giphyUrl, shape, numOfLikes} = req.body;
+    const { userId, songAppleId, giphyUrl, shape, numOfLikes } = req.body;
     const newPost = new Post({
       userId,
       songAppleId,
@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
   try {
     const postId = req.params.id;
     const post = await Post.findById(postId)
-      .populate('user_id', 'username profile_picture') 
+      .populate('user_id', 'username profile_picture')
       .populate('song_id');
 
     if (!post) {
