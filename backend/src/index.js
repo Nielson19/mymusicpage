@@ -1,52 +1,41 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import cookieParser from 'cookie-parser';
+import express from "express";
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import { ExpressAuth } from "@auth/express";
+import Spotify from "@auth/express/providers/spotify";
+import authRouter from "./routes/authRoute.js";
+import dotenv from "dotenv";
 
-import testRoutes from './routes/testRoute.js';
-import authRoutes from './routes/authRoute.js';
-import postRoutes from './routes/postRoute.js';
-import songRoutes from './routes/songRoute.js';
-
-import { connectDB } from './config/dbConfig.js';
 
 dotenv.config();
 const app = express();
 
-// Middleware
+//connect to db
+mongoose.connect(process.env.MONGO_DB)
+  .then(() => console.log('Database Connected'))
+  .catch((err) => console.log('Database not connected', err));
+
+
+//middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true })); // wah eh
-
-app.use('/api', authRoutes);
-app.use('/api/post', postRoutes);
-app.use('/api/song', songRoutes);
-
-// development v. production
-const NODE_ENV = process.env.NODE_ENV;
-
-// Developer-ONLY test routes
-// /test/{test-views.html}
-if (NODE_ENV === 'development') {
-  app.use('/test', testRoutes);
-  console.log(`\nDevelopment test routes enabled!`);
-}
-
-// Port, defaults to 3000 (for testing)
-const PORT = process.env.PORT || 3000;
-
-// Async function to test MongoDB connection BEFORE starting the server.
-const startServer = async () => {
-  await connectDB(); // from ./config/db.js
-  app.listen(PORT, () => {
-    if (NODE_ENV == 'development') {
-      console.log(`\nRunning on LocalHost: http://localhost:${PORT}`);
-      console.log(`test-songSearch: http://localhost:${PORT}/test/songSearch.html`);
+app.use(express.urlencoded({ extended: true }));
+app.use("/api", authRouter);
+app.use("/auth/*", ExpressAuth(
+  {
+    providers: [Spotify({
+      clientId: process.env.AUTH_SPOTIFY_ID,
+      clientSecret: process.env.AUTH_SPOTIFY_SECRET
+    })],
+    callbacks: {
+      async redirect() {
+        return "http://127.0.0.1:3002/dashboard";
+      },
     }
-    else {
-      console.log(`\nServer started on port: ${PORT}`);
-    }
-  });
-};
+  }
+));
 
-startServer();
+
+//port
+const PORT = process.env.PORT;
+app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
