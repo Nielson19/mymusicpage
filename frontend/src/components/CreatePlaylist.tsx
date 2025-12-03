@@ -2,12 +2,11 @@ import { CiLock } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import Input from "./Input";
-import image1 from '/Users/asadchaudhry/Desktop/mymusicpage/frontend/src/assets/images/image1.jpg'
-import image2 from "/Users/asadchaudhry/Desktop/mymusicpage/frontend/src/assets/images/image2.jpg"
-import image3 from "/Users/asadchaudhry/Desktop/mymusicpage/frontend/src/assets/images/image3.jpg"
-import image4 from "/Users/asadchaudhry/Desktop/mymusicpage/frontend/src/assets/images/image4.jpg"
-import image5 from "/Users/asadchaudhry/Desktop/mymusicpage/frontend/src/assets/images/image5.jpg"
-import { useState } from "react";
+import image1 from '../assets/images/image1.jpg'
+import image2 from '../assets/images/image2.jpg'
+import image3 from '../assets/images/image3.jpg'
+import image4 from '../assets/images/image4.jpg'
+import image5 from '../assets/images/image5.jpg'
 
 export default function CreatePlaylist() {
 
@@ -32,8 +31,6 @@ export default function CreatePlaylist() {
                 <IoMdClose className="cursor-pointer hover:scale-105 transition" size={24} />
               </div>
 
-
-
         <div className="flex flex-col items-center gap-6">
           {/* <label className="flex flex-col items-center cursor-pointer"> */}
             {/* <div className="w-24 h-24 rounded-lg border-2 border-dashed border-gray-500 flex items-center justify-center transition">
@@ -53,8 +50,6 @@ export default function CreatePlaylist() {
             <div className="flex flex-col overflow-y-auto snap-y snap-mandatory h-[250px] no-scrollbar">
             {mapImages}
             </div>
-
-
 
           <input
             type="text"
