@@ -17,7 +17,6 @@ export default function CreatePlaylist() {
 
     const imgs = [image1,image2,image3,image4,image5,image6,image7,image8,image9,image10]
 
-
     function imgSelected() {
       console.log("Hello")
     }
@@ -53,7 +52,7 @@ export default function CreatePlaylist() {
 
 
             <div className="flex flex-col overflow-y-auto snap-y snap-mandatory h-[250px] no-scrollbar">
-            {mapImages}
+              {mapImages}
             </div>
 
           <input
