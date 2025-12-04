@@ -1,116 +1,103 @@
-import User from '../models/user.js';
+import User from '../models/user.model.js';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-//test endpoint
-const test = (req, res) => {
-    res.json('test working')
-}
+const hashPassword = async (password) => bcrypt.hash(password, 10);
+const comparePassword = async (password, hashed) => bcrypt.compare(password, hashed);
 
-/*
-const jwt = require('jsonwebtoken');
-*/
-
-
-//register endpoint
 const registerUser = async (req, res) => {
-    try {
-        const { username, email, password } = req.body;
+  try {
+    let { username, email, password, passwordConfirm } = req.body ?? {};
 
-        // check if name was entered
-        if (!username) {
-            return res.json({
-                error: 'Username is required'
-            })
-        };
-
-        // check if password is good
-        if (!password || password.length > 3 || password.length < 30){
-            return res.json({
-                error: 'Password is required must be at least 3 characters and a max of 30'
-            })
-        };
-
-        //check email
-        const exist = await User.findOne({email});
-        if (exist) {
-            return res.json({
-                error: 'Email is taken'
-            })
-        }
-
-        const hashedPassword =  await hashPassword(password) 
-        //create db user
-        const user = await User.create({
-            username, 
-            email, 
-            password: hashedPassword,
-        });
-
-        return res.json(user)
-    } catch (error) {
-        console.log(error)
+    username = typeof username === 'string' ? username.trim() : '';
+    email = typeof email === 'string' ? email.trim().toLowerCase() : '';
+    password = typeof password === 'string' ? password.trim() : '';
+    passwordConfirm = typeof passwordConfirm === 'string' ? passwordConfirm.trim() : '';
+    //basic validations
+    if (!username) return res.status(400).json({ error: 'Username is required' });
+    if (username.length < 3 || username.length > 30) {
+      return res.status(400).json({ error: 'Username must be 3-30 characters' });
     }
 
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!email || !emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Valid email is required' });
+    }
+
+    if (!password || password.length < 3 || password.length > 30) {
+      return res.status(400).json({
+        error: 'Password is required and must be 3-30 characters',
+      });
+    }
+
+    if (password !== passwordConfirm) {
+      return res.status(400).json({ error: 'Passwords do not match' });
+    }
+
+    //unique checks (email OR username)
+    const existing = await User.findOne({ $or: [{ email }, { username }] }).lean();
+    if (existing) {
+      const taken =
+        existing.email === email ? 'Email is taken' : 'Username is taken';
+      return res.status(409).json({ error: taken });
+    }
+
+    //create user
+    const hashedPassword = await hashPassword(password);
+    const user = await User.create({
+      username,
+      email,
+      password: hashedPassword,
+    });
+
+    //hide password in response
+    const { password: _pw, ...safeUser } = user.toObject();
+    return res.status(201).json(safeUser);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Server error' });
+  }
 };
 
-//hash password
-const hashPassword = (password) => {
-    return new Promise((resolve, reject) => {
-        bcrypt.genSalt(10, (err, salt) => {
-            if(err) {
-                reject(err)
-            }
-            bcrypt.hash(password, salt, (err, hash) => {
-                if(err) {
-                    reject(err)
-                }
-                resolve(hash)
-            })
-        })
-    })
-}
-
-//compare password
-const comparePassword = (password, hashed) => {
-    return bcrypt.compare(password, hashed)
-}
-
-//login endpoint
 const loginUser = async (req, res) => {
-    try {
-        const {email, password} = req.body;
+  try {
+    let { email, password } = req.body ?? {};
+    email = typeof email === 'string' ? email.trim().toLowerCase() : '';
+    password = typeof password === 'string' ? password : '';
 
-         //check if user exist 
-        const user = await User.findOne({email});
-        if (!user){
-            return res.json ({
-                error: "No user found"
-            })
-        }
-        
-        //check if password match
-        const match = await comparePassword(password, user.password)
-        if (match){
-            res.json('Password matches')
-
-            /*jwt.sign({email: user.email, id: user._id, name: user.name}, process.env.JWT_SECRET, {}, (err, token) =>{
-                if (err) throw err;
-                res.cookie('token', token).json(user)
-            })
-            */
-        }
-
-        if (!match) {
-            res.json('Password do not match')
-        }
-    } catch (error) {
-        
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required' });
     }
-}
 
-//export all functions
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ error: 'Invalid credentials' });
+
+    const match = await comparePassword(password, user.password);
+    if (!match) return res.status(400).json({ error: 'Invalid credentials' });
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email, name: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
+    });
+    //return res.json({ message: 'Login successful' });
+    const { password: _pw, ...safeUser } = user.toObject();
+    return res.json(safeUser);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
 export default {
-    test,
     hashPassword,
     comparePassword,
     registerUser,

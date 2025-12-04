@@ -4,6 +4,8 @@ import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 import ShareButton from "../components/ShareButton";
 import Post from "../components/Post";
 import { IoChevronBackSharp } from "react-icons/io5";
+import { BurgerMenu } from "../components/BurgerMenu";
+import { Edit } from "lucide-react";
 
 const PlaylistPage: React.FC = () => {
   const location = useLocation();
@@ -35,6 +37,38 @@ const PlaylistPage: React.FC = () => {
       </div>
     );
   }
+
+
+  const items = [
+    {
+      label: "Share",
+      onClick: () => {
+        // all share logic here
+        const url = `${window.location.origin}/playlist/${encodeURIComponent(playlist.id)}`;
+
+        if (navigator.share) {
+          navigator.share({ title: "Check out my playlist", url })
+            .catch((err) => console.error("Share failed", err));
+        } else if (navigator.clipboard?.writeText) {
+          navigator.clipboard.writeText(url)
+            .then(() => console.log("Link copied to clipboard"))
+            .catch((err) => console.error("Copy failed", err));
+        } else {
+          window.prompt("Copy this link:", url);
+        }
+      },
+    },
+    {
+      label: "Delete",
+      onClick: () => {
+        const confirmed = window.confirm("Are you sure you want to delete this playlist?");
+        if (!confirmed) return;
+
+        console.log("Deleted playlist", playlist.Id);
+        // e.g. API call or state update here
+      },
+    },
+  ];
 
   return (
     <div className="transition-opacity duration-500 ease-in opacity-0 animate-slideUpFade">
@@ -75,15 +109,13 @@ const PlaylistPage: React.FC = () => {
 
       {/* Playlist Actions */}
       <div className="flex items-center gap-4 px-6 py-6 border-b border-white/5">
-        {/* <button onClick={PlayButton} className="bg-purple-600 px-6 py-2 rounded-xl hover:bg-purple-700 transition cursor-pointer">
-          Play
-        </button> */}
-        <ShareButton playlistId={playlist.id} />
-        <button className="bg-white/10 px-6 py-2 rounded-xl hover:bg-white/20 transition cursor-pointer">
-          Edit Playlist
-        </button>
+      <div className="absolute z-200">
+        <BurgerMenu className=" text-purple-500 text-3xl" dropdownClassName="text-red-600" items={items} />
       </div>
+      </div>
+    
 
+      
       {/* Playlist Content */}
       <div className="flex mt-2 gap-5 justify-center flex-wrap">
       {playlist.items.map((song, index) => (

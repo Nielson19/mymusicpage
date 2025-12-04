@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProfilePageView from "./pages/ProfilePageView";
 import PlaylistPage from "./pages/PlaylistPage";
+import CreatePlaylist from "./components/CreatePlaylist";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -12,6 +13,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;
 
