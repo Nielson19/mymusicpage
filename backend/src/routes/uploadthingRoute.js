@@ -1,5 +1,5 @@
 import express from 'express';
-import { createRouteHandler } from "uploadthing/express";
+import { createRouteHandler } from 'uploadthing/express';
 import { ourFileRouter } from '../config/uploadthingConfig.js';
 
 const router = express.Router();
@@ -12,6 +12,6 @@ const uploadthingHandler = createRouteHandler({
   },
 });
 
-router.use("/uploadthing", uploadthingHandler);
+router.use('/uploadthing', uploadthingHandler);
 
 export default router;

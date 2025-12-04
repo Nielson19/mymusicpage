@@ -38,8 +38,8 @@ export async function fetchItunesSearch(raw_term, limit = 50) { // Exported func
   catch (error) {
     // If Apple's API blocked our IP for any reason
     if (error.response && error.response.status === 429) {
-      console.warn("iTunes Search API rate limit hit!");
-      throw new Error("Too many requests. Please wait a moment.");
+      console.warn('iTunes Search API rate limit hit!');
+      throw new Error('Too many requests. Please wait a moment.');
     }
     ErrorService.captureException(error, { url: full_search_url });
     return []; // Empty list on error so we don't crash the site

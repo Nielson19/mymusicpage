@@ -16,19 +16,19 @@ import Song from '../models/songModel.js';
 // req: Request, user input. res: Response, the data we'll send back
 export const searchSongs = async (req, res) => {
   const { term } = req.query;
-  // Should return something like this: { term: "Adele" }
+  // Should return something like this: { term: 'Adele' }
 
   // Browser way of handling errors
   // 400 Bad Request - Server cannot process request (syntax error)
-  if (!term) return res.status(400).json({ error: "Missing term" });
+  if (!term) return res.status(400).json({ error: 'Missing term' });
 
   try {
     // Text searching for relevant scoring. songName terms have double points compared to artistName terms.
     const dbSongs = await Song.find(
       { $text: { $search: term } }, // Looks into { name: 'text', artistName: 'text' }
-      { score: { $meta: "textScore" } } // Looks into text's metadata: { weights: { name: 2, artistName: 1 }}
+      { score: { $meta: 'textScore' } } // Looks into text's metadata: { weights: { name: 2, artistName: 1 }}
     )
-      .sort({ score: { $meta: "textScore" } }) // Sort by weighted score
+      .sort({ score: { $meta: 'textScore' } }) // Sort by weighted score
       .limit(15) // Only collect the info of the top 15.
       .lean(); // Turns score into a property (since apparently MongoDB can be weird about accessing the score field since it's technically an object.)
 
@@ -87,7 +87,7 @@ export const searchSongs = async (req, res) => {
 
   } catch (error) {
     // You'll get 429 if Apple's API blocks the IP (somehow) for too many requests
-    if (error.message.includes("Too many requests")) {
+    if (error.message.includes('Too many requests')) {
       return res.status(429).json({ error: error.message });
     }
     return res.status(500).json({ error: error.message });

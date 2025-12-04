@@ -1,31 +1,31 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "User ID is required"],
+      ref: 'User',
+      required: [true, 'User ID is required'],
     },
     songAppleId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Song",
-      required: [true, "Song's Apple ID is required"]
+      ref: 'Song',
+      required: [true, 'Songs Apple ID is required']
     },
     giphyURL: {
       type: String,
       trim: true,
-      default: ""
+      default: ''
     },
     shape: {
       type: String,
-      enum: ["Portrait", "Square"],
-      default: "Portrait"
+      enum: ['Portrait', 'Square'],
+      default: 'Portrait'
     },
     numOfLikes: {
       type: Number,
       default: 0,
-      min: [0, "Likes cannot be negative"]
+      min: [0, 'Likes cannot be negative']
     }
   },
 
@@ -33,7 +33,7 @@ const postSchema = new mongoose.Schema(
     share: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
       },
     ]
     */
@@ -42,13 +42,13 @@ const postSchema = new mongoose.Schema(
     caption: {
       type: String,
       trim: true,
-      maxLength: [300, "Caption cannot exceed 300 characters"],
-      default: "",
+      maxLength: [300, 'Caption cannot exceed 300 characters'],
+      default: '',
     },
     numOfComments: {
       type: Number,
       default: 0,
-      min: [0, "Comments cannot be negative"],
+      min: [0, 'Comments cannot be negative'],
     },
     */
 
@@ -57,4 +57,4 @@ const postSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Post", postSchema);
+export default mongoose.model('Post', postSchema);

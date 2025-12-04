@@ -3,25 +3,25 @@
 // resourceType - String
 // createdAt - Date
 
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const likeSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "User ID is required."],
+      ref: 'User',
+      required: [true, 'User ID is required.'],
     },
     resourceId: {
       type: mongoose.Schema.Types.ObjectId,
-      refPath: "resourceType",
-      required: [true, "A resource ID is required."],
+      refPath: 'resourceType',
+      required: [true, 'A resource ID is required.'],
     },
     resourceType: {
       type: String,
-      required: [true, "A resource type is required."],
-      enum: ["Post"], // Can add other values in the future (comments, collections, etc.)
-      default: "Post" // for simplicity right now.
+      required: [true, 'A resource type is required.'],
+      enum: ['Post'], // Can add other values in the future (comments, collections, etc.)
+      default: 'Post' // for simplicity right now.
     },
   },
   {

@@ -7,7 +7,7 @@ export const connectDB = async () => {
 
     console.log(`\n✅ MongoDB Connected!`);
     console.log(`-----------------------------------`);
-    console.log(` Database Name:   "${conn.connection.name}"`);
+    console.log(` Database Name:   '${conn.connection.name}'`);
     console.log(` Host / Cluster:  ${conn.connection.host}`);
     console.log(`-----------------------------------`);
   }

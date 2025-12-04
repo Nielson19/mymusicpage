@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const savedPostSchema = new mongoose.Schema(
   {
@@ -17,15 +17,15 @@ const collectionSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "User ID is required"],
+      ref: 'User',
+      required: [true, 'User ID is required'],
     },
     name: {
       type: String,
-      required: [true, "A collection name is required"],
+      required: [true, 'A collection name is required'],
       trim: true,
-      minLength: [1, "Collection name must be at least 1 character"],
-      maxLength: [100, "Collection name cannot exceed 100 characters"],
+      minLength: [1, 'Collection name must be at least 1 character'],
+      maxLength: [100, 'Collection name cannot exceed 100 characters'],
     },
     posts: [savedPostSchema]
   },
@@ -34,4 +34,4 @@ const collectionSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Collection", collectionSchema);
+export default mongoose.model('Collection', collectionSchema);

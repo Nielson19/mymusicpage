@@ -1,6 +1,6 @@
-import cors from "cors";
-import auth from "../controllers/authController.js";
-import { Router } from "express";
+import cors from 'cors';
+import auth from '../controllers/authController.js';
+import { Router } from 'express';
 const router = Router();
 
 
