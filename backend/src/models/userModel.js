@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      // Not required for Spotify login users.
     },
     profile_picture: {
       type: String,

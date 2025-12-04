@@ -1,5 +1,10 @@
 # MyMusicPage - Backend
 
+Backend Engineer (Auth) - Brie
+Backend Engineer - Elkin
+Database Engineer - Zara
+API Integrator - Chris Sanchez
+
 ## Express, MongoDB, and Node.js
 
 * npm i :for installing dependenices

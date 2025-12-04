@@ -4,12 +4,12 @@ import cookieParser from "cookie-parser";
 
 import testRouter from './routes/testRoute.js';
 import authRouter from './routes/authRoute.js';
-import postRoutes from './routes/postRoute.js';
+import postRouter from './routes/postRoute.js';
 import songRouter from './routes/songRoute.js';
 
 import { connectDB } from './config/dbConfig.js';
 
-import { ExpressAuth } from "@auth/express";
+import { ExpressAuth } from "@auth/express"; // Auth.js but for Express (Pre-made security system for handling OAuth)
 import Spotify from "@auth/express/providers/spotify";
 
 dotenv.config();
@@ -18,25 +18,24 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser()); // For getting a user's session token (stored in a browser cookie).
 
-app.use("/api", authRouter);
-app.use('/api/post', postRoutes);
+app.use("/api", authRouter); // For handling non-Spotify logins
+app.use('/api/post', postRouter);
 app.use('/api/song', songRouter);
 
-app.use("/auth/*", ExpressAuth(
-  {
-    providers: [Spotify({
-      clientId: process.env.AUTH_SPOTIFY_ID,
-      clientSecret: process.env.AUTH_SPOTIFY_SECRET
-    })],
-    callbacks: {
-      async redirect() {
-        return "http://127.0.0.1:3002/dashboard";
-      }
+// Handling Spotify logins
+app.use("/auth/*", ExpressAuth({ 
+  providers: [Spotify({
+    clientId: process.env.AUTH_SPOTIFY_ID, // From Spotify Dev Dashboard
+    clientSecret: process.env.AUTH_SPOTIFY_SECRET 
+  })],
+  callbacks: {
+    async redirect() { // After a successful login, send them to the frontend dashboard on port 3002
+      return "http://127.0.0.1:3002/dashboard";
     }
   }
-));
+}));
 
 // 'development' v. 'production'
 const NODE_ENV = process.env.NODE_ENV;

@@ -13,6 +13,7 @@ const registerUser = async (req, res) => {
     email = typeof email === 'string' ? email.trim().toLowerCase() : '';
     password = typeof password === 'string' ? password.trim() : '';
     passwordConfirm = typeof passwordConfirm === 'string' ? passwordConfirm.trim() : '';
+
     //basic validations
     if (!username) return res.status(400).json({ error: 'Username is required' });
     if (username.length < 3 || username.length > 30) {
@@ -87,6 +88,7 @@ const loginUser = async (req, res) => {
       secure: process.env.NODE_ENV === 'production',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+
     //return res.json({ message: 'Login successful' });
     const { password: _pw, ...safeUser } = user.toObject();
     return res.json(safeUser);
