@@ -1,3 +1,9 @@
+/* TODO: 
+* Transfer logic to postController.js
+* Double check to see if the needed model changes still let this work
+*/
+
+
 import express from 'express';
 import Post from '../models/postModel.js';
 import User from '../models/userModel.js';
