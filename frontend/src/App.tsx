@@ -14,13 +14,15 @@ import ProfilePageView from "./pages/ProfilePageView";
 import PlaylistPage from "./pages/PlaylistPage";
 import SettingsPageView from "./pages/SettingsPageView";
 import axios from "axios";
+import { UserContextProvider } from "../context/userContext";
+import { User } from "lucide-react";
 
 axios.defaults.baseURL = "http://localhost:3002";
 axios.defaults.withCredentials = true;
 
 function App() {
   return (
-    <>
+    <UserContextProvider>
       <Toaster
         position="top-center"
         reverseOrder={false}
@@ -83,7 +85,7 @@ function App() {
           <Route path="/test" element={<TestView />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </UserContextProvider>
   );
 }
 
