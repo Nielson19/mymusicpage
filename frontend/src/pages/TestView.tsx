@@ -10,6 +10,8 @@ import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import PlaylistPage from "./PlaylistPage";
 import SignupPageView from "./SignupPageView";
 import SettingsPageView from "./SettingsPageView";
+import { BurgerMenu } from "../components/BurgerMenu";
+import ProfilePicture from "../components/ProfilePicture";
 
 function TestView() {
   return (
@@ -17,10 +19,20 @@ function TestView() {
       {/* <LoginPageView /> */}
       {/* <SignupPageView /> */}
       {/* <ProfilePageView /> */}
-      <MainDashboard />
+      {/* <MainDashboard /> */}
       {/* <SettingsPageView /> */}
       {/* <PlaylistPage /> */}
-
+      {/* <GiphyPicker
+        onSelectGif={(url) => console.log("Selected GIF URL:", url)} */}
+      {/* <BurgerMenu
+        iconImage="https://cdn-icons-png.flaticon.com/512/1828/1828859.png"
+        items={[
+          { label: "Profile", onClick: () => console.log("Profile clicked") },
+          { label: "Settings", onClick: () => console.log("Settings clicked") },
+          { label: "Logout", onClick: () => console.log("Logout clicked") },
+        ]}
+      /> */}
+      <ProfilePicture />
       {/* <CreatePost /> */}
       {/* <CreatePlaylist /> */}
     </div>

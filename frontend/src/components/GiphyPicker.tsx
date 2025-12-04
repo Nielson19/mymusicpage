@@ -16,19 +16,33 @@ export default function GiphyPicker({ onSelectGif }: Props) {
 
   const handleSearch = async () => {
     if (!searchTerm.trim()) return;
-    const response = await axios.get(`https://api.giphy.com/v1/gifs/search`, {
-      params: {
-        api_key: API_KEY,
-        q: searchTerm,
-        limit: 10,
-      },
-    });
-    setGifs(response.data.data);
+    try {
+      const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
+        params: {
+          api_key: API_KEY,
+          q: searchTerm,
+          limit: 10,
+        },
+        withCredentials: false, // prevent sending cookies to avoid CORS credential issues
+      });
+      setGifs(response.data.data);
+    } catch (err) {
+      console.error("Giphy search failed:", err);
+      setGifs([]);
+    }
   };
 
   const handleSelect = (url: string) => {
     setSelectedGifUrl(url);
     if (onSelectGif) onSelectGif(url);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    } else if (e.key === "Escape") {
+      setGifs([]);
+    }
   };
 
   return (
@@ -39,6 +53,7 @@ export default function GiphyPicker({ onSelectGif }: Props) {
           placeholder="Type something..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyDown}
           className="w-2/3"
         />
 

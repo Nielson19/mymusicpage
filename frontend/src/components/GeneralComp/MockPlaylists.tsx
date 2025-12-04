@@ -8,7 +8,7 @@ export const mockPlaylists: DataSource[] = [
     items: [
       {
         imgLink: "https://picsum.photos/200",
-        size: "PORTRAIT",
+        size: "SQUARE",
         songName: "Song A",
         artistName: "Artist 1",
       },
@@ -94,7 +94,7 @@ export const mockPlaylists: DataSource[] = [
     items: [
       {
         imgLink: "https://picsum.photos/212",
-        size: "PORTRAIT",
+        size: "SQUARE",
         songName: "Song M",
         artistName: "Artist 13",
       },
@@ -180,7 +180,7 @@ export const mockPlaylists: DataSource[] = [
     items: [
       {
         imgLink: "https://picsum.photos/224",
-        size: "PORTRAIT",
+        size: "SQUARE",
         songName: "Song Y",
         artistName: "Artist 25",
       },

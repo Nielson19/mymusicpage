@@ -1,6 +1,7 @@
 import type { PostProps } from "../Post";
 import Post from "../Post";
-import { useMemo, useEffect, useRef, useCallback } from "react";
+import { useMemo, useEffect, useRef, useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export interface DataSource {
   id: string;
@@ -17,91 +18,12 @@ interface MasonryAdvancedProps {
   distributionStrategy?: "round-robin" | "source-per-column" | "fill-columns";
   infiniteScroll?: boolean;
   duplicateCount?: number;
+  onPlaylistClick?: (playlistId: string) => void;
+  dark?: boolean;
 }
 
-function randomSize(): "PORTRAIT" | "SQUARE" {
-  return Math.random() > 0.5 ? "PORTRAIT" : "SQUARE";
-}
-
-/**
- * MasonryAdvanced Component
- *
- * A flexible masonry layout component that displays music posts in multiple columns with independent scrolling.
- * Supports different distribution strategies for organizing content from multiple data sources.
- *
- * @param {DataSource[]} dataSources - Array of data sources containing music/post items. Each source represents
- *                                     a different playlist or category (e.g., "Rock Classics", "Jazz Standards").
- *                                     Each DataSource contains:
- *                                     - id: unique identifier
- *                                     - name: display name for the source
- *                                     - items: array of PostProps (songs/posts)
- *                                     - color: optional hex color for theming
- *
- * @param {number} [gap=16] - Space between columns and items in pixels. Controls both horizontal
- *                            spacing between columns and vertical spacing between posts within columns.
- *
- * @param {number} [minColumnWidth=280] - Minimum width for each column in pixels. Ensures columns
- *                                        don't become too narrow on smaller screens while maintaining
- *                                        responsive behavior.
- *
- * @param {number} [columnCount=3] - Number of columns to display. Determines how many vertical columns
- *                                   the masonry layout will have. Works differently based on distribution strategy:
- *                                   - "source-per-column": Shows first N data sources as separate columns
- *                                   - "round-robin": Distributes all items evenly across N columns
- *                                   - "fill-columns": Fills N columns sequentially
- *
- * @param {"round-robin" | "source-per-column" | "fill-columns"} [distributionStrategy="round-robin"]
- *        Controls how items from data sources are distributed across columns:
- *
- *        - "source-per-column": Each data source gets its own dedicated column. Shows playlist headers
- *                               with source colors. Best for displaying distinct categories/playlists.
- *
- *        - "round-robin": Items from all sources are mixed and distributed evenly across columns in
- *                        alternating fashion. Creates balanced columns with diverse content. Shows
- *                        source tags on individual items.
- *
- *        - "fill-columns": Fills columns sequentially until reaching target capacity, then moves to
- *                         next column. Creates more balanced column heights. Shows source tags on items.
- *
- * @param {boolean} [infiniteScroll=false] - Enables infinite scrolling by duplicating content multiple times.
- *                                          When enabled, creates seamless looping effect that restarts content
- *                                          when reaching the end. Automatically handles scroll position reset.
- *
- * @param {number} [duplicateCount=3] - Number of times to duplicate the content for infinite scroll.
- *                                     Higher values provide smoother infinite scrolling but use more memory.
- *                                     Only applies when infiniteScroll is enabled.
- *
- * Features:
- * - Independent column scrolling (each column scrolls separately)
- * - Hidden scrollbars for clean appearance
- * - Responsive design with flex-wrap
- * - Hover effects and transitions from Post component
- * - Random SQUARE/PORTRAIT sizing for visual variety
- * - Source identification via headers or tags
- * - Color-coded theming based on data source colors
- * - Optional infinite scrolling with seamless content looping
- *
- * @example
- * // Display playlists as separate columns
- * <MasonryAdvanced
- *   dataSources={musicPlaylists}
- *   distributionStrategy="source-per-column"
- *   columnCount={4}
- *   gap={20}
- * />
- *
- * @example
- * // Infinite scroll masonry
- * <MasonryAdvanced
- *   dataSources={musicPlaylists}
- *   distributionStrategy="round-robin"
- *   columnCount={3}
- *   infiniteScroll={true}
- *   duplicateCount={5}
- * />
- */
-
-function MasonryAdvanced({
+function MasonryDynamic({
+  dark,
   dataSources,
   gap = 16,
   minColumnWidth = 280,
@@ -109,15 +31,31 @@ function MasonryAdvanced({
   distributionStrategy = "round-robin",
   infiniteScroll = false,
   duplicateCount = 3,
+  onPlaylistClick,
 }: MasonryAdvancedProps) {
   const scrollRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const navigate = useNavigate();
 
-  // Initialize refs
+  const [isMobile, setIsMobile] = useState<boolean>(
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth < 768);
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize(); // set initial
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  function randomSize(): "PORTRAIT" | "SQUARE" {
+    return Math.random() > 0.5 ? "PORTRAIT" : "SQUARE";
+  }
+
   useEffect(() => {
     scrollRefs.current = new Array(columnCount).fill(null);
   }, [columnCount]);
 
-  // Function to duplicate items for infinite scroll
   const duplicateItems = (items: any[]) => {
     if (!infiniteScroll) return items;
 
@@ -133,18 +71,15 @@ function MasonryAdvanced({
     return duplicated;
   };
 
-  // Handle infinite scroll logic
   const handleScroll = useCallback(
     (columnIndex: number) => {
       const scrollContainer = scrollRefs.current[columnIndex];
       if (!scrollContainer) return;
 
-      // Handle infinite scroll reset
       if (infiniteScroll) {
         const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
         const scrollPercentage = (scrollTop + clientHeight) / scrollHeight;
 
-        // When we've scrolled past 2/3 of the content, reset to the beginning
         if (scrollPercentage > 0.66) {
           const resetPosition = scrollHeight / duplicateCount;
           scrollContainer.scrollTop = resetPosition;
@@ -153,7 +88,7 @@ function MasonryAdvanced({
     },
     [infiniteScroll, duplicateCount]
   );
-  // Prepare columns based on distribution strategy
+
   const columns = useMemo(() => {
     const cols: Array<{
       items: (PostProps & {
@@ -169,14 +104,13 @@ function MasonryAdvanced({
     const processItems = (items: any[]) => {
       const processedItems = items.map((item) => ({
         ...item,
-        size: randomSize(),
+        size: item.size ?? randomSize(),
       }));
       return infiniteScroll ? duplicateItems(processedItems) : processedItems;
     };
 
     switch (distributionStrategy) {
       case "round-robin":
-        // Distribute all items across columns in round-robin fashion
         let currentColumn = 0;
         dataSources.forEach((source) => {
           const processedItems = processItems(
@@ -187,7 +121,6 @@ function MasonryAdvanced({
               sourceColor: source.color,
             }))
           );
-
           processedItems.forEach((item) => {
             cols[currentColumn].items.push(item);
             currentColumn = (currentColumn + 1) % columnCount;
@@ -196,7 +129,6 @@ function MasonryAdvanced({
         break;
 
       case "fill-columns":
-        // Fill columns sequentially
         let columnIndex = 0;
         const totalItems = dataSources.reduce(
           (total, source) => total + source.items.length,
@@ -231,7 +163,6 @@ function MasonryAdvanced({
 
       case "source-per-column":
       default:
-        // Each data source gets its own column(s) - original behavior
         return dataSources.slice(0, columnCount).map((source) => ({
           items: processItems(
             source.items.map((item) => ({
@@ -254,81 +185,117 @@ function MasonryAdvanced({
     duplicateCount,
   ]);
 
+  // --- RETURN: mobile shows one full column at a time (swipe), desktop behaves as before
   return (
     <div
-      className="w-full flex justify-center px-4"
+      className={`w-full flex justify-center px-4 ${
+        dark
+          ? "text-white transition-colors ease-in-out duration-200"
+          : "text-gray-800 transition-colors ease-in-out duration-200"
+      }`}
       style={{ padding: `${gap}px 0` }}
     >
-      <div
-        className="flex justify-center flex-wrap"
-        style={{ gap: `${gap}px`, maxWidth: "100%" }}
-      >
-        {columns.map((column, index) => (
-          <div
-            key={index}
-            className="flex flex-col"
-            style={{
-              minWidth: `${minColumnWidth}px`,
-              maxWidth: `${minColumnWidth * 1.2}px`,
-              flex: "1 1 auto",
-              maxHeight: "70vh", // Set a fixed height for independent scrolling
-            }}
-          >
-            {/* Column header - only show for source-per-column strategy */}
-            {distributionStrategy === "source-per-column" &&
-              column.sourceInfo && (
-                <div
-                  className={`
-                  text-md font-medium mb-2 p-2 cursor-pointer bg-transparent
-                  transition-colors duration-500 shrink-0 justify-center flex items-center
-                  ${column.sourceInfo.color ? "text-black" : "text-gray-700"}
-                  hover:brightness-80 border-b-1 mb-8
-                `}
-                >
-                  {column.sourceInfo.name}
-                </div>
-              )}
-
-            {/* Scrollable Posts Container */}
+      <div className="w-full" style={{ maxWidth: "100%", padding: 0 }}>
+        {/* Column wrapper:
+            - mobile (isMobile): horizontal scrolling of columns, snap between whole columns
+            - desktop: wrap & center columns (no horizontal overflow)
+        */}
+        <div
+          className={`
+            flex
+            ${
+              isMobile
+                ? "flex-row overflow-x-auto snap-x snap-mandatory -mx-2"
+                : "flex-wrap justify-center"
+            }
+          `}
+          style={{
+            gap: `${gap}px`,
+            WebkitOverflowScrolling: "touch",
+          }}
+        >
+          {columns.map((column, index) => (
             <div
-              ref={(el) => {
-                scrollRefs.current[index] = el;
+              key={index}
+              className={
+                isMobile ? "flex-none w-full snap-start px-2" : "flex flex-col"
+              }
+              style={{
+                minWidth: isMobile ? "100vw" : `${minColumnWidth}px`,
+                maxWidth: isMobile ? "100vw" : `${minColumnWidth * 1.2}px`,
+                flex: "1 1 auto",
+                maxHeight: "70vh",
               }}
-              className="flex flex-col flex-1 overflow-y-auto scrollbar-none"
-              style={{ gap: `${gap}px` }}
-              onScroll={() => handleScroll(index)}
             >
-              {/* Posts using the Post component */}
-              {column.items.map((item, idx) => (
-                <div
-                  key={item.uniqueKey || `${item.sourceId}-${idx}`}
-                  className="relative"
-                >
-                  {/* Source indicator for mixed strategies */}
-                  {distributionStrategy !== "source-per-column" && (
-                    <div
-                      className="absolute top-8 right-8 z-20 px-2 py-1 text-xs rounded-full text-white"
-                      style={{ backgroundColor: item.sourceColor || "#6b7280" }}
-                    >
-                      {item.sourceName}
-                    </div>
-                  )}
+              {distributionStrategy === "source-per-column" &&
+                column.sourceInfo && (
+                  <div
+                    onClick={() => onPlaylistClick?.(column.sourceInfo!.id)} // NAVIGATION CLICK
+                    className={`
+                    text-md font-medium mb-2 p-2 cursor-pointer bg-transparent
+                    transition-colors duration-500 shrink-0 justify-center flex items-center
+                    hover:brightness-80 border-b-1 mb-8
+                  `}
+                  >
+                    {column.sourceInfo.name}
+                  </div>
+                )}
 
-                  <Post
-                    imgLink={item.imgLink}
-                    size={item.size}
-                    songName={item.songName}
-                    artistName={item.artistName}
-                    background={item.background}
-                  />
-                </div>
-              ))}
+              <div
+                ref={(el) => {
+                  scrollRefs.current[index] = el;
+                }}
+                className={`flex flex-col flex-1 overflow-y-auto scrollbar-none ${
+                  isMobile ? "items-center" : ""
+                }`}
+                style={{ gap: `${gap}px` }}
+                onScroll={() => handleScroll(index)}
+              >
+                {column.items.map((item, idx) => (
+                  <div
+                    key={item.uniqueKey || `${item.sourceId}-${idx}`}
+                    className="relative"
+                  >
+                    {distributionStrategy !== "source-per-column" &&
+                      column.sourceInfo && (
+                        <div
+                          onClick={() =>
+                            navigate(
+                              `/playlist/${encodeURIComponent(
+                                column.sourceInfo!.id
+                              )}`,
+                              {
+                                state: { playlist: column.sourceInfo },
+                              }
+                            )
+                          }
+                          className="absolute top-8 right-8 z-20 px-2 py-1 text-xs rounded-full cursor-pointer"
+                          style={{
+                            backgroundColor: item.sourceColor || "#6b7280",
+                          }}
+                        >
+                          {column.sourceInfo.name}
+                        </div>
+                      )}
+
+                    <Post
+                      userID=""
+                      songID=""
+                      imgLink={item.imgLink}
+                      size={item.size}
+                      songName={item.songName}
+                      artistName={item.artistName}
+                      background={item.background || item.imgLink}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-export default MasonryAdvanced;
+export default MasonryDynamic;
