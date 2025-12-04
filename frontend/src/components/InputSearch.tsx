@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Input from "./Input";
+import { IoIosSearch } from "react-icons/io";
 
 type InputSearchProps = {
   placeholder?: string;
@@ -71,13 +72,13 @@ export default function InputSearch({
   return (
     <div ref={ref} className={`relative ${className}`}>
       <Input
+        icon={icon}
         placeholder={placeholder}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleEnterSearch}
         size={size}
         color={color}
-        icon={icon}
         className="w-full"
       />
       {open && results.length > 0 && (
