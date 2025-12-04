@@ -14,6 +14,7 @@ router.use(
 
 router.post('/register', auth.registerUser)
 router.post('/login', auth.loginUser)
+router.get('/profile', auth.getProfile)
 
 
 export default router;

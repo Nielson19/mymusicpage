@@ -13,7 +13,7 @@ export function UserContextProvider({
   useEffect(() => {
     if (!user) {
       axios
-        .get("/profile", { withCredentials: true })
+        .get("/api/profile", { withCredentials: true })
         .then((response) => {
           setUser(response.data);
         })
