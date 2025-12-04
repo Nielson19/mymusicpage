@@ -74,21 +74,28 @@ const loginUser = async (req, res) => {
     if (!user) return res.status(400).json({ error: 'Invalid credentials' });
 
     const match = await comparePassword(password, user.password);
+    if(match) {
+        jwt.sign({email: user.email, id: user._id}, process.env.JWT_SECRET, {}, (err, token) => {
+            if (err) throw err;
+            res.cookie('token', token).json(user)
+    })
+}
     if (!match) return res.status(400).json({ error: 'Invalid credentials' });
 
-    const token = jwt.sign(
-      { id: user._id, email: user.email, name: user.username },
-      process.env.JWT_SECRET,
-      { expiresIn: '7d' }
-    );
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    // const token = jwt.sign(
+    //   { id: user._id, email: user.email, name: user.username },
+    //   process.env.JWT_SECRET,
+    //   { expiresIn: '7d' }
+    // );
 
+    // res.cookie('token', token, {
+    //   httpOnly: true,
+    //   sameSite: 'lax',
+    //   secure: process.env.NODE_ENV === 'production',
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, 
+    // });
+    
     //return res.json({ message: 'Login successful' });
     const { password: _pw, ...safeUser } = user.toObject();
     return res.json(safeUser);
