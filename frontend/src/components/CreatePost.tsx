@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import GiphyPicker from "./GiphyPicker";
 import Post from "./Post";
@@ -19,12 +19,29 @@ export default function CreatePost({ className = "" }: { className?: string }) {
     setBackground(gifUrl);
   };
 
+  const handleOutsideClick = () => {
+    // Logic to close the CreatePost modal when clicking outside
+    console.log("Clicked outside CreatePost");
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const url = URL.createObjectURL(file);
     setUploadedFileUrl(url);
     setBackground(url);
+  };
+
+  const handleAddPost = () => {
+    // Logic to add the post
+    console.log("Post added");
   };
 
   const toggleDisplayPreview = () => {
@@ -56,7 +73,8 @@ export default function CreatePost({ className = "" }: { className?: string }) {
 
   return (
     <div
-      className={`w-full max-w-md bg-black/80 border border-gray-800 rounded-2xl p-8 shadow-xl text-white my-10 ${className}`}
+      ref={handleOutsideClick}
+      className={`w-full max-w-md bg-black/80 border border-gray-800 rounded-2xl p-8 shadow-xl text-white my-10 ${className} animate-fadeIn`}
     >
       <div className="flex justify-between items-center mb-6">
         <h2 className="flex flex-col w-full text-3xl font-semibold text-center">
@@ -69,22 +87,6 @@ export default function CreatePost({ className = "" }: { className?: string }) {
       </div>
 
       <div className="flex flex-col items-center gap-4">
-        {/* <label className="flex flex-col items-center cursor-pointer">
-          <div className="w-24 h-24 rounded-lg border-2 border-dashed border-gray-500 flex items-center justify-center transition">
-            <FaPlus
-              className="text-gray-300 hover:scale-105 transition"
-              size={32}
-            />
-          </div>
-          <span className="text-sm text-gray-300 mt-2">Upload Background</span>
-          <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleFileChange}
-          />
-        </label> */}
-
         {/* Giphy Picker (lifted selection via callback) */}
         <GiphyPicker onSelectGif={handleGifSelect} />
 
@@ -139,7 +141,10 @@ export default function CreatePost({ className = "" }: { className?: string }) {
         )}
 
         <div className="flex gap-4 mt-3 w-full">
-          <button className="flex-1 cursor-pointer bg-purple-500 rounded-xl py-3 font-semibold hover:scale-105 transition">
+          <button
+            onClick={handleAddPost}
+            className="flex-1 cursor-pointer bg-purple-500 rounded-xl py-3 font-semibold hover:scale-105 transition"
+          >
             Post
           </button>
         </div>

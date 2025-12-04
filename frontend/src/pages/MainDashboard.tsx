@@ -1,9 +1,7 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { SquarePen } from "lucide-react";
 import { IoMdSettings, IoIosSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
-import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
 import type { DataSource } from "../components/GeneralComp/MasonryDynamic";
 
 // Import your data sources
@@ -13,6 +11,8 @@ import AppLogo from "../assets/icons/HeadphonesNoBG.png";
 import { useNavigate } from "react-router-dom";
 import CreatePost from "../components/CreatePost";
 import InputSearch from "../components/InputSearch";
+import MasonryDynamic from "../components/GeneralComp/MasonryDynamic";
+import { BurgerMenu } from "../components/BurgerMenu";
 
 export default function MainDashboard() {
   const Navigate = useNavigate();
@@ -43,7 +43,7 @@ export default function MainDashboard() {
   //TODO: Create the conponent on the top to filter the different data sources one is "For You" and "Following"
 
   return (
-    <div className="min-h-screen bg-[#0b0b0d] text-gray-200 p-6 cursor-default relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#0b0b0d] text-gray-200 p-6 cursor-default relative overflow-x-hidden animate-slideUpFade">
       {createPostOpen && (
         <div className="z-100 w-screen h-screen bg-black/90 flex items-center justify-center fixed top-0 left-0">
           <div ref={outsideClickRef}>
@@ -88,9 +88,21 @@ export default function MainDashboard() {
           >
             <FaUser />
           </button>
-          <button className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center">
+          {/* <button className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center">
             <IoMdSettings />
-          </button>
+          </button> */}
+          <BurgerMenu
+            iconImage={<IoMdSettings />}
+            dropdownClassName="fixed top-[80px] right-[24px]"
+            items={[
+              {
+                className: "text-red-500 font-bold",
+                label: "Logout",
+                onClick: () => console.log("Logout clicked"),
+              },
+            ]}
+            className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center"
+          />
         </div>
       </div>
 
@@ -101,11 +113,13 @@ export default function MainDashboard() {
           Explore new tracks, artists, and visual song posters curated for you.
         </p>
       </div>
-      <MasonryAdvanced
+      <MasonryDynamic
+        dark={true}
         dataSources={dataSources}
         columnCount={7}
-        distributionStrategy="source-per-column"
-        gap={20}
+        minColumnWidth={200}
+        distributionStrategy="round-robin"
+        gap={40}
         duplicateCount={5}
         infiniteScroll={true}
       />

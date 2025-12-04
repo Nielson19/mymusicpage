@@ -19,7 +19,7 @@ interface MasonryAdvancedProps {
   infiniteScroll?: boolean;
   duplicateCount?: number;
   onPlaylistClick?: (playlistId: string) => void;
-  dark?: boolean; 
+  dark?: boolean;
 }
 
 function MasonryDynamic({
@@ -150,7 +150,10 @@ function MasonryDynamic({
           );
 
           processedItems.forEach((item) => {
-            if (cols[columnIndex].items.length >= itemsPerColumn && columnIndex < columnCount - 1) {
+            if (
+              cols[columnIndex].items.length >= itemsPerColumn &&
+              columnIndex < columnCount - 1
+            ) {
               columnIndex++;
             }
             cols[columnIndex].items.push(item);
@@ -184,7 +187,14 @@ function MasonryDynamic({
 
   // --- RETURN: mobile shows one full column at a time (swipe), desktop behaves as before
   return (
-    <div className={`w-full flex justify-center px-4 ${dark ? "text-white" : "text-gray-800"}`} style={{ padding: `${gap}px 0` }}>
+    <div
+      className={`w-full flex justify-center px-4 ${
+        dark
+          ? "text-white transition-colors ease-in-out duration-200"
+          : "text-gray-800 transition-colors ease-in-out duration-200"
+      }`}
+      style={{ padding: `${gap}px 0` }}
+    >
       <div className="w-full" style={{ maxWidth: "100%", padding: 0 }}>
         {/* Column wrapper:
             - mobile (isMobile): horizontal scrolling of columns, snap between whole columns
@@ -193,7 +203,11 @@ function MasonryDynamic({
         <div
           className={`
             flex
-            ${isMobile ? "flex-row overflow-x-auto snap-x snap-mandatory -mx-2" : "flex-wrap justify-center"}
+            ${
+              isMobile
+                ? "flex-row overflow-x-auto snap-x snap-mandatory -mx-2"
+                : "flex-wrap justify-center"
+            }
           `}
           style={{
             gap: `${gap}px`,
@@ -203,7 +217,9 @@ function MasonryDynamic({
           {columns.map((column, index) => (
             <div
               key={index}
-              className={isMobile ? "flex-none w-full snap-start px-2" : "flex flex-col"}
+              className={
+                isMobile ? "flex-none w-full snap-start px-2" : "flex flex-col"
+              }
               style={{
                 minWidth: isMobile ? "100vw" : `${minColumnWidth}px`,
                 maxWidth: isMobile ? "100vw" : `${minColumnWidth * 1.2}px`,
@@ -211,24 +227,27 @@ function MasonryDynamic({
                 maxHeight: "70vh",
               }}
             >
-              {distributionStrategy === "source-per-column" && column.sourceInfo && (
-                <div
-                  onClick={() => onPlaylistClick?.(column.sourceInfo!.id)} // NAVIGATION CLICK
-                  className={`
+              {distributionStrategy === "source-per-column" &&
+                column.sourceInfo && (
+                  <div
+                    onClick={() => onPlaylistClick?.(column.sourceInfo!.id)} // NAVIGATION CLICK
+                    className={`
                     text-md font-medium mb-2 p-2 cursor-pointer bg-transparent
                     transition-colors duration-500 shrink-0 justify-center flex items-center
                     hover:brightness-80 border-b-1 mb-8
                   `}
-                >
-                  {column.sourceInfo.name}
-                </div>
-              )}
+                  >
+                    {column.sourceInfo.name}
+                  </div>
+                )}
 
               <div
                 ref={(el) => {
                   scrollRefs.current[index] = el;
                 }}
-                className={`flex flex-col flex-1 overflow-y-auto scrollbar-none ${isMobile ? "items-center" : ""}`}
+                className={`flex flex-col flex-1 overflow-y-auto scrollbar-none ${
+                  isMobile ? "items-center" : ""
+                }`}
                 style={{ gap: `${gap}px` }}
                 onScroll={() => handleScroll(index)}
               >
@@ -237,21 +256,31 @@ function MasonryDynamic({
                     key={item.uniqueKey || `${item.sourceId}-${idx}`}
                     className="relative"
                   >
-                    {distributionStrategy !== "source-per-column" && column.sourceInfo && (
-                      <div
-                        onClick={() =>
-                          navigate(`/playlist/${encodeURIComponent(column.sourceInfo!.id)}`, {
-                            state: { playlist: column.sourceInfo },
-                          })
-                        }
-                        className="absolute top-8 right-8 z-20 px-2 py-1 text-xs rounded-full cursor-pointer"
-                        style={{ backgroundColor: item.sourceColor || "#6b7280" }}
-                      >
-                        {column.sourceInfo.name}
-                      </div>
-                    )}
+                    {distributionStrategy !== "source-per-column" &&
+                      column.sourceInfo && (
+                        <div
+                          onClick={() =>
+                            navigate(
+                              `/playlist/${encodeURIComponent(
+                                column.sourceInfo!.id
+                              )}`,
+                              {
+                                state: { playlist: column.sourceInfo },
+                              }
+                            )
+                          }
+                          className="absolute top-8 right-8 z-20 px-2 py-1 text-xs rounded-full cursor-pointer"
+                          style={{
+                            backgroundColor: item.sourceColor || "#6b7280",
+                          }}
+                        >
+                          {column.sourceInfo.name}
+                        </div>
+                      )}
 
                     <Post
+                      userID=""
+                      songID=""
                       imgLink={item.imgLink}
                       size={item.size}
                       songName={item.songName}
@@ -270,5 +299,3 @@ function MasonryDynamic({
 }
 
 export default MasonryDynamic;
-
-

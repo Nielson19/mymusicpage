@@ -59,27 +59,11 @@ function MasonryAdvanced({
               maxHeight: "70vh", // Set a fixed height for independent scrolling
             }}
           >
-            {/* Playlist header with hover */}
-            {/* {column.sourceInfo && (
-              <div
-                className={`
-                  text-sm font-medium mb-2 p-2 rounded-lg cursor-pointer 
-                  transition-colors duration-300 shrink-0
-                  ${column.sourceInfo.color ? "text-white" : "text-gray-700"}
-                  hover:brightness-90
-                `}
-                style={{
-                  backgroundColor: column.sourceInfo.color || "#f3f4f6",
-                }}
-              >
-                {column.sourceInfo.name}
-              </div>
-            )} */}
-
             {/* Scrollable Posts Container */}
             <div
               className="flex flex-col flex-1 overflow-x-hidden overflow-y-auto scrollbar-none"
-              style={{ gap: `${gap}px` }}>
+              style={{ gap: `${gap}px` }}
+            >
               {/* Posts */}
               {column.items.map((item, idx) => (
                 <div
@@ -88,9 +72,18 @@ function MasonryAdvanced({
                   style={{
                     aspectRatio: item.size === "PORTRAIT" ? "3 / 4" : "1 / 1",
                     backgroundColor: item.background || "#f3f4f6",
-                  }}>
-                  <Post imgLink={item.imgLink} size={item.size} songName={item.songName} artistName={item.artistName} background={item.background} /> 
-                  </div>
+                  }}
+                >
+                  <Post
+                    songID=""
+                    userID=""
+                    imgLink={item.imgLink}
+                    size={item.size}
+                    songName={item.songName}
+                    artistName={item.artistName}
+                    background={item.background}
+                  />
+                </div>
               ))}
             </div>
           </div>
