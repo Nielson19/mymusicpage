@@ -10,15 +10,45 @@ import { musicDataSources } from "../data/musicData";
 import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import AppLogo from "../assets/icons/HeadphonesNoBG.png";
 import { useNavigate } from "react-router-dom";
+import CreatePost from "../components/CreatePost";
 
 export default function MainDashboard() {
   const Navigate = useNavigate();
   const dataSources: DataSource[] = musicDataSources;
+  const [createPostOpen, setCreatePostOpen] = React.useState(false);
+  const outsideClickRef = React.useRef<HTMLDivElement>(null);
+
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      outsideClickRef.current &&
+      !outsideClickRef.current.contains(event.target as Node)
+    ) {
+      setCreatePostOpen(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  const toggleCreatePost = () => {
+    setCreatePostOpen(!createPostOpen);
+  };
 
   //TODO: Create the conponent on the top to filter the different data sources one is "For You" and "Following"
 
   return (
     <div className="min-h-screen bg-[#0b0b0d] text-gray-200 p-6 cursor-default relative overflow-x-hidden">
+      {createPostOpen && (
+        <div className="z-100 w-screen h-screen bg-black/90 flex items-center justify-center fixed top-0 left-0">
+          <div ref={outsideClickRef}>
+            <CreatePost />
+          </div>
+        </div>
+      )}
       {/* Header */}
       <div
         className="w-full flex items-center justify-between mb-10  
@@ -54,6 +84,16 @@ export default function MainDashboard() {
         {/* Profile + Settings */}
         <div className="flex items-center space-x-4">
           <button
+            className="px-4 py-2
+           bg-white text-black font-bold rounded-xl border border-white/10 flex items-center justify-center"
+            onClick={() => {
+              console.log("Create button clicked");
+              toggleCreatePost();
+            }}
+          >
+            Create
+          </button>
+          <button
             onClick={() => {
               Navigate("/profile/username");
             }}
@@ -82,7 +122,7 @@ export default function MainDashboard() {
         duplicateCount={5}
         infiniteScroll={true}
       />
-      <MusicPlayerStatic />
+      {!createPostOpen && <MusicPlayerStatic />}
     </div>
   );
 }

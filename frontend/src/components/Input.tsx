@@ -1,3 +1,5 @@
+import React from "react";
+
 type InputProps = {
   size?: "SMALL" | "MEDIUM" | "LARGE";
   label?: string;
@@ -8,27 +10,35 @@ type InputProps = {
   type?: "password" | "email" | "text" | "number";
   placeholder?: string;
   value?: string;
+  className?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void; // added
 };
 
-export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E1E" }, icon, type = "text", placeholder, value, onChange }: InputProps) {
-
+export default function Input({
+  size = "MEDIUM",
+  label,
+  color = { PRIMARY: "#1E1E1E" },
+  icon,
+  type = "text",
+  placeholder,
+  value,
+  className,
+  onChange,
+  onKeyDown, // added
+}: InputProps) {
   const sizeClasses = {
     SMALL: "px-3 py-2 text-sm",
     MEDIUM: "px-4 py-2 text-lg",
     LARGE: "px-5 py-3 text-lg",
   }[size];
 
-  // function onChange() {
-  //   console.log("Hey")
-  // }
-
   const iconFunction = () => {
     console.log("Icon clicked");
   };
 
   return (
-    <div className="flex flex-col w-fit">
+    <div className={`flex flex-col w-fit ${className}`}>
       {label && (
         <label className="block mb-2 text-sm font-medium text-gray-300">
           {label}
@@ -46,9 +56,9 @@ export default function Input({size = "MEDIUM", label, color = { PRIMARY: "#1E1E
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          onKeyDown={onKeyDown} // added
           className="bg-transparent outline-none text-gray-200 placeholder-gray-400 flex-1"
         />
-
         {icon && (
           <button
             type="button"

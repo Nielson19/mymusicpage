@@ -7,12 +7,12 @@ const comparePassword = async (password, hashed) => bcrypt.compare(password, has
 
 const registerUser = async (req, res) => {
   try {
-    let { username, email, password } = req.body ?? {};
+    let { username, email, password, passwordConfirm } = req.body ?? {};
 
     username = typeof username === 'string' ? username.trim() : '';
     email = typeof email === 'string' ? email.trim().toLowerCase() : '';
     password = typeof password === 'string' ? password.trim() : '';
-
+    passwordConfirm = typeof passwordConfirm === 'string' ? passwordConfirm.trim() : '';
     //basic validations
     if (!username) return res.status(400).json({ error: 'Username is required' });
     if (username.length < 3 || username.length > 30) {
@@ -28,6 +28,10 @@ const registerUser = async (req, res) => {
       return res.status(400).json({
         error: 'Password is required and must be 3-30 characters',
       });
+    }
+
+    if (password !== passwordConfirm) {
+      return res.status(400).json({ error: 'Passwords do not match' });
     }
 
     //unique checks (email OR username)
@@ -69,20 +73,28 @@ const loginUser = async (req, res) => {
     if (!user) return res.status(400).json({ error: 'Invalid credentials' });
 
     const match = await comparePassword(password, user.password);
+    if(match) {
+        jwt.sign({email: user.email, id: user._id}, process.env.JWT_SECRET, {}, (err, token) => {
+            if (err) throw err;
+            res.cookie('token', token).json(user)
+    })
+}
     if (!match) return res.status(400).json({ error: 'Invalid credentials' });
 
-    const token = jwt.sign(
-      { id: user._id, email: user.email, name: user.username },
-      process.env.JWT_SECRET,
-      { expiresIn: '7d' }
-    );
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 7 * 24 * 60 * 60 * 1000, 
-    });
+    // const token = jwt.sign(
+    //   { id: user._id, email: user.email, name: user.username },
+    //   process.env.JWT_SECRET,
+    //   { expiresIn: '7d' }
+    // );
+
+    // res.cookie('token', token, {
+    //   httpOnly: true,
+    //   sameSite: 'lax',
+    //   secure: process.env.NODE_ENV === 'production',
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, 
+    // });
+    
     //return res.json({ message: 'Login successful' });
     const { password: _pw, ...safeUser } = user.toObject();
     return res.json(safeUser);
