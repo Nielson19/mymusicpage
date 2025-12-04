@@ -248,8 +248,6 @@ function ProfilePageView() {
           />
         </div>
       </div>
-
-      <MusicPlayerStatic />
     </div>
   );
 }
