@@ -1,26 +1,29 @@
 import React, { useState } from "react";
 import MusicPlayerFeature from "../components/MusicPlayerFeature";
+import Profile from "../components/ProfilePicture";
 import {
   Upload,
+  Share2,
   MoreHorizontal,
   SquarePen,
   Volume2,
   Palette,
   Home,
   X,
+  VolumeX,
 } from "lucide-react";
-import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
-
+import MasonryDynamic from "../components/GeneralComp/MasonryDynamic";
 import { useNavigate } from "react-router-dom";
 import CreatePost from "../components/CreatePost";
-import MusicPlayerStatic from "../components/MusicPlayerFeature";
+import { BurgerMenu } from "../components/BurgerMenu";
 
 function ProfilePageView() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Home");
-  const Navigate = useNavigate();
 
   const [createPostOpen, setCreatePostOpen] = React.useState(false);
+  const [createPlaylistOpen, setCreatePlaylistOpen] = React.useState(false);
   const outsideClickRef = React.useRef<HTMLDivElement>(null);
 
   const handleOutsideClick = (event: MouseEvent) => {
@@ -32,16 +35,67 @@ function ProfilePageView() {
     }
   };
 
+  React.useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
   const handleOpenCreatePost = () => {
     setCreatePostOpen(true);
   };
 
-  const galleryBlocks = [...Array(15)].map((_, i) => (
-    <div key={i} className="bg-[#0E1117] w-full h-64 rounded-lg"></div>
-  ));
+  const handleCreatePlaylist = () => {
+    setCreatePlaylistOpen(true);
+  };
+
+  const [dark, setDark] = useState(false);
+  const [mute, setMute] = useState(false);
+
+  const tabs = ["Home", ...mockPlaylists.map((p) => p.name), "Recommendations"];
+
+  const tabToPlaylist: Record<string, typeof mockPlaylists> = {
+    Home: mockPlaylists,
+    Recommendations: mockPlaylists.slice(-1),
+  };
+
+  mockPlaylists.forEach((playlist) => {
+    tabToPlaylist[playlist.name] = [playlist];
+  });
+
+  function themeButton() {
+    setDark((prevClick) => !prevClick);
+  }
+
+  function handleMute() {
+    setMute((prevClick) => !prevClick);
+  }
+
+  function onTabClick(tab: string) {
+    if (tab === "Home" || tab === "Recommendations") {
+      setActiveTab(tab);
+      return;
+    }
+
+    const playlist = mockPlaylists.find((p) => p.name === tab);
+    if (playlist && playlist.id) {
+      navigate(`/playlist/${encodeURIComponent(String(playlist.id))}`, {
+        state: { playlist },
+      });
+    } else {
+      setActiveTab(tab);
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <div
+      className={`min-h-screen flex flex-col ${
+        dark
+          ? "bg-black text-white transition-colors duration-300 ease-in-out"
+          : "bg-white text-black transition-colors duration-300 ease-in-out"
+      }`}
+    >
       {createPostOpen && (
         <div className="z-100 w-screen h-screen bg-black/90 flex items-center justify-center fixed top-0 left-0">
           <div ref={outsideClickRef}>
@@ -49,47 +103,92 @@ function ProfilePageView() {
           </div>
         </div>
       )}
+      {/* TODO: Top banner  this is where the input goes when selecting one */}
       <div className="relative w-full h-64 bg-linear-to-b from-[#f767ff] to-[#590080] flex items-center justify-center">
-        {/* Music player featured */}
-
         <div className="left-1/2 flex items-center justify-between shadow-2xl rounded-2xl">
-          <MusicPlayerFeature />
+          <MusicPlayerFeature muted={mute} />
         </div>
 
-        <button className="absolute top-4 right-4 bg-black p-3 rounded-md">
-          <Volume2 className="text-white w-6 h-6" />
+        <button
+          onClick={handleMute}
+          className={`absolute top-4 right-4 p-2 w-10 h-10 rounded-xl bg-gray-800 border border-white/10 flex items-center justify-center`}
+        >
+          {mute ? (
+            <VolumeX className="text-white w-8 h-8" />
+          ) : (
+            <Volume2 className="text-white w-8 h-8" />
+          )}
         </button>
 
         <button
           onClick={() => {
-            Navigate("/");
+            navigate("/");
           }}
-          className="absolute top-4 left-4 bg-black p-3 rounded-md"
+          className="absolute top-4 left-6 w-10 h-10 rounded-xl bg-gray-800 border border-white/10 flex items-center justify-center"
         >
-          <Home className="text-white w-6 h-6" />
+          <Home className="text-white w-4 h-4" />
         </button>
       </div>
 
-      <div className="w-full bg-white text-black pb-6 pt-12 relative">
-        <button className="absolute top-6 left-6 bg-black w-10 h-10 rounded-xl flex items-center justify-center shadow-lg">
+      <div className={`w-full pb-6 pt-12 relative bg-transparent`}>
+        {/* Palette Button for Theme */}
+        <button
+          onClick={themeButton}
+          className={`absolute top-3 left-6 w-10 h-10 rounded-xl flex items-center justify-center shadow-lg ${
+            dark ? "bg-purple-500 text-white" : "bg-black text-white"
+          }`}
+        >
           <Palette className="text-white w-5 h-5" />
         </button>
 
+        {/* create post Button */}
+
         <div className="absolute top-4 right-6 flex items-center gap-3">
+          <BurgerMenu
+            iconImage={<SquarePen className="w-4 h-4" />}
+            label="Create"
+            className={`px-4 py-2 font-bold rounded-xl border flex flex-row items-center justify-center gap-2
+               ${
+                 dark
+                   ? "border-white/30 text-white transition-colors ease-in-out duration-300 bg-white/10"
+                   : "border-black/30 text-black transition-colors ease-in-out duration-300 bg-black/10"
+               }`}
+            items={[
+              {
+                className: "text-white font-bold",
+                label: "Post",
+                onClick: () => {
+                  handleOpenCreatePost;
+                },
+              },
+              {
+                className: "text-white font-bold",
+                label: "Playlist",
+                onClick: () => {
+                  handleCreatePlaylist;
+                },
+              },
+            ]}
+          />
+
           <button
-            onClick={handleOpenCreatePost}
-            className="flex items-center gap-1 bg-black text-white px-3 py-1.5 rounded-lg text-sm"
+            className={` px-3 py-3 rounded-lg transition-colors flex items-center justify-center border ${
+              dark
+                ? "border-white/30 text-white transition-colors duration-300 ease-in-out bg-white/10"
+                : "border-black/30 text-black transition-colors duration-300 ease-in-out"
+            }`}
           >
-            <SquarePen className="w-4 h-4" />
-            Create
+            <Share2 className="w-4 h-4" />
           </button>
 
-          <button className="bg-white border px-3 py-1.5 rounded-lg hover:bg-gray-100">
-            <Upload className="w-4 h-4 text-black" />
-          </button>
-
-          <button className="bg-white border px-3 py-1.5 rounded-lg hover:bg-gray-100">
-            <MoreHorizontal className="w-4 h-4 text-black" />
+          <button
+            className={`px-3 py-3 rounded-lg transition-colors flex items-center justify-center border ${
+              dark
+                ? "border-white/30 text-white transition-colors ease-in-out duration-300 bg-white/10"
+                : "border-black/30 text-black transition-colors ease-in-out duration-300"
+            }`}
+          >
+            <MoreHorizontal className="w-4 h-4" />
           </button>
         </div>
 
@@ -97,17 +196,24 @@ function ProfilePageView() {
           <div className="pt-10 w-20" />
 
           <div className="flex-1 flex flex-col items-center -mt-16">
-            <div className="w-32 h-32 bg-gray-300 rounded-md"></div>
+            {/* Profile Page Section */}
+            <div className="w-32 h-32 flex items-center justify-center bg-gray-300 rounded-md">
+              <Profile />
+            </div>
 
+            {/* TODO Add username on input */}
             <h1 className="text-xl font-bold mt-4">Your Name</h1>
-            <p className="text-gray-500 text-sm">Add headline</p>
+            <p
+              className={`text-md ${dark ? "text-gray-400" : "text-gray-600"}`}
+            >
+              {/* TODO add the followers count dynamically */}
+              Followers: 120
+            </p>
 
             <a
               href="#"
               className="text-[#7C4DFF] text-sm mt-1 hover:text-[#9b6cff]"
-            >
-              patreon.com/ASMobbin
-            </a>
+            ></a>
 
             <div className="flex items-center gap-6 mt-4 text-gray-700">
               {/* <X className="w-5 h-5" />
@@ -118,17 +224,29 @@ function ProfilePageView() {
           <div className="w-20"></div>
         </div>
       </div>
-      {/* TODO Here is the custom part for the theme in the bottom make login form paint color in the corner */}
-      <div className="w-full bg-white px-4 py-8">
-        <MasonryAdvanced
-          dataSources={mockPlaylists}
-          gap={16}
-          minColumnWidth={200}
-          columnCount={6}
-          infiniteScroll={true}
-          duplicateCount={5}
-          distributionStrategy="source-per-column"
-        />
+      <div
+        className={`transition-opacity duration-[1500ms] ease-in-out opacity-0`}
+        style={{ animation: "fadeIn 1.5s forwards" }}
+      >
+        <div className={`w-full px-4 py-8`}>
+          <MasonryDynamic
+            dark={dark}
+            dataSources={tabToPlaylist[activeTab] || []}
+            gap={16}
+            minColumnWidth={200}
+            columnCount={5}
+            infiniteScroll={true}
+            duplicateCount={5}
+            distributionStrategy="source-per-column"
+            onPlaylistClick={(playlistId) =>
+              navigate(`/playlist/${encodeURIComponent(playlistId)}`, {
+                state: {
+                  playlist: mockPlaylists.find((p) => p.id === playlistId),
+                },
+              })
+            }
+          />
+        </div>
       </div>
 
       <MusicPlayerStatic />

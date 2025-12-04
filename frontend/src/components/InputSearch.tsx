@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Input from "./Input";
-import { IoIosSearch } from "react-icons/io";
 
 type InputSearchProps = {
   placeholder?: string;
@@ -20,14 +19,11 @@ export default function InputSearch({
   color = { PRIMARY: "#1E1E1E" },
   icon,
   data,
-  onChange,
   onSelect,
+  onChange,
 }: InputSearchProps) {
   const mockData = data ?? [
     "Drake - One Dance",
-    "Drake - God's Plan",
-    "Billie Eilish - Bad Guy",
-    "Dua Lipa - Levitating",
     "The Weeknd - Blinding Lights",
     "Taylor Swift - Lover",
     "Adele - Hello",
@@ -58,6 +54,7 @@ export default function InputSearch({
           : mockData.filter((x) => x.toLowerCase().includes(term)).slice(0, 5);
       setResults(filtered);
       setOpen(true);
+      onChange?.(query);
     } else if (e.key === "Escape") {
       setOpen(false);
     }
@@ -66,19 +63,23 @@ export default function InputSearch({
   const handleSelect = (value: string) => {
     setQuery(value);
     onSelect?.(value);
+    onChange?.(value);
     setOpen(false);
   };
 
   return (
     <div ref={ref} className={`relative ${className}`}>
       <Input
-        icon={icon}
         placeholder={placeholder}
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          onChange?.(e.target.value);
+        }}
         onKeyDown={handleEnterSearch}
         size={size}
         color={color}
+        icon={icon}
         className="w-full"
       />
       {open && results.length > 0 && (
