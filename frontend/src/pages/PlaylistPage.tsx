@@ -1,14 +1,17 @@
 import React, {useState} from "react";
-import { useLocation, useParams } from "react-router-dom"; 
+import { useLocation, useParams, useNavigate } from "react-router-dom"; 
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 import ShareButton from "../components/ShareButton";
 import Post from "../components/Post";
+import { IoChevronBackSharp } from "react-icons/io5";
 
 const PlaylistPage: React.FC = () => {
   const location = useLocation();
   const params = useParams<{ id: string }>(); 
 
   const playlistFromState = location.state?.playlist;
+
+  const navigate = useNavigate();
 
   const [shuffle, setShuffle] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
@@ -38,12 +41,16 @@ const PlaylistPage: React.FC = () => {
     <div className="min-h-screen bg-[#0b0b0d] text-gray-200 cursor-default">
       {/* Header */}
       <div className="w-full h-64 md:h-80 bg-linear-to-b from-orange-300 to-pink-300 relative">
+      <button onClick={() => {navigate("/");}} className="relative top-4 left-4 bg-black p-3 rounded-md">
+              <IoChevronBackSharp className="text-white w-6 h-6" />
+            </button>
         <div className="absolute bottom-4 left-6 flex items-center gap-4">
           <img
             src={playlist.coverImg || "https://placehold.co/150x150/png"}
             alt="cover"
             className="w-32 h-32 md:w-40 md:h-40 rounded-xl shadow-xl object-cover"
           />
+
 
           <div>
             <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-black">
