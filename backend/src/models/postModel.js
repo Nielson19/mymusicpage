@@ -1,3 +1,14 @@
+// MongoDB _id - ObjectId
+// userId - ObjectId
+// songAppleId - ObjectId
+// giphyUrl - String
+// shape - String
+// numOfLikes - Number
+
+// timestamps:
+// createdAt - date
+// updatedAt - date
+
 import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema(
@@ -12,7 +23,7 @@ const postSchema = new mongoose.Schema(
       ref: 'Song',
       required: [true, 'Songs Apple ID is required']
     },
-    giphyURL: {
+    giphyUrl: {
       type: String,
       trim: true,
       default: ''

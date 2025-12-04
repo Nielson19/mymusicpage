@@ -1,3 +1,17 @@
+// MongoDB _id  - ObjectId (Only for debugging purposes)
+// appleId - String
+// name - String
+// artistName - String
+// albumName - String
+// artworkUrl - String
+// previewUrl - String
+// releaseDate - Date
+// isStreamable - Boolean
+
+// timestamps:
+// createdAt - Date
+// updatedAt - Date
+
 import mongoose from 'mongoose';
 
 const songSchema = new mongoose.Schema(

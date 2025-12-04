@@ -1,4 +1,4 @@
-// userID - ObjectId
+// userId - ObjectId
 // resourceId - ObjectId
 // resourceType - String
 // createdAt - Date
@@ -31,3 +31,5 @@ const likeSchema = new mongoose.Schema(
 
 // Works differently than simply, unique: true, this is saying that the combination of these two ID's is a unique combination, and this document can be discovered using that unique combination.
 likeSchema.index({ userId: 1, resourceId: 1, resoureceType: 1 }, { unique: true });
+
+export default mongoose.model('Like', likeSchema);

@@ -1,3 +1,18 @@
+// MongoDB _id - ObjectId
+// username - String
+// email - String
+// password - String
+// profilePicture - String (TODO: profilePicture or profilePictureUrl)
+// bannerPicture - String
+// bio - String
+// numOfFolloers - Number
+// numOfFollowing - Number
+// posts - [ObjectId]
+// collections - [ObjectId]
+
+// FUTURE IMPLEMENTATIONS:
+// socialLinks - [String]
+
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema(

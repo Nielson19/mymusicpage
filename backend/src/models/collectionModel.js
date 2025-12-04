@@ -1,3 +1,12 @@
+// MongoDB _id - ObjectId
+// userId - ObjectId
+// name - String
+// posts - [savedPostSchema] (Basically, postId + addedAt)
+
+// savedPostSchema:
+// postId - ObjectId
+// addedAt - Date
+
 import mongoose from 'mongoose';
 
 const savedPostSchema = new mongoose.Schema(
