@@ -6,8 +6,11 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import AuthButtonComp from "../components/LoginFormComp/authButtonComp";
 import SpotifyIcon from "../assets/icons/SpotifyWhiteLogo.png";
+import { useNavigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 function LoginPageView() {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -16,12 +19,14 @@ function LoginPageView() {
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // avoid that the page reloads
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post("/api/login", {
         email,
         password,
       });
       console.log("Response received:", response.status);
       console.log("Login successful:", response.data);
+      toast.success("Login successful!");
+      navigate("/");
     } catch (error) {
       toast.error("Login failed. Please try again.");
     }
@@ -83,6 +88,13 @@ function LoginPageView() {
           link="https://accounts.spotify.com/en/login?continue=https%3A%2F%2Faccounts.spotify.com%2Fauthorize%3Fscope%3Duser-read-email%26response_type%3Dcode%26redirect_uri%3Dhttp%3A%2F%2F127.0.0.1%3A3002%2Fauth%2Fcallback%2Fspotify%26code_challenge_method%3DS256%26client_id%3Db7a1d92d477441edbb42504668be6fbb%26code_challenge%3DItc50Bo7xzQiagYgvU8Uuh90gsTqlSgNT7KIv4tvsQY&client_id=b7a1d92d477441edbb42504668be6fbb"
           color="[#1ED760]"
         />
+
+        <p className="mt-6 text-sm text-gray-400">
+          Don't have an account?{" "}
+          <a href="/signup" className="text-white hover:underline">
+            Sign up
+          </a>
+        </p>
       </form>
     </div>
   );
