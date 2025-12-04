@@ -75,11 +75,31 @@ const loginUser = async (req, res) => {
     const match = await comparePassword(password, user.password);
     if(match) {
         jwt.sign({email: user.email, id: user._id}, process.env.JWT_SECRET, {}, (err, token) => {
-            if (err) throw err;
-            res.cookie('token', token).json(user)
+        if (err) throw err;
+        res.cookie('token', token).json(user)
     })
 }
-    if (!match) return res.status(400).json({ error: 'Invalid credentials' });
+    if(!match) {
+        res.json({
+            error: "Passwords do not match"
+        })
+    }
+} catch (error){
+    console.log(error)
+}
+}
+
+const getProfile = (req, res) => {
+const {token} = req.cookies
+if(token) {
+    jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+        if(err) throw err;
+        res.json(user)
+    })
+} else {
+    res.json(null)
+}
+}
 
 
     // const token = jwt.sign(
@@ -96,13 +116,13 @@ const loginUser = async (req, res) => {
     // });
     
     //return res.json({ message: 'Login successful' });
-    const { password: _pw, ...safeUser } = user.toObject();
-    return res.json(safeUser);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Server error' });
-  }
-};
+// const { password: _pw, ...safeUser } = user.toObject();
+// return res.json(safeUser);
+// } catch (err) {
+//     console.error(err);
+//     return res.status(500).json({ error: 'Server error' });
+//   }
+// };
 
 
 export default {
@@ -110,4 +130,5 @@ export default {
     comparePassword,
     registerUser,
     loginUser,
+    getProfile
 }
