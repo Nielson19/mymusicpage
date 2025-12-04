@@ -47,7 +47,7 @@ export const BurgerMenu = ({
       {/* Burger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`p-2 rounded-lgtransition-colors ${className}`}
+        className={`p-2 rounded-lg transition-colors ${className}`}
       >
         {label && <span className="mr-2">{label}</span>}
         {iconImage ? (

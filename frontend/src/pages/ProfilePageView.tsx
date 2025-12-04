@@ -32,6 +32,7 @@ function ProfilePageView() {
       !outsideClickRef.current.contains(event.target as Node)
     ) {
       setCreatePostOpen(false);
+      setCreatePlaylistOpen(false);
     }
   };
 
@@ -147,6 +148,7 @@ function ProfilePageView() {
           <BurgerMenu
             iconImage={<SquarePen className="w-4 h-4" />}
             label="Create"
+            dropdownClassName="fixed top-[315px]"
             className={`px-4 py-2 font-bold rounded-xl border flex flex-row items-center justify-center gap-2
                ${
                  dark
@@ -158,14 +160,14 @@ function ProfilePageView() {
                 className: "text-white font-bold",
                 label: "Post",
                 onClick: () => {
-                  handleOpenCreatePost;
+                  handleOpenCreatePost();
                 },
               },
               {
                 className: "text-white font-bold",
                 label: "Playlist",
                 onClick: () => {
-                  handleCreatePlaylist;
+                  handleCreatePlaylist();
                 },
               },
             ]}

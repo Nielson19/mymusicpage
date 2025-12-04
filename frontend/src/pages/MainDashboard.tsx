@@ -18,6 +18,7 @@ export default function MainDashboard() {
   const Navigate = useNavigate();
   const dataSources: DataSource[] = musicDataSources;
   const [createPostOpen, setCreatePostOpen] = React.useState(false);
+  const [createPlaylistOpen, setCreatePlaylistOpen] = React.useState(false);
   const outsideClickRef = React.useRef<HTMLDivElement>(null);
 
   const handleOutsideClick = (event: MouseEvent) => {
@@ -36,8 +37,13 @@ export default function MainDashboard() {
     };
   }, []);
 
-  const toggleCreatePost = () => {
-    setCreatePostOpen(!createPostOpen);
+  const handleCreatePlaylist = () => {
+    // Implement playlist creation logic here
+    setCreatePlaylistOpen(true);
+  };
+
+  const handleOpenCreatePost = () => {
+    setCreatePostOpen(true);
   };
 
   //TODO: Create the conponent on the top to filter the different data sources one is "For You" and "Following"
@@ -69,17 +75,29 @@ export default function MainDashboard() {
 
         {/* Profile + Settings */}
         <div className="flex items-center space-x-4 gb-white">
-          <button
-            className="px-4 py-2
-           bg-white text-black font-bold rounded-xl border border-white/10 flex flex-row items-center justify-center gap-2"
-            onClick={() => {
-              console.log("Create button clicked");
-              toggleCreatePost();
-            }}
-          >
-            <SquarePen className="w-4 h-4" />
-            Create
-          </button>
+          <BurgerMenu
+            iconImage={<SquarePen className="w-4 h-4" />}
+            label="Create"
+            dropdownClassName="fixed top-[80px]"
+            className={`px-4 py-2 font-bold rounded-xl border flex flex-row items-center justify-center gap-2
+                         border-white/30 bg-white text-black transition-colors ease-in-out duration-300 bg-white/10"}`}
+            items={[
+              {
+                className: "text-white font-bold",
+                label: "Post",
+                onClick: () => {
+                  handleOpenCreatePost();
+                },
+              },
+              {
+                className: "text-white font-bold",
+                label: "Playlist",
+                onClick: () => {
+                  handleCreatePlaylist();
+                },
+              },
+            ]}
+          />
           <button
             onClick={() => {
               Navigate("/profile/username");
@@ -98,7 +116,9 @@ export default function MainDashboard() {
               {
                 className: "text-red-500 font-bold",
                 label: "Logout",
-                onClick: () => console.log("Logout clicked"),
+                onClick: () => {
+                  Navigate("/login");
+                },
               },
             ]}
             className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center"
