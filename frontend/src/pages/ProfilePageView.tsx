@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
 import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
+import MusicPlayerStatic from "../components/MusicPlayerStatic";
 
 function ProfilePageView() {
   const [activeTab, setActiveTab] = useState("Home");
@@ -89,6 +90,8 @@ function ProfilePageView() {
           distributionStrategy="source-per-column"
         />
       </div>
+
+      <MusicPlayerStatic />
     </div>
   );
 }

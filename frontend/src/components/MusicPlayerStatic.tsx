@@ -1,4 +1,4 @@
-import React from "react";
+  import React from "react";
 import { FaPlay } from "react-icons/fa";
 import { FaPause } from "react-icons/fa";
 import { FaForward } from "react-icons/fa";
