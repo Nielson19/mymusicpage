@@ -1,27 +1,9 @@
-import ProfilePageView from "./ProfilePageView";
-import LoginPageView from "./LoginPageView";
-import CreatePost from "../components/CreatePost";
-import CreatePlaylist from "../components/CreatePlaylist";
-import GiphyPicker from "../components/GiphyPicker";
-import Masonry from "../components/GeneralComp/MasonryStatic";
-import MainDashboard from "./MainDashboard";
-import { Music } from "lucide-react";
-import MusicPlayerStatic from "../components/MusicPlayerStatic";
-import PlaylistPage from "./PlaylistPage";
-import SignupPageView from "./SignupPageView";
-import SettingsPageView from "./SettingsPageView";
-import { BurgerMenu } from "../components/BurgerMenu";
-import ProfilePicture from "../components/ProfilePicture";
+import Post from "../components/Post";
+import SongTest from "../assets/audio/Victory Lap Klop Remix 11-10.wav";
 
 function TestView() {
   return (
     <div>
-      {/* <LoginPageView /> */}
-      {/* <SignupPageView /> */}
-      {/* <ProfilePageView /> */}
-      {/* <MainDashboard /> */}
-      {/* <SettingsPageView /> */}
-      {/* <PlaylistPage /> */}
       {/* <GiphyPicker
         onSelectGif={(url) => console.log("Selected GIF URL:", url)} */}
       {/* <BurgerMenu
@@ -32,9 +14,26 @@ function TestView() {
           { label: "Logout", onClick: () => console.log("Logout clicked") },
         ]}
       /> */}
-      {/* <ProfilePicture /> */}
-      {/* <CreatePost /> */}
-      <CreatePlaylist />
+      <Post
+        songID="test"
+        userID="testUser"
+        songName="Victory Lap Klop Remix"
+        artistName="Artist Name"
+        size="PORTRAIT"
+        imgLink="../images/stock.jpg"
+        background="../images/stock.jpg"
+      />
+      <audio src={SongTest} controls />
+      <Post
+        songID="test"
+        userID="testUser"
+        songName="Victory Lap Klop Remix"
+        artistName="Artist Name"
+        size="PORTRAIT"
+        imgLink="../images/stock.jpg"
+        background="../images/stock.jpg"
+      />
+      <audio src={SongTest} controls />
     </div>
   );
 }

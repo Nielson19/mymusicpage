@@ -22,11 +22,12 @@ interface ProfilePageViewProps {
   userName?: string;
   numberOfFollowers?: number;
   profilePictureURL?: string;
-  userPosts?: any[]; //Max 3
-  userLikes?: any[];
-  collection?: any[]; //Max 3
+  postUsrPics?: string[]; //Max 3
   bannerImageURL?: string;
 
+  //Columns data
+  posts?: any[];
+  likedPosts?: any[];
   collectionOfPlaylists?: any[]; //Max 3
 }
 
@@ -159,7 +160,6 @@ function ProfilePageView() {
         <div className="absolute top-4 right-6 flex items-center gap-3">
           <BurgerMenu
             iconImage={<SquarePen className="w-4 h-4" />}
-            label="Create"
             dropdownClassName="fixed top-[315px]"
             className={`px-4 py-2 font-bold rounded-xl border flex flex-row items-center justify-center gap-2
                ${
@@ -245,7 +245,7 @@ function ProfilePageView() {
         <div className={`w-full px-4 py-8`}>
           <MasonryDynamic
             dark={dark}
-            dataSources={tabToPlaylist[activeTab] || [] || co}
+            dataSources={tabToPlaylist[activeTab] || []}
             gap={16}
             minColumnWidth={200}
             columnCount={5}
