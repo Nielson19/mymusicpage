@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SquarePen } from "lucide-react";
 import { IoMdSettings, IoIosSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import type { DataSource } from "../components/GeneralComp/MasonryDynamic";
 
+import { UserContext } from "../../context/userContext";
 // Import your data sources
 import { musicDataSources } from "../data/musicData";
 import MusicPlayerStatic from "../components/MusicPlayerStatic";
@@ -21,7 +22,7 @@ export default function MainDashboard() {
   const [createPostOpen, setCreatePostOpen] = React.useState(false);
   const [createPlaylistOpen, setCreatePlaylistOpen] = React.useState(false);
   const outsideClickRef = React.useRef<HTMLDivElement>(null);
-
+  const { user } = useContext(UserContext);
   const handleOutsideClick = (event: MouseEvent) => {
     if (
       outsideClickRef.current &&
@@ -76,7 +77,18 @@ export default function MainDashboard() {
       >
         {/* Logo */}
         <div className="flex items-center space-x-3">
-          <img src={AppLogo} alt="App Logo" className="w-20 h-20 rounded-xl" />
+          <button
+            type="button"
+            onClick={() => Navigate("/")}
+            aria-label="Go to Home"
+            className="rounded-xl focus:outline-none focus:ring-2 focus:ring-white/30"
+          >
+            <img
+              src={AppLogo}
+              alt="App Logo"
+              className="w-20 h-20 rounded-xl"
+            />
+          </button>
           <span className="text-xl font-semibold tracking-wide">
             MyMusicApp
           </span>
@@ -135,7 +147,9 @@ export default function MainDashboard() {
 
       {/* Subheader */}
       <div className="w-full py-8">
-        <h1 className="text-4xl font-light tracking-tight mb-2">Discover</h1>
+        <h1 className="text-4xl font-light tracking-tight mb-2">
+          Welcome {user.username || "Master"}!
+        </h1>
         <p className="text-gray-400 max-w-xl">
           Explore new tracks, artists, and visual song posters curated for you.
         </p>

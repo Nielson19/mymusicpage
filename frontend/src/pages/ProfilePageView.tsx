@@ -34,7 +34,6 @@ interface ProfilePageViewProps {
 function ProfilePageView() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Home");
-
   const [createPostOpen, setCreatePostOpen] = React.useState(false);
   const [createPlaylistOpen, setCreatePlaylistOpen] = React.useState(false);
   const outsideClickRef = React.useRef<HTMLDivElement>(null);

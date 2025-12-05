@@ -6,7 +6,13 @@ import type { PostProps } from "./Post";
 import Toggle from "./Toggle";
 import InputSearch from "./InputSearch";
 
-export default function CreatePost({ className = "" }: { className?: string }) {
+export default function CreatePost({
+  className = "",
+  onClose,
+}: {
+  className?: string;
+  onClose?: () => void;
+}) {
   const [songName, setSongName] = useState("");
   const [artistName, setArtistName] = useState("");
   const [imgLink, setImgLink] = useState("");
@@ -138,7 +144,10 @@ export default function CreatePost({ className = "" }: { className?: string }) {
 
         <div className="flex gap-4 mt-3 w-full">
           <button
-            onClick={handleAddPost}
+            onClick={() => {
+              handleAddPost();
+              onClose?.();
+            }}
             className="flex-1 cursor-pointer bg-purple-500 rounded-xl py-3 font-semibold hover:scale-105 transition"
           >
             Post
