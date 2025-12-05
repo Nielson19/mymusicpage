@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import image1 from "../assets/images/image1.jpg";
 import image2 from "../assets/images/image2.jpg";
 import image3 from "../assets/images/image3.jpg";
+import toast from "react-hot-toast";
 export default function AddPlaylist({
   className = "",
   isOpen = true,
@@ -53,6 +54,7 @@ export default function AddPlaylist({
       setSelectedPlaylistId(null);
       return;
     }
+    toast.success(`Post added to ${selectedPlaylist.name}`);
     console.log("Selected playlist:", selectedPlaylist);
     onClose?.();
   };
