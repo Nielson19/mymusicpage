@@ -1,8 +1,7 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
-import { useContext } from "react";
 
-export const UserContext = createContext(null);
+export const UserContext = createContext({});
 
 export function UserContextProvider({
   children,

@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
 import { SquarePen } from "lucide-react";
 import { IoMdSettings, IoIosSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import type { DataSource } from "../components/GeneralComp/MasonryDynamic";
 
+import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 // Import your data sources
 import { musicDataSources } from "../data/musicData";
@@ -11,7 +11,7 @@ import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import AppLogo from "../assets/icons/HeadphonesNoBG.png";
 import { useNavigate } from "react-router-dom";
 import CreatePost from "../components/CreatePost";
-import CreatePlaylist from "../components/CreatePlaylist";
+import CreatePlaylist from "../components/CreatePlaylisst";
 import InputSearch from "../components/InputSearch";
 import MasonryDynamic from "../components/GeneralComp/MasonryDynamic";
 import { BurgerMenu } from "../components/BurgerMenu";
