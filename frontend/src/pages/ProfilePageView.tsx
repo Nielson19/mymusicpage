@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../../context/userContext";
 import MusicPlayerFeature from "../components/MusicPlayerFeature";
 import Profile from "../components/ProfilePicture";
 import {
-  Upload,
   Share2,
   MoreHorizontal,
   SquarePen,
@@ -18,7 +18,17 @@ import { useNavigate } from "react-router-dom";
 import CreatePost from "../components/CreatePost";
 import { BurgerMenu } from "../components/BurgerMenu";
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  likes: number;
+  profilePicture?: string; // URL to profile image (optional)
+}
+
+
 function ProfilePageView() {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Home");
 
@@ -202,12 +212,12 @@ function ProfilePageView() {
             </div>
 
             {/* TODO Add username on input */}
-            <h1 className="text-xl font-bold mt-4">Your Name</h1>
+            <h1 className="text-xl font-bold mt-4">{user?.name ?? "Username"}</h1>
             <p
               className={`text-md ${dark ? "text-gray-400" : "text-gray-600"}`}
             >
               {/* TODO add the followers count dynamically */}
-              Followers: 120
+              Followers: {user?.likes ?? "100"}
             </p>
 
             <a

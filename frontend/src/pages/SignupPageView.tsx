@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import ButtonComponent from "../components/ButtonComponent";
 import Input from "../components/Input";
 import Headphoneslogo from "../assets/icons/HeadphonesNoBG.png";
@@ -21,7 +21,7 @@ function SignupPageView() {
   const signupUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/register", {
+      const response = await axios.post("/register", {
         username,
         email,
         password,

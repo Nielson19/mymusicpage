@@ -1,30 +1,41 @@
 import axios from "axios";
-import { createContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  type ReactNode,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
+import type { User } from "../src/types/Users"; // or from your global types folder
+ // or from your global types folder
 
-export const UserContext = createContext({});
+interface UserContextType {
+  user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
+  loading: boolean;
+}
 
-export function UserContextProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [user, setUser] = useState(null);
+export const UserContext = createContext<UserContextType>({
+  user: null,
+  setUser: () => {},
+  loading: true,
+});
+
+export function UserContextProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) {
-      axios
-        .get("/profile", { withCredentials: true })
-        .then((response) => {
-          setUser(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching user profile:", error);
-        });
-    }
+    axios
+      .get("/profile", { withCredentials: true })
+      .then((res) => setUser(res.data))
+      .catch(() => setUser(null))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, loading }}>
       {children}
     </UserContext.Provider>
   );

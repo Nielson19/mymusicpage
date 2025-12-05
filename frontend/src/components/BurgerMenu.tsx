@@ -47,7 +47,7 @@ export const BurgerMenu = ({
       {/* Burger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`p-2 rounded-lgtransition-colors ${className}`}
+        className={`p-2 transition-colors ${className}`}
       >
         {label && <span className="mr-2">{label}</span>}
         {iconImage ? (
@@ -64,7 +64,7 @@ export const BurgerMenu = ({
       {/* Dropdown Menu */}
       {isOpen && (
         <div
-          className={`mt-2 w-48 bg-stone-800 rounded-lg shadow-xl border border-stone-700 overflow-hidden z-50 ${dropdownClassName}`}
+          className={`absolute mt-2 w-48 bg-stone-800 rounded-lg shadow-xl border border-stone-700 overflow-hidden z-50 ${dropdownClassName}`}
         >
           {items.map((item, index) => (
             <button
