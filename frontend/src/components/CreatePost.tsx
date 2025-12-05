@@ -13,7 +13,7 @@ export default function CreatePost({ className = "" }: { className?: string }) {
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
   const [background, setBackground] = useState("");
   const [size, setSize] = useState<PostProps["size"]>("SQUARE");
-  const [displayPreview, setDisplayPreview] = useState(true);
+  const [displayPreview, setDisplayPreview] = useState(false);
 
   const handleGifSelect = (gifUrl: string) => {
     setBackground(gifUrl);

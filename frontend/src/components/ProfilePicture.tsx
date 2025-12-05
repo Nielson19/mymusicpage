@@ -1,12 +1,13 @@
 import { UserIcon } from "lucide-react";
 import { useState } from "react";
+import DefaultProfilePic from "../assets/images/image10.jpg";
 
 interface profilePictureProps {
   imageUrl?: string;
   alt?: string;
 }
 const Profile = ({
-  imageUrl,
+  imageUrl = DefaultProfilePic,
   alt = "profile picture",
 }: profilePictureProps) => {
   const [imageError, setImageError] = useState(false);

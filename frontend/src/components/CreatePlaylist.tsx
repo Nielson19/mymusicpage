@@ -13,6 +13,7 @@ import image8 from "../assets/images/image8.jpg";
 import image9 from "../assets/images/image9.jpg";
 import image10 from "../assets/images/image10.jpg";
 import { useEffect, useRef } from "react";
+import { UserContextProvider } from "../../context/userContext";
 
 export default function CreatePlaylist({
   className = "",
@@ -92,19 +93,17 @@ export default function CreatePlaylist({
           />
 
           <div className="flex gap-4 mt-6 w-full">
-            <button className="flex-1 cursor-pointer bg-purple-500 rounded-xl py-3 font-semibold hover:scale-105 transition">
+            <button
+              className="flex-1 cursor-pointer bg-purple-500 rounded-xl py-3 font-semibold hover:scale-105 transition"
+              onClick={() => {
+                // Implement playlist creation logic here
+                console.log("Playlist created");
+                onClose?.();
+              }}
+            >
               Add{" "}
             </button>
-            <button
-              className="flex-1 bg-gray-700 cursor-pointer rounded-2xl py-3 font-semibold hover:scale-105 transition"
-              onClick={() => onClose?.()}
-            >
-              Cancel{" "}
-            </button>
           </div>
-
-          {/* <button className="mt-4 px-4 py-2 bg-gray-700 cursor-pointer text-sm rounded-lg text-gray-200 transition">
-              Preview Cover </button> */}
         </div>
       </div>
     </div>
