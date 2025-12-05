@@ -12,6 +12,7 @@ interface MusicPlayerStaticProps {
   songDuration?: number; // in seconds
   songURL?: string;
   imageCoverURL?: string;
+  muted?: boolean;
 }
 
 function MusicPlayerStatic(_props: MusicPlayerStaticProps) {
@@ -77,7 +78,7 @@ function MusicPlayerStatic(_props: MusicPlayerStaticProps) {
       style={{ background: `url(${ImageCoverPlaceholder})` }}
     >
       {/* Hidden audio element */}
-      <audio ref={audioRef} src={testAudio} preload="metadata" />
+      <audio ref={audioRef} muted={_props.muted} src={testAudio} preload="metadata" />
       <img
         src={ImageCoverPlaceholder}
         alt="Cover"

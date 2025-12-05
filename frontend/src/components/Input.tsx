@@ -47,9 +47,7 @@ export default function Input({
 
       <div
         className={`flex items-center rounded-2xl shadow-sm border border-gray-800 transition ${sizeClasses}`}
-        style={{
-          backgroundColor: color.PRIMARY,
-        }}
+        style={{ backgroundColor: color.PRIMARY }}
       >
         <input
           type={type}

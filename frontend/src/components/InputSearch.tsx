@@ -32,8 +32,8 @@ export default function InputSearch({
   color = { PRIMARY: "#1E1E1E" },
   icon,
   data,
-  onChange,
   onSelect,
+  onChange,
   onSongSelect,
 }: InputSearchProps) {
   const [query, setQuery] = useState("");
@@ -51,7 +51,9 @@ export default function InputSearch({
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  const handleEnterSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleEnterSearch = async (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     if (e.key === "Enter") {
       const term = query.trim();
       if (term.length === 0) {
@@ -65,25 +67,34 @@ export default function InputSearch({
         setLoading(true);
         try {
           const response = await fetch(
-            `http://localhost:3002/api/song/search?term=${encodeURIComponent(term)}`
+            `http://localhost:3002/api/song/search?term=${encodeURIComponent(
+              term
+            )}`
           );
-          
+
           const data = await response.json();
-          
+
           // Check if response is an error object
           if (!response.ok || data.error) {
             console.error("API Error:", data.error || "Failed to fetch songs");
-            alert(`Error: ${data.error || "Failed to fetch songs. Make sure the backend is running."}`);
+            alert(
+              `Error: ${
+                data.error ||
+                "Failed to fetch songs. Make sure the backend is running."
+              }`
+            );
             setSongs([]);
             setOpen(false);
             return;
           }
-          
+
           setSongs(data);
           setOpen(true);
         } catch (error) {
           console.error("Error searching songs:", error);
-          alert("Failed to connect to backend. Is the server running on port 3002?");
+          alert(
+            "Failed to connect to backend. Is the server running on port 3002?"
+          );
           setSongs([]);
           setOpen(false);
         } finally {
@@ -95,7 +106,9 @@ export default function InputSearch({
         const filtered =
           term.length === 0
             ? []
-            : mockData.filter((x) => x.toLowerCase().includes(term.toLowerCase())).slice(0, 5);
+            : mockData
+                .filter((x) => x.toLowerCase().includes(term.toLowerCase()))
+                .slice(0, 5);
         setOpen(true);
       }
     } else if (e.key === "Escape") {
@@ -112,13 +125,13 @@ export default function InputSearch({
   const handleSelect = (value: string) => {
     setQuery(value);
     onSelect?.(value);
+    onChange?.(value);
     setOpen(false);
   };
 
   return (
     <div ref={ref} className={`relative ${className}`}>
       <Input
-        icon={icon}
         placeholder={placeholder}
         value={query}
         onChange={(e) => {
@@ -128,6 +141,7 @@ export default function InputSearch({
         onKeyDown={handleEnterSearch}
         size={size}
         color={color}
+        icon={icon}
         className="w-full"
       />
       {loading && (
@@ -152,7 +166,9 @@ export default function InputSearch({
               )}
               <div className="flex-1 min-w-0">
                 <div className="font-medium truncate">{song.name}</div>
-                <div className="text-sm text-gray-400 truncate">{song.artistName}</div>
+                <div className="text-sm text-gray-400 truncate">
+                  {song.artistName}
+                </div>
               </div>
             </button>
           ))}

@@ -8,24 +8,11 @@ import MainDashboard from "./MainDashboard";
 import { Music } from "lucide-react";
 import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import PlaylistPage from "./PlaylistPage";
-import SignupPageView from "./SignupPageView";
-import SettingsPageView from "./SettingsPageView";
-
+import AddPlaylist from "../components/AddPlaylist";
 function TestView() {
   return (
     <div>
-      {/* <LoginPageView /> */}
-      {/* <SignupPageView /> */}
-      {/* <ProfilePageView /> */}
-      <MainDashboard />
-      {/* <SettingsPageView /> */}
-      {/* <PlaylistPage /> */}
-      {/* <GiphyPicker
-        onSelectGif={(url) => console.log("Selected GIF URL:", url)} */}
-      {/* /> */}
-
-      {/* <CreatePost /> */}
-      {/* <CreatePlaylist /> */}
+      <AddPlaylist />
     </div>
   );
 }
