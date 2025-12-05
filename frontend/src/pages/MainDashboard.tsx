@@ -1,20 +1,24 @@
 import { SquarePen } from "lucide-react";
+import React, { useState } from "react";
 import { IoMdSettings, IoIosSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import type { DataSource } from "../components/GeneralComp/MasonryDynamic";
 
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
+
 // Import your data sources
 import { musicDataSources } from "../data/musicData";
+import { useNavigate } from "react-router-dom";
+import { BurgerMenu } from "../components/BurgerMenu";
+
+// Import components
 import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import AppLogo from "../assets/icons/HeadphonesNoBG.png";
-import { useNavigate } from "react-router-dom";
 import CreatePost from "../components/CreatePost";
-import CreatePlaylist from "../components/CreatePlaylisst";
+import CreatePlaylist from "../components/CreatePlaylist";
 import InputSearch from "../components/InputSearch";
 import MasonryDynamic from "../components/GeneralComp/MasonryDynamic";
-import { BurgerMenu } from "../components/BurgerMenu";
 
 export default function MainDashboard() {
   const Navigate = useNavigate();
@@ -22,7 +26,7 @@ export default function MainDashboard() {
   const [createPostOpen, setCreatePostOpen] = React.useState(false);
   const [createPlaylistOpen, setCreatePlaylistOpen] = React.useState(false);
   const outsideClickRef = React.useRef<HTMLDivElement>(null);
-  const { user } = useContext(UserContext);
+  const { username } = useContext(UserContext);
   const handleOutsideClick = (event: MouseEvent) => {
     if (
       outsideClickRef.current &&
@@ -148,7 +152,7 @@ export default function MainDashboard() {
       {/* Subheader */}
       <div className="w-full py-8">
         <h1 className="text-4xl font-light tracking-tight mb-2">
-          Welcome {user.username || "Master"}!
+          Welcome {username || "Master"}!
         </h1>
         <p className="text-gray-400 max-w-xl">
           Explore new tracks, artists, and visual song posters curated for you.

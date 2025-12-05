@@ -34,7 +34,6 @@ export default function InputSearch({
   data,
   onSelect,
   onChange,
-  onSelect,
   onSongSelect,
 }: InputSearchProps) {
   const [query, setQuery] = useState("");

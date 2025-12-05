@@ -3,9 +3,6 @@ import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./components/AuthComponents/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 
-// TODO: add auth context
-// import { AuthProvider } from "./contexts/AuthContext";
-
 // Pages
 import LoginPageView from "./pages/LoginPageView";
 import SignupPageView from "./pages/SignupPageView";
@@ -15,10 +12,17 @@ import PlaylistPage from "./pages/PlaylistPage";
 import SettingsPageView from "./pages/SettingsPageView";
 import axios from "axios";
 import { UserContextProvider } from "../context/userContext";
-import { User } from "lucide-react";
 
-axios.defaults.baseURL = "http://localhost:3002";
-axios.defaults.withCredentials = true;
+// Prefer env-driven API URL; fall back to same-origin /api to avoid CORS via dev proxy.
+const apiBase =
+  import.meta?.env?.VITE_API_URL ||
+  (typeof window !== "undefined"
+    ? `${window.location.origin}/api`
+    : "http://localhost:3002");
+
+axios.defaults.baseURL = apiBase;
+// Disable cookies/credentials to avoid credentialed CORS errors
+axios.defaults.withCredentials = false;
 
 function App() {
   return (
