@@ -3,7 +3,13 @@ import mongoose from 'mongoose';
 export const connectDB = async () => {
   console.log(`Connecting to the Database...`);
   try {
-    const conn = await mongoose.connect(process.env.MONGO_DB);
+    const mongoUri = process.env.MONGO_DB;
+
+    if (!mongoUri || typeof mongoUri !== 'string') {
+      throw new Error('MONGO_DB env var missing or not a string');
+    }
+
+    const conn = await mongoose.connect(mongoUri);
 
     console.log(`\n✅ MongoDB Connected!`);
     console.log(`-----------------------------------`);
