@@ -163,7 +163,6 @@ function ProfilePageView() {
         <div className="absolute top-4 right-6 flex items-center gap-3">
           <BurgerMenu
             iconImage={<SquarePen className="w-4 h-4" />}
-            buttonLabel="Create"
             dropdownClassName="fixed top-[320px]"
             className="px-4 py-3 font-bold rounded-xl border flex flex-row items-center justify-center gap-2 border-black/30 bg-white text-black transition-colors ease-in-out duration-300"
             items={[
