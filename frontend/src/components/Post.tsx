@@ -253,8 +253,12 @@ function Post({
             <div>
               <img
                 src={resolved.imgLink}
-                alt="Song"
-                className="w-12 h-12 aspect-square rounded-md shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                alt="Song cover"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src =
+                    "/images/stock.jpg";
+                }}
+                className="w-10 h-10 aspect-square rounded-md shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
               />
             </div>
             <div className="mb-2">
