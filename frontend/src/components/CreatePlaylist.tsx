@@ -76,11 +76,6 @@ export default function CreatePlaylist({
           <h2 className="text-3xl font-semibold text-center">
             Create a playlist
           </h2>
-          <IoMdClose
-            className="cursor-pointer hover:scale-105 transition"
-            size={24}
-            onClick={() => onClose?.()}
-          />
         </div>
 
         <div className="flex flex-col items-center gap-6">

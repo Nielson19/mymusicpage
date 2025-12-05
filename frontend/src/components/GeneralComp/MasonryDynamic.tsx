@@ -3,6 +3,7 @@ import Post from "../Post";
 import { useMemo, useEffect, useRef, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+//Column based masonry layout with advanced features
 export interface DataSource {
   id: string;
   name: string;
@@ -14,7 +15,7 @@ interface MasonryAdvancedProps {
   dataSources: DataSource[];
   gap?: number;
   minColumnWidth?: number;
-  columnCount?: number;
+  columnCount?: number; // determine based on screen size
   distributionStrategy?: "round-robin" | "source-per-column" | "fill-columns";
   infiniteScroll?: boolean;
   duplicateCount?: number;

@@ -80,10 +80,6 @@ export default function CreatePost({ className = "" }: { className?: string }) {
         <h2 className="flex flex-col w-full text-3xl font-semibold text-center">
           Create a post
         </h2>
-        {/* <IoMdClose
-          className="cursor-pointer hover:scale-105 transition"
-          size={24}
-        /> */}
       </div>
 
       <div className="flex flex-col items-center gap-4">
