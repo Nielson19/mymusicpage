@@ -68,6 +68,5 @@ export default function Input({
         )}
       </div>
     </div>
-    </div>
   );
 }
