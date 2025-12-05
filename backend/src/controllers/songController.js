@@ -10,6 +10,11 @@ TO-DO LIST:
 
 import { fetchItunesSearch } from '../services/itunesService.js';
 import Song from '../models/songModel.js';
+import dotenv from 'dotenv';
+dotenv.config();
+dotenv.config({ path: './src/.env' });
+
+const DEBUG = process.env.DEBUG;
 
 //https://itunes.apple.com/search?term={searchTerms}&limit=50&entity=song&media=music
 // ?term=...
@@ -33,8 +38,10 @@ export const searchSongs = async (req, res) => {
       .lean(); // Turns score into a property (since apparently MongoDB can be weird about accessing the score field since it's technically an object.)
 
     // Only show results with a good enough matched score.
+    if (DEBUG) console.log(dbSongs.length)
     const highQualityMatches = dbSongs.filter(song => song.score > 1.1);
 
+    if (DEBUG) console.log(highQualityMatches.length)
     if (highQualityMatches.length >= 15) {
       console.log(`COMPLETE CACHE HIT: Found ${highQualityMatches.length} songs. Skipping API.`);
       return res.json(highQualityMatches);
@@ -59,7 +66,7 @@ export const searchSongs = async (req, res) => {
         ? song.artworkUrl100.replace('100x100', '256x256')
         : null, // Increases artwork size to 256x256. If the artwork never existed though, just return null.
       previewUrl: song.previewUrl,
-      releaseDate: song.releaseDate,
+      releaseDate: new Date(song.releaseDate),
       isStreamable: Boolean(song.isStreamable && song.previewUrl && song.previewUrl.trim().length > 0)
     }));
 

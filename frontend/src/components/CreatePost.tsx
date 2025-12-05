@@ -5,6 +5,9 @@ import Post from "./Post";
 import type { PostProps } from "./Post";
 import Toggle from "./Toggle";
 import InputSearch from "./InputSearch";
+//----------------------------------------------------------------------------
+import { useNavigate } from "react-router-dom";
+//----------------------------------------------------------------------------
 
 interface Song {
   appleId: string;
@@ -26,7 +29,9 @@ export default function CreatePost({ className = "" }: { className?: string }) {
   const [background, setBackground] = useState("");
   const [size, setSize] = useState<PostProps["size"]>("SQUARE");
   const [displayPreview, setDisplayPreview] = useState(true);
-
+  // Navigation hook ----------------------------------------------------------------------------
+  const navigate = useNavigate();
+  //----------------------------------------------------------------------------
   const handleGifSelect = (gifUrl: string) => {
     setBackground(gifUrl);
   };
@@ -65,7 +70,12 @@ export default function CreatePost({ className = "" }: { className?: string }) {
       setBackground(value);
     }
   };
+  //----------------------------------------------------------------------------
+  const handlePost = async () => {
+    navigate("/profile/userid");
 
+  }
+  //----------------------------------------------------------------------------
   const handleSongSelect = (song: Song) => {
     setSelectedSong(song);
     setSongName(song.name);
@@ -160,7 +170,11 @@ export default function CreatePost({ className = "" }: { className?: string }) {
         )}
 
         <div className="flex gap-4 mt-3 w-full">
-          <button className="flex-1 cursor-pointer bg-purple-500 rounded-xl py-3 font-semibold hover:scale-105 transition">
+          <button
+            //----------------------------------------------------------------------------
+            onClick={handlePost}
+            //----------------------------------------------------------------------------
+            className="flex-1 cursor-pointer bg-purple-500 rounded-xl py-3 font-semibold hover:scale-105 transition">
             Post
           </button>
         </div>
