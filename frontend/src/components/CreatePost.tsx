@@ -6,6 +6,17 @@ import type { PostProps } from "./Post";
 import Toggle from "./Toggle";
 import InputSearch from "./InputSearch";
 
+interface Song {
+  appleId: string;
+  name: string;
+  artistName: string;
+  albumName?: string;
+  artworkUrl?: string | null;
+  previewUrl?: string;
+  releaseDate?: string;
+  isStreamable: boolean;
+}
+
 export default function CreatePost({
   className = "",
   onClose,
@@ -13,6 +24,7 @@ export default function CreatePost({
   className?: string;
   onClose?: () => void;
 }) {
+  const [selectedSong, setSelectedSong] = useState<Song | null>(null);
   const [songName, setSongName] = useState("");
   const [artistName, setArtistName] = useState("");
   const [imgLink, setImgLink] = useState("");
@@ -77,6 +89,15 @@ export default function CreatePost({
     }
   };
 
+  const handleSongSelect = (song: Song) => {
+    setSelectedSong(song);
+    setSongName(song.name);
+    setArtistName(song.artistName);
+    if (song.artworkUrl) {
+      setBackground(song.artworkUrl);
+    }
+  };
+
   return (
     <div
       ref={handleOutsideClick}
@@ -95,7 +116,7 @@ export default function CreatePost({
         <InputSearch
           placeholder="Search Music"
           size="LARGE"
-          onChange={(value) => setSongName(value)}
+          onSongSelect={handleSongSelect}
           className="w-full"
         />
         <div className="w-full flex flex-row gap-1">

@@ -1,6 +1,8 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+dotenv.config(); // Load env from project root first, then fall back to src/.env if present.
+dotenv.config({ path: './src/.env' });
 
 import testRouter from './routes/testRoute.js';
 import authRouter from './routes/authRoute.js';
@@ -12,7 +14,6 @@ import { connectDB } from './config/dbConfig.js';
 import { ExpressAuth } from '@auth/express'; // Auth.js but for Express (Pre-made security system for handling OAuth)
 import Spotify from '@auth/express/providers/spotify';
 
-dotenv.config();
 const app = express();
 
 // Middleware
@@ -23,9 +24,10 @@ app.use(cookieParser()); // For getting a user's session token (stored in a brow
 app.use('/api', authRouter); // For handling non-Spotify logins
 app.use('/api/post', postRouter);
 app.use('/api/song', songRouter);
+//app.use('/api/user', userRoute)
 
 // Handling Spotify logins
-app.use('/auth/*', ExpressAuth({ 
+app.use('/auth/*', ExpressAuth({
   providers: [Spotify({
     clientId: process.env.AUTH_SPOTIFY_ID, // From Spotify Dev Dashboard
     clientSecret: process.env.AUTH_SPOTIFY_SECRET 
@@ -47,8 +49,8 @@ if (NODE_ENV === 'development') {
   console.log(`\nDevelopment test routes enabled!`);
 }
 
-// Port, defaults to 3000 (for testing)
-const PORT = process.env.PORT || 3000;
+// Port, defaults to 3002 (for testing)
+const PORT = process.env.PORT || 3002;
 
 // Async function to test MongoDB connection BEFORE starting the server.
 const startServer = async () => {

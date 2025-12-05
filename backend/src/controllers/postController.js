@@ -5,13 +5,6 @@ import Post from '../models/postModel.js';
 import User from '../models/userModel.js';
 import Song from '../models/songModel.js';
 
-export const getForYouFeed = async (req, res) => {
-  try {
-    const currentUserId // Set this up w Brie to make sure that we can double check user ID's
-
-  }
-};
-
 export const savePost = async (req, res) => {
   try {
     const { userId, songAppleId, giphyUrl, shape, numOfLikes } = req.body;

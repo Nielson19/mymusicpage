@@ -24,7 +24,7 @@ const postSchema = new mongoose.Schema(
       required: [true, 'User ID is required'],
     },
     songAppleId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: 'Song',
       required: [true, 'Songs Apple ID is required']
     },
@@ -35,8 +35,7 @@ const postSchema = new mongoose.Schema(
     },
     shape: {
       type: String,
-      enum: ['Portrait', 'Square'],
-      default: 'Portrait'
+      default: 'PORTRAIT'
     },
     numOfLikes: {
       type: Number,

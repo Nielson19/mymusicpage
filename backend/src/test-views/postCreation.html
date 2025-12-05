@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test: Create Post</title>
+    <style>
+        body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: 0 auto; background: #f4f4f9; }
+        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { margin-top: 0; color: #333; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: bold; color: #555; }
+        input, select { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: #007bff; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer; font-size: 1rem; margin-right: 10px; }
+        button:hover { background: #0056b3; }
+        button.secondary { background: #6c757d; }
+        button.secondary:hover { background: #5a6268; }
+        #responseArea { margin-top: 2rem; background: #2d2d2d; color: #50ff7f; padding: 1rem; border-radius: 4px; white-space: pre-wrap; font-family: monospace; min-height: 100px; }
+        .error { color: #ff5050 !important; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>🛠️ Backend Test: Create Post</h2>
+        <p>This form simulates a POST request to <code>/api/post</code></p>
+
+        <!-- 1. USER ID (Manual Input because your snippet reads from req.body) -->
+        <div class="form-group">
+            <label for="userId">User MongoDB ID:</label>
+            <input type="text" id="userId" placeholder="Paste a valid User _id here (e.g. 653a...)" />
+            <small style="color:red">Required. Go to Mongo Compass and copy a user's _id.</small>
+        </div>
+
+        <!-- 2. SONG ID -->
+        <div class="form-group">
+            <label for="songAppleId">Song Apple ID:</label>
+            <input type="text" id="songAppleId" placeholder="e.g. 144083321" />
+        </div>
+
+        <!-- 3. GIPHY URL -->
+        <div class="form-group">
+            <label for="giphyUrl">Giphy URL:</label>
+            <input type="text" id="giphyUrl" placeholder="https://media.giphy.com/..." />
+        </div>
+
+        <!-- 4. SHAPE -->
+        <div class="form-group">
+            <label for="shape">Display Shape:</label>
+            <select id="shape">
+                <option value="square">SQUARE</option>
+                <option value="portrait">PORTRAIT</option>
+            </select>
+        </div>
+
+        <!-- 5. LIKES (Optional Override) -->
+        <div class="form-group">
+            <label for="numOfLikes">Initial Likes (Optional):</label>
+            <input type="number" id="numOfLikes" value="0" />
+        </div>
+
+        <button onclick="sendPost()">🚀 Send POST Request</button>
+        <button class="secondary" onclick="fillMockData()">📝 Fill Mock Data</button>
+
+        <div id="responseArea">Waiting for request...</div>
+    </div>
+
+    <script>
+        // 1. Helper to fill dummy data so you don't have to type
+        function fillMockData() {
+            document.getElementById('songAppleId').value = "144083321"; // Queen - Bohemian Rhapsody
+            document.getElementById('giphyUrl').value = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjEx/giphy.gif";
+            document.getElementById('numOfLikes').value = "0";
+            alert("Mock data filled! Don't forget to paste a real User ID from your Database.");
+        }
+
+        // 2. The Sending Logic
+        async function sendPost() {
+            const responseArea = document.getElementById('responseArea');
+            responseArea.textContent = "⏳ Sending...";
+            responseArea.classList.remove('error');
+
+            // Gather values
+            const payload = {
+                userId: document.getElementById('userId').value.trim(),
+                songAppleId: document.getElementById('songAppleId').value.trim(),
+                giphyUrl: document.getElementById('giphyUrl').value.trim(),
+                shape: document.getElementById('shape').value,
+                numOfLikes: parseInt(document.getElementById('numOfLikes').value) || 0
+            };
+
+            // Validation
+            if (!payload.userId) {
+                responseArea.textContent = "❌ Error: You must provide a User ID.";
+                responseArea.classList.add('error');
+                return;
+            }
+
+            try {
+                // CHANGE THIS URL if your backend port is different (e.g. 5000)
+                const res = await fetch('http://localhost:3000/api/post', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    responseArea.textContent = "✅ Success!\n\n" + JSON.stringify(data, null, 2);
+                } else {
+                    responseArea.textContent = `❌ Error (${res.status}):\n` + data.message || JSON.stringify(data);
+                    responseArea.classList.add('error');
+                }
+
+            } catch (error) {
+                responseArea.textContent = "❌ Network Error:\n" + error.message + "\n\n(Check if server is running and CORS is enabled)";
+                responseArea.classList.add('error');
+            }
+        }
+    </script>
+</body>
+</html>
