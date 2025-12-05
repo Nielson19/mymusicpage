@@ -17,6 +17,8 @@ import MasonryDynamic from "../components/GeneralComp/MasonryDynamic";
 import { useNavigate } from "react-router-dom";
 import CreatePost from "../components/CreatePost";
 import { BurgerMenu } from "../components/BurgerMenu";
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 
 interface ProfilePageViewProps {
   userName?: string;
@@ -37,6 +39,8 @@ function ProfilePageView() {
   const [createPostOpen, setCreatePostOpen] = React.useState(false);
   const [createPlaylistOpen, setCreatePlaylistOpen] = React.useState(false);
   const outsideClickRef = React.useRef<HTMLDivElement>(null);
+
+  const { username } = useContext(UserContext);
 
   const handleOutsideClick = (event: MouseEvent) => {
     if (
@@ -211,7 +215,9 @@ function ProfilePageView() {
             </div>
 
             {/* TODO Add username on input */}
-            <h1 className="text-xl font-bold mt-4">Your Name</h1>
+            <h1 className="text-xl font-bold mt-4">
+              {username || "Your Name"}
+            </h1>
             <p
               className={`text-md ${dark ? "text-gray-400" : "text-gray-600"}`}
             >
