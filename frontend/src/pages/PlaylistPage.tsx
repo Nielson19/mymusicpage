@@ -4,6 +4,8 @@ import { mockPlaylists } from "../components/GeneralComp/MockPlaylists";
 import ShareButton from "../components/ShareButton";
 import Post from "../components/Post";
 import { IoChevronBackSharp } from "react-icons/io5";
+import { BurgerMenu } from "../components/BurgerMenu";
+import { Edit } from "lucide-react";
 
 const PlaylistPage: React.FC = () => {
   const location = useLocation();
@@ -36,13 +38,45 @@ const PlaylistPage: React.FC = () => {
     );
   }
 
+
+  const items = [
+    {
+      label: "Share",
+      onClick: () => {
+        // all share logic here
+        const url = `${window.location.origin}/playlist/${encodeURIComponent(playlist.id)}`;
+
+        if (navigator.share) {
+          navigator.share({ title: "Check out my playlist", url })
+            .catch((err) => console.error("Share failed", err));
+        } else if (navigator.clipboard?.writeText) {
+          navigator.clipboard.writeText(url)
+            .then(() => console.log("Link copied to clipboard"))
+            .catch((err) => console.error("Copy failed", err));
+        } else {
+          window.prompt("Copy this link:", url);
+        }
+      },
+    },
+    {
+      label: "Delete",
+      onClick: () => {
+        const confirmed = window.confirm("Are you sure you want to delete this playlist?");
+        if (!confirmed) return;
+
+        console.log("Deleted playlist", playlist.Id);
+        // e.g. API call or state update here
+      },
+    },
+  ];
+
   return (
     <div className="transition-opacity duration-500 ease-in opacity-0 animate-slideUpFade">
     <div className="min-h-screen bg-[#0b0b0d] text-gray-200 cursor-default">
       {/* Header */}
       <div className="w-full h-64 md:h-80 bg-linear-to-b from-orange-300 to-pink-300 relative">
-      <button onClick={() => {navigate("/");}} className="relative top-4 left-4 bg-black p-3 rounded-md">
-              <IoChevronBackSharp className="text-white w-6 h-6" />
+      <button onClick={() => {navigate("/");}} className=" cursor-pointer relative top-4 left-4 bg-black p-3 rounded-md">
+              <IoChevronBackSharp className="text-white w-4 h-4" />
             </button>
         <div className="absolute bottom-4 left-6 flex items-center gap-4">
           <img
@@ -75,17 +109,15 @@ const PlaylistPage: React.FC = () => {
 
       {/* Playlist Actions */}
       <div className="flex items-center gap-4 px-6 py-6 border-b border-white/5">
-        {/* <button onClick={PlayButton} className="bg-purple-600 px-6 py-2 rounded-xl hover:bg-purple-700 transition cursor-pointer">
-          Play
-        </button> */}
-        <ShareButton playlistId={playlist.id} />
-        <button className="bg-white/10 px-6 py-2 rounded-xl hover:bg-white/20 transition cursor-pointer">
-          Edit Playlist
-        </button>
+      <div className="absolute z-200">
+        <BurgerMenu className=" text-white text-3xl cursor-pointer hover:text-purple-500" dropdownClassName="text-red-600" items={items} />
       </div>
+      </div>
+    
 
+      
       {/* Playlist Content */}
-      <div className="flex mt-2 gap-5 justify-center flex-wrap">
+      <div className="flex mt-5 gap-5 justify-center flex-wrap">
       {playlist.items.map((song, index) => (
       <Post
         key={song.id || index}
