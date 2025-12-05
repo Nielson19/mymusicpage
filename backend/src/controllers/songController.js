@@ -11,8 +11,6 @@ TO-DO LIST:
 import { fetchItunesSearch } from '../services/itunesService.js';
 import Song from '../models/songModel.js';
 import dotenv from 'dotenv';
-dotenv.config();
-dotenv.config({ path: './src/.env' });
 
 const DEBUG = process.env.DEBUG;
 
