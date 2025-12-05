@@ -1,24 +1,78 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { SquarePen } from "lucide-react";
+import React, { useState } from "react";
 import { IoMdSettings, IoIosSearch } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
-import MasonryAdvanced from "../components/GeneralComp/MasonryDynamic";
 import type { DataSource } from "../components/GeneralComp/MasonryDynamic";
+
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 
 // Import your data sources
 import { musicDataSources } from "../data/musicData";
+import { useNavigate } from "react-router-dom";
+import { BurgerMenu } from "../components/BurgerMenu";
+
+// Import components
 import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import AppLogo from "../assets/icons/HeadphonesNoBG.png";
-import { useNavigate } from "react-router-dom";
+import CreatePost from "../components/CreatePost";
+import CreatePlaylist from "../components/CreatePlaylist";
+import InputSearch from "../components/InputSearch";
+import MasonryDynamic from "../components/GeneralComp/MasonryDynamic";
 
 export default function MainDashboard() {
   const Navigate = useNavigate();
   const dataSources: DataSource[] = musicDataSources;
+  const [createPostOpen, setCreatePostOpen] = React.useState(false);
+  const [createPlaylistOpen, setCreatePlaylistOpen] = React.useState(false);
+  const outsideClickRef = React.useRef<HTMLDivElement>(null);
+  const { username } = useContext(UserContext);
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      outsideClickRef.current &&
+      !outsideClickRef.current.contains(event.target as Node)
+    ) {
+      setCreatePostOpen(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  const handleCreatePlaylist = () => {
+    // Implement playlist creation logic here
+    setCreatePlaylistOpen(true);
+  };
+
+  const handleOpenCreatePost = () => {
+    setCreatePostOpen(true);
+  };
 
   //TODO: Create the conponent on the top to filter the different data sources one is "For You" and "Following"
 
   return (
-    <div className="min-h-screen bg-[#0b0b0d] text-gray-200 p-6 cursor-default relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#0b0b0d] text-gray-200 p-6 cursor-default relative overflow-x-hidden animate-slideUpFade">
+      {createPostOpen && (
+        <div className="z-100 w-screen h-screen bg-black/90 flex items-center justify-center fixed top-0 left-0">
+          <div ref={outsideClickRef}>
+            <CreatePost className="mx-auto max-h-[90vh] overflow-y-auto" />
+          </div>
+        </div>
+      )}
+      {createPlaylistOpen && (
+        <div className="z-100 w-screen h-screen bg-black/90 flex items-center justify-center fixed top-0 left-0">
+          <div>
+            <CreatePlaylist
+              className="mx-auto max-h-[90vh] overflow-y-auto"
+              onClose={() => setCreatePlaylistOpen(false)}
+            />
+          </div>
+        </div>
+      )}
       {/* Header */}
       <div
         className="w-full flex items-center justify-between mb-10  
@@ -27,32 +81,49 @@ export default function MainDashboard() {
       >
         {/* Logo */}
         <div className="flex items-center space-x-3">
-          <img src={AppLogo} alt="App Logo" className="w-20 h-20 rounded-xl" />
+          <button
+            type="button"
+            onClick={() => Navigate("/")}
+            aria-label="Go to Home"
+            className="rounded-xl focus:outline-none focus:ring-2 focus:ring-white/30"
+          >
+            <img
+              src={AppLogo}
+              alt="App Logo"
+              className="w-20 h-20 rounded-xl"
+            />
+          </button>
           <span className="text-xl font-semibold tracking-wide">
             MyMusicApp
           </span>
         </div>
 
-        {/* Search Bar */}
-        <div className="flex-1 max-w-xl px-10">
-          <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-              <IoIosSearch />
-            </span>
-            <input
-              type="text"
-              placeholder="Search songs, artists, genres..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/10 
-                         border border-white/10 text-gray-200
-                         placeholder-gray-400
-                         focus:outline-none focus:border-gray-500
-                         transition"
-            />
-          </div>
-        </div>
+        <InputSearch className="w-1/3" icon={<IoIosSearch />} />
 
         {/* Profile + Settings */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 gb-white">
+          <BurgerMenu
+            iconImage={<SquarePen className="w-4 h-4" />}
+            buttonLabel="Create"
+            dropdownClassName="fixed top-[80px]"
+            className="px-4 py-2 font-bold rounded-xl border flex flex-row items-center justify-center gap-2 border-white/30 bg-white text-black transition-colors ease-in-out duration-300"
+            items={[
+              {
+                className: "text-white font-bold",
+                label: "Post",
+                onClick: () => {
+                  handleOpenCreatePost();
+                },
+              },
+              {
+                className: "text-white font-bold",
+                label: "Playlist",
+                onClick: () => {
+                  handleCreatePlaylist();
+                },
+              },
+            ]}
+          />
           <button
             onClick={() => {
               Navigate("/profile/username");
@@ -61,28 +132,43 @@ export default function MainDashboard() {
           >
             <FaUser />
           </button>
-          <button className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center">
-            <IoMdSettings />
-          </button>
+          <BurgerMenu
+            iconImage={<IoMdSettings />}
+            dropdownClassName="fixed top-20 right-6"
+            items={[
+              {
+                className: "text-red-500 font-bold",
+                label: "Logout",
+                onClick: () => {
+                  Navigate("/login");
+                },
+              },
+            ]}
+            className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center"
+          />
         </div>
       </div>
 
       {/* Subheader */}
       <div className="w-full py-8">
-        <h1 className="text-4xl font-light tracking-tight mb-2">Discover</h1>
+        <h1 className="text-4xl font-light tracking-tight mb-2">
+          Welcome {username || "Master"}!
+        </h1>
         <p className="text-gray-400 max-w-xl">
           Explore new tracks, artists, and visual song posters curated for you.
         </p>
       </div>
-      <MasonryAdvanced
+      <MasonryDynamic
+        dark={true}
         dataSources={dataSources}
         columnCount={7}
-        distributionStrategy="source-per-column"
-        gap={20}
+        minColumnWidth={200}
+        distributionStrategy="round-robin"
+        gap={40}
         duplicateCount={5}
         infiniteScroll={true}
       />
-      <MusicPlayerStatic />
+      {!createPostOpen && <MusicPlayerStatic />}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import Post from "./Post";
+import Input from "./Input";
 
 type Props = {
   onSelectGif?: (gifUrl: string) => void;
@@ -15,14 +16,20 @@ export default function GiphyPicker({ onSelectGif }: Props) {
 
   const handleSearch = async () => {
     if (!searchTerm.trim()) return;
-    const response = await axios.get(`https://api.giphy.com/v1/gifs/search`, {
-      params: {
-        api_key: API_KEY,
-        q: searchTerm,
-        limit: 10,
-      },
-    });
-    setGifs(response.data.data);
+    try {
+      const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
+        params: {
+          api_key: API_KEY,
+          q: searchTerm,
+          limit: 10,
+        },
+        withCredentials: false, // prevent sending cookies to avoid CORS credential issues
+      });
+      setGifs(response.data.data);
+    } catch (err) {
+      console.error("Giphy search failed:", err);
+      setGifs([]);
+    }
   };
 
   const handleSelect = (url: string) => {
@@ -30,21 +37,29 @@ export default function GiphyPicker({ onSelectGif }: Props) {
     if (onSelectGif) onSelectGif(url);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    } else if (e.key === "Escape") {
+      setGifs([]);
+    }
+  };
+
   return (
-    <div className="p-4 w-full">
+    <div className="p-1 w-full">
       <h2 className="text-white">Or search for a GIF:</h2>
       <div className="flex justify-center my-3">
-        <input
-          type="text"
+        <Input
           placeholder="Type something..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-gray-300 px-2 py-1 rounded w-2/3 focus:outline-none"
+          onKeyDown={handleKeyDown}
+          className="w-2/3"
         />
 
         <button
           onClick={handleSearch}
-          className="ml-3 px-3 py-1 bg-purple-500 text-white rounded cursor-pointer"
+          className="ml-3 px-3 py-0 bg-purple-500 text-white rounded-2xl cursor-pointer"
         >
           Search{" "}
         </button>

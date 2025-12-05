@@ -7,8 +7,10 @@ import { toast } from "react-hot-toast";
 import AuthButtonComp from "../components/LoginFormComp/authButtonComp";
 import SpotifyIcon from "../assets/icons/SpotifyWhiteLogo.png";
 import { useNavigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 function LoginPageView() {
+  const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -23,6 +25,8 @@ function LoginPageView() {
       });
       console.log("Response received:", response.status);
       console.log("Login successful:", response.data);
+      toast.success("Login successful!");
+      navigate("/");
     } catch (error) {
       toast.error("Login failed. Please try again.");
     }
