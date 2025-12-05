@@ -1,13 +1,13 @@
 // data/seed.js
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import { faker } from "@faker-js/faker";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import { faker } from '@faker-js/faker';
 
 // import models
-import User from "../models/user.model.js";
-import Song from "../models/song.model.js";
-import Playlist from "../models/playlist.model.js";
-import Post from "../models/post.model.js";
+import User from '../models/user.model.js';
+import Song from '../models/song.model.js';
+import Playlist from '../models/playlist.model.js';
+import Post from '../models/post.model.js';
 
 dotenv.config();
 
@@ -36,7 +36,7 @@ function pickMany(arr, min, max) {
 
 async function connectDB() {
   await mongoose.connect(process.env.MONGO_URI, { dbName: process.env.DB_NAME });
-  console.log("Connected to MongoDB for seeding");
+  console.log('Connected to MongoDB for seeding');
 }
 
 async function clearCollections() {
@@ -46,7 +46,7 @@ async function clearCollections() {
     Playlist.deleteMany({}),
     Post.deleteMany({}),
   ]);
-  console.log("Cleared users, songs, playlists, posts");
+  console.log('Cleared users, songs, playlists, posts');
 }
 
 function makeSpotifyId() {
@@ -77,34 +77,34 @@ async function createSongs() {
 }
 
 async function createUsers() {
-    const users = [];
-  
-    for (let i = 0; i < 12; i++) {
-      // Generate username & email
-      const username = faker.internet.username({ firstName: faker.person.firstName() });
-      const email = faker.internet.email({ firstName: username });
-  
-      users.push({
-        username: `${username}_${i}`, // ensure uniqueness
-        email,
-        password: faker.internet.password({ length: 12 }), // matches schema’s "password"
-        profile_picture: faker.image.avatar(),
-        banner_picture: "",
-        bio: faker.lorem.sentence().slice(0, 280),
-        number_of_followers: 0,
-        number_of_following: 0,
-        social_links: [
-          `https://instagram.com/${username.toLowerCase()}`,
-          `https://x.com/${username.toLowerCase()}`,
-        ],
-      });
-    }
-  
-    const inserted = await User.insertMany(users, { ordered: false });
-    console.log(`👤 Inserted ${inserted.length} users`);
-    return inserted;
+  const users = [];
+
+  for (let i = 0; i < 12; i++) {
+    // Generate username & email
+    const username = faker.internet.username({ firstName: faker.person.firstName() });
+    const email = faker.internet.email({ firstName: username });
+
+    users.push({
+      username: `${username}_${i}`, // ensure uniqueness
+      email,
+      password: faker.internet.password({ length: 12 }), // matches schema’s 'password'
+      profile_picture: faker.image.avatar(),
+      banner_picture: '',
+      bio: faker.lorem.sentence().slice(0, 280),
+      number_of_followers: 0,
+      number_of_following: 0,
+      social_links: [
+        `https://instagram.com/${username.toLowerCase()}`,
+        `https://x.com/${username.toLowerCase()}`,
+      ],
+    });
   }
-  
+
+  const inserted = await User.insertMany(users, { ordered: false });
+  console.log(`👤 Inserted ${inserted.length} users`);
+  return inserted;
+}
+
 
 async function createPlaylists(users, songs) {
   const playlists = [];
@@ -152,7 +152,7 @@ async function createPosts(users, songs) {
         user_id: user._id,
         song_id: song?._id,
         caption: faker.lorem.sentence().slice(0, 120),
-        gif_picture: "",
+        gif_picture: '',
         number_of_likes: likes,
         number_of_comments: comments,
         share: shares,
@@ -176,18 +176,18 @@ async function main() {
     const playlists = await createPlaylists(users, songs);
     const posts = await createPosts(users, songs);
 
-    console.log("Seeding done.");
+    console.log('Seeding done.');
     console.table([
-      { collection: "songs", count: songs.length },
-      { collection: "users", count: users.length },
-      { collection: "playlists", count: playlists.length },
-      { collection: "posts", count: posts.length },
+      { collection: 'songs', count: songs.length },
+      { collection: 'users', count: users.length },
+      { collection: 'playlists', count: playlists.length },
+      { collection: 'posts', count: posts.length },
     ]);
   } catch (err) {
-    console.error("Seed error:", err?.message || err);
+    console.error('Seed error:', err?.message || err);
   } finally {
     await mongoose.connection.close();
-    console.log("Closed Mongo connection");
+    console.log('Closed Mongo connection');
   }
 }
 

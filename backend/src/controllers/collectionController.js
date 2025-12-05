@@ -1,0 +1,1 @@
+import Collection from '../models/collectionModel';

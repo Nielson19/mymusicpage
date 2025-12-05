@@ -1,0 +1,146 @@
+<!--AI GENERATED TEST ENVIRONMENT
+http://localhost:3000/test/songSearch.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Song Search Test</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+      background: #007bff;
+      color: white;
+      border: none;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .result-item {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 5px;
+      border-radius: 4px;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🎵 iTunes Backend Tester</h1>
+
+  <div class="search-box">
+    <input type="text" id="termInput" placeholder="Enter artist or song..." />
+    <button id="searchBtn">Search</button>
+  </div>
+
+  <div id="resultsArea"></div>
+
+  <script>
+    const input = document.getElementById('termInput');
+    const button = document.getElementById('searchBtn');
+    const display = document.getElementById('resultsArea');
+
+    // Function to perform the search
+    async function runSearch(term) {
+      display.innerHTML = "Loading...";
+
+      try {
+        // 1. Call YOUR backend route (Round Trip #2)
+        // Note: We use encodeURIComponent to handle spaces/symbols safely in the URL
+        const response = await fetch(`/api/song/search?term=${encodeURIComponent(term)}`);
+        const data = await response.json();
+
+        display.innerHTML = ''; // Clear "Loading..."
+
+        // 2. Handle Errors (400/500 from your server)
+        if (!response.ok) {
+          display.innerHTML = `<div class="error">Error: ${data.error}</div>`;
+          return;
+        }
+
+        // 3. Show Results
+        if (data.length === 0) {
+          display.innerHTML = "No results found.";
+          return;
+        }
+
+        data.forEach(song => {
+          const div = document.createElement('div');
+          div.className = 'result-item';
+
+          // 👇 FIX: Use 'name' instead of 'trackName'
+          // 👇 FIX: Use 'artistName' instead of 'artistName'
+          // 👇 OPTIONAL: Show the 256x256 artwork too!
+          div.innerHTML = `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src="${song.artworkUrl}" style="width:50px; height:50px; border-radius:4px;">
+                            <div>
+                                <strong>${song.name}</strong> <br/> 
+                                <small>${song.artistName}</small>
+                            </div>
+                        </div>
+                    `;
+          display.appendChild(div);
+        });
+
+      } catch (err) {
+        display.innerHTML = `<div class="error">Network Failure: ${err.message}</div>`;
+      }
+    }
+
+    // Event Listener: Click Button
+    button.addEventListener('click', () => {
+      const term = input.value;
+      if (term) runSearch(term);
+    });
+
+    // Event Listener: Press "Enter" key
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') button.click();
+    });
+
+    // --- AUTO-SEARCH LOGIC ---
+    // Check if the URL has ?term=... when the page loads
+    const urlParams = new URLSearchParams(window.location.search);
+    const termFromUrl = urlParams.get('term');
+
+    if (termFromUrl) {
+      input.value = termFromUrl; // Fill the box
+      runSearch(termFromUrl);    // Run the search
+    }
+  </script>
+
+</body>
+
+</html>
