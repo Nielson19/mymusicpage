@@ -75,8 +75,8 @@ const PlaylistPage: React.FC = () => {
     <div className="min-h-screen bg-[#0b0b0d] text-gray-200 cursor-default">
       {/* Header */}
       <div className="w-full h-64 md:h-80 bg-linear-to-b from-orange-300 to-pink-300 relative">
-      <button onClick={() => {navigate("/");}} className="relative top-4 left-4 bg-black p-3 rounded-md">
-              <IoChevronBackSharp className="text-white w-6 h-6" />
+      <button onClick={() => {navigate("/");}} className=" cursor-pointer relative top-4 left-4 bg-black p-3 rounded-md">
+              <IoChevronBackSharp className="text-white w-4 h-4" />
             </button>
         <div className="absolute bottom-4 left-6 flex items-center gap-4">
           <img
@@ -110,14 +110,14 @@ const PlaylistPage: React.FC = () => {
       {/* Playlist Actions */}
       <div className="flex items-center gap-4 px-6 py-6 border-b border-white/5">
       <div className="absolute z-200">
-        <BurgerMenu className=" text-purple-500 text-3xl" dropdownClassName="text-red-600" items={items} />
+        <BurgerMenu className=" text-white text-3xl cursor-pointer hover:text-purple-500" dropdownClassName="text-red-600" items={items} />
       </div>
       </div>
     
 
       
       {/* Playlist Content */}
-      <div className="flex mt-2 gap-5 justify-center flex-wrap">
+      <div className="flex mt-2 mx-5 gap-5 justify-between flex-wrap">
       {playlist.items.map((song, index) => (
       <Post
         key={song.id || index}
