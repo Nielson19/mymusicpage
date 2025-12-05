@@ -10,6 +10,7 @@ import MusicPlayerStatic from "../components/MusicPlayerStatic";
 import AppLogo from "../assets/icons/HeadphonesNoBG.png";
 import { useNavigate } from "react-router-dom";
 import CreatePost from "../components/CreatePost";
+import CreatePlaylist from "../components/CreatePlaylist";
 import InputSearch from "../components/InputSearch";
 import MasonryDynamic from "../components/GeneralComp/MasonryDynamic";
 import { BurgerMenu } from "../components/BurgerMenu";
@@ -57,6 +58,16 @@ export default function MainDashboard() {
           </div>
         </div>
       )}
+      {createPlaylistOpen && (
+        <div className="z-100 w-screen h-screen bg-black/90 flex items-center justify-center fixed top-0 left-0">
+          <div>
+            <CreatePlaylist
+              className="mx-auto max-h-[90vh] overflow-y-auto"
+              onClose={() => setCreatePlaylistOpen(false)}
+            />
+          </div>
+        </div>
+      )}
       {/* Header */}
       <div
         className="w-full flex items-center justify-between mb-10  
@@ -77,10 +88,9 @@ export default function MainDashboard() {
         <div className="flex items-center space-x-4 gb-white">
           <BurgerMenu
             iconImage={<SquarePen className="w-4 h-4" />}
-            label="Create"
+            buttonLabel="Create"
             dropdownClassName="fixed top-[80px]"
-            className={`px-4 py-2 font-bold rounded-xl border flex flex-row items-center justify-center gap-2
-                         border-white/30 bg-white text-black transition-colors ease-in-out duration-300 bg-white/10"}`}
+            className="px-4 py-2 font-bold rounded-xl border flex flex-row items-center justify-center gap-2 border-white/30 bg-white text-black transition-colors ease-in-out duration-300"
             items={[
               {
                 className: "text-white font-bold",
@@ -106,12 +116,9 @@ export default function MainDashboard() {
           >
             <FaUser />
           </button>
-          {/* <button className="w-10 h-10 bg-white/10 rounded-xl border border-white/10 flex items-center justify-center">
-            <IoMdSettings />
-          </button> */}
           <BurgerMenu
             iconImage={<IoMdSettings />}
-            dropdownClassName="fixed top-[80px] right-[24px]"
+            dropdownClassName="fixed top-20 right-6"
             items={[
               {
                 className: "text-red-500 font-bold",

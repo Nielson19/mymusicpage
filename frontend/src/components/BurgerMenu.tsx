@@ -3,40 +3,35 @@ import { useState, useRef, useEffect } from "react";
 export interface BurgerMenuItem {
   label: string;
   icon?: React.ReactNode;
-  className?: string;
   onClick: () => void;
+  className?: string; // added
 }
 
 export interface BurgerMenuProps {
-  label?: string;
   items: BurgerMenuItem[];
   iconImage?: string | React.ReactNode;
+  buttonLabel?: string; // added
   className?: string;
   dropdownClassName?: string;
 }
 
 export const BurgerMenu = ({
-  label,
   items,
   iconImage,
+  buttonLabel,
   className,
   dropdownClassName,
 }: BurgerMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Close menu
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
+    if (isOpen) document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -44,27 +39,27 @@ export const BurgerMenu = ({
 
   return (
     <div className={`relative inline-block`} ref={menuRef}>
-      {/* Burger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`p-2 rounded-lg transition-colors ${className}`}
+        className={`p-2 bg-stone-800 rounded-lg hover:bg-stone-700 transition-colors ${className}`}
       >
-        {label && <span className="mr-2">{label}</span>}
         {iconImage ? (
           typeof iconImage === "string" ? (
             <img src={iconImage} alt="Menu Icon" className="w-5 h-5" />
           ) : (
-            iconImage
+            <div className="flex items-center gap-2">
+              {iconImage}
+              {buttonLabel && <span className="text-sm">{buttonLabel}</span>}
+            </div>
           )
         ) : (
           <span className="w-5 h-5">☰</span>
         )}
       </button>
 
-      {/* Dropdown Menu */}
       {isOpen && (
         <div
-          className={`mt-2 w-48 bg-stone-800 rounded-lg shadow-xl border border-stone-700 overflow-hidden z-50 ${dropdownClassName}`}
+          className={`absolute mt-2 w-48 bg-stone-800 rounded-lg shadow-xl border border-stone-700 overflow-hidden z-50 ${dropdownClassName}`}
         >
           {items.map((item, index) => (
             <button
@@ -73,7 +68,7 @@ export const BurgerMenu = ({
                 item.onClick();
                 setIsOpen(false);
               }}
-              className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-stone-700 transition-colors ${item.className}`}
+              className={`w-full flex items-center gap-3 px-4 py-3 text-white hover:bg-stone-700 transition-colors text-left ${item.className}`}
             >
               {item.icon && <span className="w-5 h-5">{item.icon}</span>}
               <span>{item.label}</span>

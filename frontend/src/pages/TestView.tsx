@@ -32,9 +32,9 @@ function TestView() {
           { label: "Logout", onClick: () => console.log("Logout clicked") },
         ]}
       /> */}
-      <ProfilePicture />
+      {/* <ProfilePicture /> */}
       {/* <CreatePost /> */}
-      {/* <CreatePlaylist /> */}
+      <CreatePlaylist />
     </div>
   );
 }

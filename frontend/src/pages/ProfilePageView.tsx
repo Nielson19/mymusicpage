@@ -18,6 +18,18 @@ import { useNavigate } from "react-router-dom";
 import CreatePost from "../components/CreatePost";
 import { BurgerMenu } from "../components/BurgerMenu";
 
+interface ProfilePageViewProps {
+  userName?: string;
+  numberOfFollowers?: number;
+  profilePictureURL?: string;
+  userPosts?: any[]; //Max 3
+  userLikes?: any[];
+  collection?: any[]; //Max 3
+  bannerImageURL?: string;
+
+  collectionOfPlaylists?: any[]; //Max 3
+}
+
 function ProfilePageView() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Home");
@@ -233,7 +245,7 @@ function ProfilePageView() {
         <div className={`w-full px-4 py-8`}>
           <MasonryDynamic
             dark={dark}
-            dataSources={tabToPlaylist[activeTab] || []}
+            dataSources={tabToPlaylist[activeTab] || [] || co}
             gap={16}
             minColumnWidth={200}
             columnCount={5}
