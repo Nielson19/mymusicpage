@@ -73,7 +73,7 @@ export const BurgerMenu = ({
                 item.onClick();
                 setIsOpen(false);
               }}
-              className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-stone-700 transition-colors ${item.className}`}
+              className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-stone-700 cursor-pointer transition-colors ${item.className}`}
             >
               {item.icon && <span className="w-5 h-5">{item.icon}</span>}
               <span>{item.label}</span>

@@ -117,7 +117,7 @@ const PlaylistPage: React.FC = () => {
 
       
       {/* Playlist Content */}
-      <div className="flex mt-2 gap-5 justify-center flex-wrap">
+      <div className="flex mt-5 gap-5 justify-center flex-wrap">
       {playlist.items.map((song, index) => (
       <Post
         key={song.id || index}
