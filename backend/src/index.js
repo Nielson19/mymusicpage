@@ -59,6 +59,7 @@ const startServer = async () => {
     if (NODE_ENV == 'development') {
       console.log(`\nRunning on LocalHost: http://localhost:${PORT}`);
       console.log(`test-songSearch: http://localhost:${PORT}/test/songSearch.html`);
+      console.log(`test-postCreation: http://localhost:${PORT}/test/postCreation.html`);
     }
     else {
       console.log(`\nServer started on port: ${PORT}`);

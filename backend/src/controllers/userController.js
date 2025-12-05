@@ -49,6 +49,7 @@ export const getUserProfile = async (req, res) => {
     // Order of action: Find the collection -> You see list of PostIds -> Take those PostIds and go to the post collection -> Once it's inside those posts, see the userId field -> Take this userId to the user collection.
 
     // Logic to execute them ALL in parallel (not one by one)
+    
 
     // Clean likedPosts after getting data so we can filter out deleted posts. (returns resourceId as null)
 
