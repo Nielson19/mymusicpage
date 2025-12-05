@@ -2,15 +2,19 @@
 // username - String
 // email - String
 // password - String
-// profilePicture - String (TODO: profilePicture or profilePictureUrl)
+// profilePicture - String (profilePicture or profilePictureUrl?)
 // bannerPicture - String
-// bio - String
-// numOfFolloers - Number
+// numOfFollowers - Number
 // numOfFollowing - Number
 // posts - [ObjectId]
 // collections - [ObjectId]
 
+// timestamps:
+// createdAt - Date
+// updatedAt - Date
+
 // FUTURE IMPLEMENTATIONS:
+// bio - String
 // socialLinks - [String]
 
 import mongoose from 'mongoose';
@@ -37,51 +41,54 @@ const userSchema = new mongoose.Schema(
       type: String,
       // Not required for Spotify login users.
     },
-    profile_picture: {
+    profilePicture: {
       type: String,
       trim: true,
       default: '',
     },
-    banner_picture: {
+    bannerPicture: {
       type: String,
       trim: true,
       default: '',
     },
+    numOfFollowers: {
+      type: Number,
+      default: 0,
+      min: [0, 'Follower count cannot be negative'],
+    },
+    numOfFollowing: {
+      type: Number,
+      default: 0,
+      min: [0, 'Following count cannot be negative'],
+    },
+    posts: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'Post',
+      default: []
+    },
+    collections: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'Collection',
+      default: []
+    }
+  }
+);
+
+
+export default mongoose.model('User', userSchema);
+
+/*
     bio: {
       type: String,
       trim: true,
       maxLength: [300, 'Bio cannot exceed 300 characters'],
       default: '',
     },
-    number_of_followers: {
-      type: Number,
-      default: 0,
-      min: [0, 'Followers count cannot be negative'],
-    },
-    number_of_following: {
-      type: Number,
-      default: 0,
-      min: [0, 'Following count cannot be negative'],
-    },
-    playlists: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Playlist',
-      },
-    ],
-    social_links: [
+    socialLinks: [
       {
         type: String,
         trim: true,
         lowercase: true,
       },
     ],
-    created_at: {
-      type: Date,
-      default: Date.now,
-    },
-  }
-);
-
-
-export default mongoose.model('User', userSchema);
+*/

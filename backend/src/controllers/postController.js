@@ -1,9 +1,16 @@
 /* TODO: 
 * Double check to see if the needed model changes still let this work
 */
-import Post from '../models/postModel.js'
-import User from '../models/userModel.js'
-import Song from '../models/songModel.js'
+import Post from '../models/postModel.js';
+import User from '../models/userModel.js';
+import Song from '../models/songModel.js';
+
+export const getForYouFeed = async (req, res) => {
+  try {
+    const currentUserId // Set this up w Brie to make sure that we can double check user ID's
+
+  }
+};
 
 export const savePost = async (req, res) => {
   try {
@@ -38,4 +45,4 @@ export const getPostById = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
-}
+};

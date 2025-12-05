@@ -1,7 +1,9 @@
-import { createUploadthing } from 'uploadthing/server';
+// Let's work on this once we finish up the demo solely cause the Auth + Frontend having to make the stuff for the image upload requests is gonna take a bit. But it's prolly the very first implementation after 
+
+import { createUploadthing } from 'uploadthing/server'; // npm's upladthing thing 
 import User from '../models/userModel.js';
 
-const uploadthing = createUploadthing();
+const uploadthing = createUploadthing(); // Initializing the library
 
 /* THIS IS A PLACEHOLDER FOR THE AUTH FUNCTION
 // Mock auth function - replace this with your actual auth middleware
@@ -28,9 +30,7 @@ export const ourFileRouter = {
 
       const user = auth(req);
 
-
       if (!user) throw new Error('Unauthorized');
-
 
       return { userId: user.id };
     })
@@ -43,13 +43,12 @@ export const ourFileRouter = {
       try {
         await User.findByIdAndUpdate(
           metadata.userId,
-          { profile_picture: file.url }
+          { profilePicture: file.url }
         );
         console.log('Profile picture updated in database');
       } catch (error) {
         console.error('Failed to update profile picture:', error);
       }
-
 
       return { uploadedBy: metadata.userId, url: file.url };
     }),

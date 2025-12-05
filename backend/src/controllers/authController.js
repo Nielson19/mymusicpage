@@ -1,4 +1,4 @@
-import User from '../models/user.model.js';
+import User from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
@@ -44,11 +44,16 @@ const registerUser = async (req, res) => {
     }
 
     //create user
+    const randomNum = Math.floor(Math.random() * 10) + 1; //Math.random() makes a rand num from 0 to 1
+    const profilePictureBase = '/backend/public/assets/defaults/profilePictures/'
+    const randomizedProfilePicture = `${profilePictureBase}${randomNum}`;
+
     const hashedPassword = await hashPassword(password);
     const user = await User.create({
       username,
       email,
       password: hashedPassword,
+      profilePicture: randomizedProfilePicture
     });
 
     //hide password in response

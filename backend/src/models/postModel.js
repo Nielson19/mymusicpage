@@ -9,6 +9,11 @@
 // createdAt - date
 // updatedAt - date
 
+// FUTURE IMPLEMENTATIONS:
+// caption - String
+// comments - [ObjectId]
+// numOfComments - Number
+
 import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema(
@@ -38,31 +43,7 @@ const postSchema = new mongoose.Schema(
       default: 0,
       min: [0, 'Likes cannot be negative']
     }
-  },
-
-    /* CHRIS TODO: Ask Elkin, wah eh
-    share: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      },
-    ]
-    */
-
-    /* FUTURE IMPLEMENTATIONS
-    caption: {
-      type: String,
-      trim: true,
-      maxLength: [300, 'Caption cannot exceed 300 characters'],
-      default: '',
-    },
-    numOfComments: {
-      type: Number,
-      default: 0,
-      min: [0, 'Comments cannot be negative'],
-    },
-    */
-
+  },    
   {
     timestamps: true
   }
