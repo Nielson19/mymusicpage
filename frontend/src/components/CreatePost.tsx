@@ -178,10 +178,8 @@ export default function CreatePost({
             onClick={() => {
               handleAddPost();
               onClose?.();
+              handlePost
             }}
-            //----------------------------------------------------------------------------
-            // onClick={handlePost}
-            //----------------------------------------------------------------------------
             className="flex-1 cursor-pointer bg-purple-500 rounded-xl py-3 font-semibold hover:scale-105 transition"
           >
             Post
