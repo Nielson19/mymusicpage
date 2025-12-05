@@ -104,7 +104,7 @@ export default function MainDashboard() {
         <div className="flex items-center space-x-4 gb-white">
           <BurgerMenu
             iconImage={<SquarePen className="w-4 h-4" />}
-            buttonLabel="Create"
+            label="Create"
             dropdownClassName="fixed top-[80px]"
             className="px-4 py-2 font-bold rounded-xl border flex flex-row items-center justify-center gap-2 border-white/30 bg-white text-black transition-colors ease-in-out duration-300"
             items={[

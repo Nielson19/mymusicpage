@@ -183,12 +183,14 @@ function Post({
       )}
 
       <div
-        className={`w-64 h-64 overflow-hidden ${
-          size === "PORTRAIT" ? "h-96" : ""
+        className={`overflow-hidden ${
+          size === "PORTRAIT" ? "w-64 h-96" : "w-64 h-64"
         }`}
       >
         <div
-          className="flex flex-col aspect-square bg-cover bg-center bg-no-repeat justify-end relative w-full h-full group-hover:scale-105 transition-transform duration-500 rounded-2xl"
+          className={`flex flex-col ${
+            size === "PORTRAIT" ? "" : "aspect-square"
+          } bg-cover bg-center bg-no-repeat justify-end relative w-full h-full group-hover:scale-105 transition-transform duration-500 rounded-2xl`}
           style={{
             backgroundImage: `url(${resolved.background})`,
           }}
@@ -249,16 +251,16 @@ function Post({
             </div>
           )}
           {/* --- BOTTOM SONG INFO --- */}
-          <div className="w-full h-20% flex flex-row items-center justify-start gap-2 bg-linear-to-t from-black/0 group-hover:from-black/80 group-hover:via-black/50 to-transparent text-white p-4 space-x-3 transition-all duration-700">
+          <div className="h-20% flex flex-row items-center justify-start gap-3 bg-linear-to-t from-black/0 group-hover:from-black/80 group-hover:via-black/50 to-transparent text-white p-4 space-x-2 transition-all duration-700">
+            {/* Cover Art */}
             <div>
               <img
                 src={resolved.imgLink}
                 alt="Song cover"
                 onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src =
-                    "/images/stock.jpg";
+                  (e.currentTarget as HTMLImageElement).src = "";
                 }}
-                className="w-10 h-10 aspect-square rounded-md shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                className="w-12 h-12 aspect-square rounded-md shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
               />
             </div>
             <div className="mb-2">

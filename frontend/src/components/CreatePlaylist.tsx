@@ -2,6 +2,7 @@ import { CiLock } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import Input from "./Input";
+
 import image1 from "../assets/images/image1.jpg";
 import image2 from "../assets/images/image2.jpg";
 import image3 from "../assets/images/image3.jpg";
@@ -12,8 +13,9 @@ import image7 from "../assets/images/image7.jpg";
 import image8 from "../assets/images/image8.jpg";
 import image9 from "../assets/images/image9.jpg";
 import image10 from "../assets/images/image10.jpg";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { UserContextProvider } from "../../context/userContext";
+import toast from "react-hot-toast";
 
 export default function CreatePlaylist({
   className = "",
@@ -36,6 +38,7 @@ export default function CreatePlaylist({
   ];
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const [playlistName, setPlaylistName] = useState("");
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -51,9 +54,19 @@ export default function CreatePlaylist({
   }, [onClose]);
 
   function imgSelected() {
-    console.log("Hello");
+    console.log(`Image selected`);
     // image selected logic
   }
+
+  const handlePlaylistCreate = () => {
+    // playlist create logic
+    if (!playlistName) {
+      toast.error("Playlist name is required");
+      return;
+    }
+    toast.success(`Playlist "${playlistName}" created successfully`);
+    onClose?.();
+  };
 
   const mapImages = imgs.map((img, i) => (
     <img
@@ -90,6 +103,8 @@ export default function CreatePlaylist({
             type="text"
             placeholder="Name"
             className="w-full bg-transparent border-2 border-gray-600 rounded-2xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none"
+            value={playlistName}
+            onChange={(e) => setPlaylistName(e.target.value)}
           />
 
           <div className="flex gap-4 mt-6 w-full">
@@ -97,8 +112,7 @@ export default function CreatePlaylist({
               className="flex-1 cursor-pointer bg-purple-500 rounded-xl py-3 font-semibold hover:scale-105 transition"
               onClick={() => {
                 // Implement playlist creation logic here
-                console.log("Playlist created");
-                onClose?.();
+                handlePlaylistCreate();
               }}
             >
               Add{" "}

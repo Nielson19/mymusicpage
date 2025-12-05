@@ -5,6 +5,7 @@ import Post from "./Post";
 import type { PostProps } from "./Post";
 import Toggle from "./Toggle";
 import InputSearch from "./InputSearch";
+import { toast } from "react-hot-toast";
 
 interface Song {
   appleId: string;
@@ -59,7 +60,9 @@ export default function CreatePost({
 
   const handleAddPost = () => {
     // Logic to add the post
-    console.log("Post added");
+    toast.success("Post added");
+
+    onClose?.();
   };
 
   const toggleDisplayPreview = () => {
@@ -94,8 +97,14 @@ export default function CreatePost({
     setSongName(song.name);
     setArtistName(song.artistName);
     if (song.artworkUrl) {
-      setBackground(song.artworkUrl);
+      setBackground(song.artworkUrl); // GIF/cover background
+      setImgLink(song.artworkUrl); // bottom cover art image
     }
+    if (song.previewUrl) {
+      // Optional: set audio preview for hover play
+      // This is kept locally; pass directly to Post in the preview below
+    }
+    setDisplayPreview(true);
   };
 
   return (
@@ -147,7 +156,7 @@ export default function CreatePost({
             <div className="flex justify-center">
               <Post
                 userID={"preview-user"}
-                songID={"preview-song"}
+                songID={selectedSong?.appleId || "preview-song"}
                 imgLink={imgLink || uploadedFileUrl || "../images/stock.jpg"}
                 size={size}
                 songName={songName || "Song Name"}
@@ -158,6 +167,7 @@ export default function CreatePost({
                   uploadedFileUrl ||
                   "../images/stock.jpg"
                 }
+                audioLink={selectedSong?.previewUrl}
               />
             </div>
           </div>
@@ -167,7 +177,6 @@ export default function CreatePost({
           <button
             onClick={() => {
               handleAddPost();
-              onClose?.();
             }}
             className="flex-1 cursor-pointer bg-purple-500 rounded-xl py-3 font-semibold hover:scale-105 transition"
           >
