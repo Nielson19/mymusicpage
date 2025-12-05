@@ -49,8 +49,8 @@ if (NODE_ENV === 'development') {
   console.log(`\nDevelopment test routes enabled!`);
 }
 
-// Port, defaults to 3000 (for testing)
-const PORT = process.env.PORT || 3000;
+// Port, defaults to 3002 (for testing)
+const PORT = process.env.PORT || 3002;
 
 // Async function to test MongoDB connection BEFORE starting the server.
 const startServer = async () => {
