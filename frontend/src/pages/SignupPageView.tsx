@@ -21,7 +21,7 @@ function SignupPageView() {
   const signupUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/register", {
+      const response = await axios.post("/register", {
         username,
         email,
         password,

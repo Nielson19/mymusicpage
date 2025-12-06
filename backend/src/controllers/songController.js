@@ -10,7 +10,6 @@ TO-DO LIST:
 
 import { fetchItunesSearch } from '../services/itunesService.js';
 import Song from '../models/songModel.js';
-import dotenv from 'dotenv';
 
 const DEBUG = process.env.DEBUG;
 

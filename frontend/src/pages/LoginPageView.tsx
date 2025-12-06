@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import AuthButtonComp from "../components/LoginFormComp/authButtonComp";
 import SpotifyIcon from "../assets/icons/SpotifyWhiteLogo.png";
 import { useNavigate } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
+//import { Toaster } from "react-hot-toast";
 
 function LoginPageView() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function LoginPageView() {
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // avoid that the page reloads
     try {
-      const response = await axios.post("/api/login", {
+      const response = await axios.post("/login", {
         email,
         password,
       });
@@ -28,9 +28,9 @@ function LoginPageView() {
       toast.success("Login successful!");
       navigate("/");
     } catch (error) {
+      console.error("Login failed:", error);
       toast.error("Login failed. Please try again.");
     }
-    // Implement login logic here
   };
 
   const { email, password } = data;

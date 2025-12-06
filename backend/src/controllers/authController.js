@@ -9,6 +9,8 @@ const registerUser = async (req, res) => {
   try {
     let { username, email, password, passwordConfirm } = req.body ?? {};
 
+    console.log(username, email, password, passwordConfirm)
+
     username = typeof username === 'string' ? username.trim() : '';
     email = typeof email === 'string' ? email.trim().toLowerCase() : '';
     password = typeof password === 'string' ? password.trim() : '';
