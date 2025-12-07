@@ -6,6 +6,55 @@
 >
 > **Backend Developers:** [Zara Maraj](https://www.linkedin.com/in/zmaraj), [Chris Sanchez](https://www.linkedin.com/in/chrissanchezdev), [Elkin Correa](https://www.linkedin.com/in/elkin-correa-6904731ba), [Brie](https://www.linkedin.com/in/)
 
+## Getting Started
+
+Follow these steps to run **MyMusicPage** locally.
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/MyMusicPage.git
+cd MyMusicPage
+```
+
+### 2. Install dependencies
+Frontend:
+```bash
+cd frontend
+npm install
+```
+
+Backend:
+```bash
+cd ../backend
+npm install
+```
+
+### 3. Configure environment variables
+```bash
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
+
+### 4. Start the application
+Start Backend:
+```bash
+cd backend
+npm start
+```
+
+Start Frontend:
+```bash
+cd frontend
+npm run dev
+```
+
+### 5. Open in your browser
+```bash
+Navigate to:
+http://localhost:3000
+```
+
 ## Features
 
 * **Modern React Frontend Architecture:**  
