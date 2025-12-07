@@ -81,7 +81,6 @@ http://localhost:5173
 * **Scalable Component Architecture:**  
   Modular and reusable components (cards, modals, grids) enable rapid expansion and future feature additions.
 
-
 ## Project Walkthrough
 
 [![Watch the Demo](https://img.youtube.com/vi/3RFXkWwCP4E/0.jpg)](https://m.youtube.com/watch?v=3RFXkWwCP4E)
