@@ -45,13 +45,13 @@
   <img src="https://github.com/user-attachments/assets/52b40227-cf39-46e0-9705-79e1b38f7169" width="600" />
 </p>
 
-<p float="left">
+<p align="center">
   <img src="https://github.com/user-attachments/assets/28782772-a376-4b4d-827b-fa39fd29b6b6" width="600" />
   <img src="https://github.com/user-attachments/assets/93d456ad-ea8d-44ab-a1ba-dc23c9035378" width="600" />
   <img src="https://github.com/user-attachments/assets/576fe05c-3cae-4b08-82c0-91ec129318b8" width="600" />
 </p>
 
-<p float="left">
+<p align="center">
   <img src="https://github.com/user-attachments/assets/46c2aeb5-3b04-4f99-a9b3-69123aa1525e" width="600" />
   <img src="https://github.com/user-attachments/assets/2aabf1ad-d9af-49c5-856f-bdba06950871" width="600" />
   <img src="https://github.com/user-attachments/assets/3c077836-e4f7-451e-b271-0cc5563672f0" width="600" />
