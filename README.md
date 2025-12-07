@@ -50,8 +50,8 @@ npm run dev
 ```
 
 ### 5. Open in your browser
+Navigate to frontend port:
 ```bash
-Navigate to:
 http://localhost:5173
 ```
 
