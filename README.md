@@ -40,16 +40,25 @@ https://github.com/user-attachments/assets/0f2c3766-a752-4c57-aef8-165f49c88ae7
 <a href="https://m.youtube.com/watch?v=3RFXkWwCP4E" aria-label="demo video"> On YouTube </a>
 
 ## Wireframes
-<img width="1000" height="1000" alt="user flow" src="https://github.com/user-attachments/assets/a466297e-900a-4e71-99d6-d2b2685e4c9a" />
-<img width="800" height="800" alt="profile page" src="https://github.com/user-attachments/assets/567be6ae-2442-4c60-9917-bd3c57e49f93" />
-<img width="800" height="800" alt="post design" src="https://github.com/user-attachments/assets/52b40227-cf39-46e0-9705-79e1b38f7169" />
-<img width="400" height="400" alt="form create post" src="https://github.com/user-attachments/assets/28782772-a376-4b4d-827b-fa39fd29b6b6" />
-<img width="400" height="400" alt="login page" src="https://github.com/user-attachments/assets/93d456ad-ea8d-44ab-a1ba-dc23c9035378" />
 
-<img width="800" height="800" alt="components" src="https://github.com/user-attachments/assets/576fe05c-3cae-4b08-82c0-91ec129318b8" />
-<img width="400" height="400" alt="login page design" src="https://github.com/user-attachments/assets/46c2aeb5-3b04-4f99-a9b3-69123aa1525e" />
-<img width="400" height="400" alt="create playlist design" src="https://github.com/user-attachments/assets/2aabf1ad-d9af-49c5-856f-bdba06950871" />
-<img width="1000" height="500" alt="backend er diagram" src="https://github.com/user-attachments/assets/3c077836-e4f7-451e-b271-0cc5563672f0" />
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/a466297e-900a-4e71-99d6-d2b2685e4c9a" width="600" />
+  <img src="https://github.com/user-attachments/assets/567be6ae-2442-4c60-9917-bd3c57e49f93" width="600" />
+  <img src="https://github.com/user-attachments/assets/52b40227-cf39-46e0-9705-79e1b38f7169" width="600" />
+</p>
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/28782772-a376-4b4d-827b-fa39fd29b6b6" width="600" />
+  <img src="https://github.com/user-attachments/assets/93d456ad-ea8d-44ab-a1ba-dc23c9035378" width="600" />
+  <img src="https://github.com/user-attachments/assets/576fe05c-3cae-4b08-82c0-91ec129318b8" width="600" />
+</p>
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/46c2aeb5-3b04-4f99-a9b3-69123aa1525e" width="600" />
+  <img src="https://github.com/user-attachments/assets/2aabf1ad-d9af-49c5-856f-bdba06950871" width="600" />
+  <img src="https://github.com/user-attachments/assets/3c077836-e4f7-451e-b271-0cc5563672f0" width="600" />
+</p>
+
 
 
 ## Tech Stack
@@ -58,7 +67,7 @@ https://github.com/user-attachments/assets/0f2c3766-a752-4c57-aef8-165f49c88ae7
 * **Backend:** Node.js, Express.js  
 * **Database:** MongoDB  
 * **Design & Prototyping:** Figma  
-* **Project Management & Collaboration:** Git  
+* **Project Management & Collaboration:** Git, Notion  
 * **Assets & Media:** Pinterest images for playlist visuals
 
 ## Future Enhancements
