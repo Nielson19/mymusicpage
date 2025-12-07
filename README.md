@@ -37,7 +37,7 @@
 
 https://github.com/user-attachments/assets/0f2c3766-a752-4c57-aef8-165f49c88ae7
 
-<a href="https://m.youtube.com/watch?v=3RFXkWwCP4E" aria-label="demo video"> YouTube Demo </a>
+<a href="https://m.youtube.com/watch?v=3RFXkWwCP4E" aria-label="demo video"> On YouTube </a>
 
 ## Wireframes
 <img width="1000" height="1000" alt="user flow" src="https://github.com/user-attachments/assets/a466297e-900a-4e71-99d6-d2b2685e4c9a" />
