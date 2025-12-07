@@ -39,7 +39,7 @@
 
 ## Wireframes
 
-<p float="left">
+<p align="center">
   <img src="https://github.com/user-attachments/assets/a466297e-900a-4e71-99d6-d2b2685e4c9a" width="600" />
   <img src="https://github.com/user-attachments/assets/567be6ae-2442-4c60-9917-bd3c57e49f93" width="600" />
   <img src="https://github.com/user-attachments/assets/52b40227-cf39-46e0-9705-79e1b38f7169" width="600" />
