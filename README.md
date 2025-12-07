@@ -52,7 +52,7 @@ npm run dev
 ### 5. Open in your browser
 ```bash
 Navigate to:
-http://localhost:3000
+http://localhost:5173
 ```
 
 ## Features
