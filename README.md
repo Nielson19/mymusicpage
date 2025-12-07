@@ -1,6 +1,6 @@
 # MyMusicPage 🎧
 
-> A modern music discovery and playlist-management platform built with Figma, React, Tailwind CSS, Node.js, Express, and MongoDB for fast and intuitive user experiences.
+> A modern music discovery and playlist-management platform built with Figma, React, Tailwind CSS, Node.js, Express, and MongoDB for fast and intuitive user experiences. Presented the project to an audience of 100+ students and recruiters, demonstrating core features and interactive functionality.
 >
 > **Frontend Developers:** [Asad Chaudhry](https://www.linkedin.com/in/asad-a-chaudhry/), [Daniel Escobar](https://www.linkedin.com/in/), [Lauren Stone](https://www.linkedin.com/in/), [Shirina Daniel](https://www.linkedin.com/in/), [Paola Arraut](https://www.linkedin.com/in/), [Frank Diaz](https://www.linkedin.com/in/) 
 >
