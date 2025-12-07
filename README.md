@@ -41,11 +41,11 @@ https://github.com/user-attachments/assets/0f2c3766-a752-4c57-aef8-165f49c88ae7
 
 ## Wireframes
 <img width="1000" height="1000" alt="user flow" src="https://github.com/user-attachments/assets/a466297e-900a-4e71-99d6-d2b2685e4c9a" />
+<img width="800" height="800" alt="profile page" src="https://github.com/user-attachments/assets/567be6ae-2442-4c60-9917-bd3c57e49f93" />
+<img width="800" height="800" alt="post design" src="https://github.com/user-attachments/assets/52b40227-cf39-46e0-9705-79e1b38f7169" />
 <img width="400" height="400" alt="form create post" src="https://github.com/user-attachments/assets/28782772-a376-4b4d-827b-fa39fd29b6b6" />
 <img width="400" height="400" alt="login page" src="https://github.com/user-attachments/assets/93d456ad-ea8d-44ab-a1ba-dc23c9035378" />
-<img width="400" height="400" alt="profile page" src="https://github.com/user-attachments/assets/567be6ae-2442-4c60-9917-bd3c57e49f93" />
 
-<img width="400" height="400" alt="post design" src="https://github.com/user-attachments/assets/52b40227-cf39-46e0-9705-79e1b38f7169" />
 <img width="800" height="800" alt="components" src="https://github.com/user-attachments/assets/576fe05c-3cae-4b08-82c0-91ec129318b8" />
 <img width="400" height="400" alt="login page design" src="https://github.com/user-attachments/assets/46c2aeb5-3b04-4f99-a9b3-69123aa1525e" />
 <img width="400" height="400" alt="create playlist design" src="https://github.com/user-attachments/assets/2aabf1ad-d9af-49c5-856f-bdba06950871" />
