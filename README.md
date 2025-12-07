@@ -2,9 +2,9 @@
 
 > A modern music discovery and playlist-management platform built with Figma, React, Tailwind CSS, Node.js, Express, and MongoDB for fast and intuitive user experiences. Presented the project to an audience of 100+ students and recruiters, demonstrating core features and interactive functionality.
 >
-> **Frontend Developers:** [Asad Chaudhry](https://www.linkedin.com/in/asad-a-chaudhry/), [Daniel Escobar](https://www.linkedin.com/in/), [Lauren Stone](https://www.linkedin.com/in/), [Shirina Daniel](https://www.linkedin.com/in/), [Paola Arraut](https://www.linkedin.com/in/), [Frank Diaz](https://www.linkedin.com/in/) 
+> **Frontend Developers:** [Asad Chaudhry](https://www.linkedin.com/in/asad-a-chaudhry/), [Daniel Escobar](https://www.linkedin.com/in/daniel-escobar-cs/en), [Lauren Stone](https://www.linkedin.com/in/llaurenstone), [Shirina Daniel](https://www.linkedin.com/in/shirinadan), [Paola Arraut](https://www.linkedin.com/in/paola-arraut-54700b224/), [Frank Diaz](https://www.linkedin.com/in/frankdiazprogramming) 
 >
-> **Backend Developers:** [Zara Maraj](https://www.linkedin.com/in/asad-a-chaudhry/), [Chris Sanchez](https://www.linkedin.com/in/), [Elkin Correa](https://www.linkedin.com/in/), [Brie](https://www.linkedin.com/in/)
+> **Backend Developers:** [Zara Maraj](https://www.linkedin.com/in/zmaraj), [Chris Sanchez](https://www.linkedin.com/in/chrissanchezdev), [Elkin Correa](https://www.linkedin.com/in/elkin-correa-6904731ba), [Brie](https://www.linkedin.com/in/)
 
 ## Features
 
