@@ -48,6 +48,8 @@ https://github.com/user-attachments/assets/0f2c3766-a752-4c57-aef8-165f49c88ae7
 <img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/52b40227-cf39-46e0-9705-79e1b38f7169" />
 <img width="800" height="800" alt="image" src="https://github.com/user-attachments/assets/576fe05c-3cae-4b08-82c0-91ec129318b8" />
 <img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/46c2aeb5-3b04-4f99-a9b3-69123aa1525e" />
+<img width="1000" height="500" alt="image" src="https://github.com/user-attachments/assets/3c077836-e4f7-451e-b271-0cc5563672f0" />
+
 
 ## Project Management
 
