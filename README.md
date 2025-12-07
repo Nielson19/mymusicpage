@@ -31,7 +31,7 @@ npm install
 
 ### 3. Configure environment variables
 ```bash
-PORT=5000
+PORT=3002
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 ```
