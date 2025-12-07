@@ -35,9 +35,7 @@
 
 ## Demo
 
-https://github.com/user-attachments/assets/0f2c3766-a752-4c57-aef8-165f49c88ae7
-
-<a href="https://m.youtube.com/watch?v=3RFXkWwCP4E" aria-label="demo video"> On YouTube </a>
+[![Watch the Demo](https://img.youtube.com/vi/3RFXkWwCP4E/0.jpg)](https://m.youtube.com/watch?v=3RFXkWwCP4E)
 
 ## Wireframes
 
@@ -59,8 +57,6 @@ https://github.com/user-attachments/assets/0f2c3766-a752-4c57-aef8-165f49c88ae7
   <img src="https://github.com/user-attachments/assets/3c077836-e4f7-451e-b271-0cc5563672f0" width="600" />
 </p>
 
-
-
 ## Tech Stack
 
 * **Frontend:** React, TailwindCSS, React Icons ([react-icons](https://react-icons.github.io/react-icons/)), React Toast  
@@ -77,5 +73,3 @@ https://github.com/user-attachments/assets/0f2c3766-a752-4c57-aef8-165f49c88ae7
 
 * **CRUD Functionality:**  
   Implement full Create, Read, Update, and Delete operations for playlists and songs, enabling dynamic data management.
-
-
