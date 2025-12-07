@@ -12,8 +12,8 @@ Follow these steps to run **MyMusicPage** locally.
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/MyMusicPage.git
-cd MyMusicPage
+git clone https://github.com/your-username/mymusicpage.git
+cd mymusicpage
 ```
 
 ### 2. Install dependencies
