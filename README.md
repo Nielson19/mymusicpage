@@ -73,8 +73,7 @@ http://localhost:5173
   Functional components, React hooks, and Tailwind utility-first styling applied within a responsive layout derived from a Figma design system.
 
 * **User Authentication & Data Modeling:**  
-  Login and sign-up flows implemented through a basic authentication layer, with mock playlist data structured to mirror real API schemas and ready for integration with future backend endpoints.
-
+  Login and sign-up flows implemented through a basic authentication layer, allowing users to optionally log in via Spotify, with mock playlist data structured to mirror real API schemas and     ready for integration with future backend endpoints.
 * **Advanced UI Layout & Interactions:**  
   Masonry-style grid with infinite scroll, optimized rendering, and custom Tailwind animations for smooth, high-performance interactions.
 
