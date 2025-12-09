@@ -30,10 +30,20 @@ npm install
 ```
 
 ### 3. Configure environment variables
+Create a file inside the backend folder:
+```bash
+/backend/.env
+```
+
+Add the following:
 ```bash
 PORT=3002
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
+NODE_ENV=development
+SPOTIFY_CLIENT_ID=your_spotify_client_id
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+SPOTIFY_REDIRECT_URI=your_redirect_uri
 ```
 
 ### 4. Start the application
