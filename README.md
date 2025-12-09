@@ -30,12 +30,12 @@ npm install
 ```
 
 ### 3. Configure environment variables
-Create a file inside the backend folder:
+Create a **.env** file inside the backend folder:
 ```bash
 /backend/.env
 ```
 
-Add the following:
+Add the following variables:
 ```bash
 PORT=3002
 MONGO_URI=your_mongodb_connection_string
